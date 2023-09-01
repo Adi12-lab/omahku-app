@@ -1,355 +1,396 @@
-    <!--start header wrapper-->
-    <header>
-            <div class="topbar d-flex align-items-center">
-                <nav class="navbar navbar-expand">
-                    <div class="mobile-toggle-menu"><i class='bx bx-menu'></i>
+ 
+    <header id="page-topbar">
+        <div class="navbar-header">
+            <div class="d-flex">
+                <!-- LOGO -->
+                <div class="navbar-brand-box">
+                    <a href="index.html" class="logo logo-dark">
+                        <span class="logo-sm">
+                            <img src="assets/images/logo-sm-dark.png" alt="logo-sm-dark" height="26">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="assets/images/logo-dark.png" alt="logo-dark" height="24">
+                        </span>
+                    </a>
+
+                    <a href="index.html" class="logo logo-light">
+                        <span class="logo-sm">
+                            <img src="assets/images/logo-sm-light.png" alt="logo-sm-light" height="26">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="assets/images/logo-light.png" alt="logo-light" height="24">
+                        </span>
+                    </a>
+                </div>
+
+                <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect" id="vertical-menu-btn">
+                    <i class="ri-menu-2-line align-middle"></i>
+                </button>
+
+                <!-- App Search-->
+                <form class="app-search d-none d-lg-block">
+                    <div class="position-relative">
+                        <input type="text" class="form-control" placeholder="Search...">
+                        <span class="ri-search-line"></span>
                     </div>
-                    <div class="search-bar flex-grow-1">
-                        <div class="position-relative search-bar-box">
-                            <input type="text" class="form-control search-control" placeholder="Type to search..."> <span class="position-absolute top-50 search-show translate-middle-y"><i class='bx bx-search'></i></span>
-                            <span class="position-absolute top-50 search-close translate-middle-y"><i class='bx bx-x'></i></span>
+                </form>
+
+                <div class="dropdown dropdown-mega d-none d-lg-block ms-2">
+                    <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+                        Mega Menu
+                        <i class="mdi mdi-chevron-down"></i> 
+                    </button>
+                    <div class="dropdown-menu dropdown-megamenu">
+                        <div class="row">
+                            <div class="col-sm-8">
+                
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h5 class="font-size-14">UI Components</h5>
+                                        <ul class="list-unstyled megamenu-list">
+                                            <li>
+                                                <a href="javascript:void(0);">Lightbox</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Range Slider</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Sweet Alert</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Rating</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Forms</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Tables</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Charts</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <h5 class="font-size-14">Applications</h5>
+                                        <ul class="list-unstyled megamenu-list">
+                                            <li>
+                                                <a href="javascript:void(0);">Ecommerce</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Calendar</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Email</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Projects</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Tasks</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Contacts</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <h5 class="font-size-14">Extra Pages</h5>
+                                        <ul class="list-unstyled megamenu-list">
+                                            <li>
+                                                <a href="javascript:void(0);">Light Sidebar</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Compact Sidebar</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Horizontal layout</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Maintenance</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Coming Soon</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Timeline</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">FAQs</a>
+                                            </li>
+                                        
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <h5 class="font-size-14">UI Components</h5>
+                                        <ul class="list-unstyled megamenu-list">
+                                            <li>
+                                                <a href="javascript:void(0);">Lightbox</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Range Slider</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Sweet Alert</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Rating</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Forms</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Tables</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Charts</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-sm-5">
+                                        <div>
+                                            <img src="assets/images/megamenu-img.png" alt="megamenu-img" class="img-fluid mx-auto d-block">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex">
+
+                <div class="dropdown d-inline-block d-lg-none ms-2">
+                    <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="ri-search-line"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                        aria-labelledby="page-header-search-dropdown">
+                    
+                        <form class="p-3">
+                            <div class="mb-3 m-0">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search ...">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="submit"><i class="ri-search-line"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="dropdown d-none d-sm-inline-block">
+                    <button type="button" class="btn header-item waves-effect"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img class="" src="assets/images/flags/us.jpg" alt="Header Language" height="16">
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end">
+                    
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <img src="assets/images/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Spanish</span>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <img src="assets/images/flags/germany.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">German</span>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <img src="assets/images/flags/italy.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italian</span>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <img src="assets/images/flags/russia.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Russian</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="dropdown d-none d-lg-inline-block ms-1">
+                    <button type="button" class="btn header-item noti-icon waves-effect"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="ri-apps-2-line"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
+                        <div class="px-lg-2">
+                            <div class="row g-0">
+                                <div class="col">
+                                    <a class="dropdown-icon-item" href="#">
+                                        <img src="assets/images/brands/github.png" alt="Github">
+                                        <span>GitHub</span>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a class="dropdown-icon-item" href="#">
+                                        <img src="assets/images/brands/bitbucket.png" alt="bitbucket">
+                                        <span>Bitbucket</span>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a class="dropdown-icon-item" href="#">
+                                        <img src="assets/images/brands/dribbble.png" alt="dribbble">
+                                        <span>Dribbble</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="row g-0">
+                                <div class="col">
+                                    <a class="dropdown-icon-item" href="#">
+                                        <img src="assets/images/brands/dropbox.png" alt="dropbox">
+                                        <span>Dropbox</span>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a class="dropdown-icon-item" href="#">
+                                        <img src="assets/images/brands/mail_chimp.png" alt="mail_chimp">
+                                        <span>Mail Chimp</span>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a class="dropdown-icon-item" href="#">
+                                        <img src="assets/images/brands/slack.png" alt="slack">
+                                        <span>Slack</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="top-menu ms-auto">
-                        <ul class="navbar-nav align-items-center">
-                            <li class="nav-item mobile-search-icon">
-                                <a class="nav-link" href="#">   <i class='bx bx-search'></i>
-                                </a>
-                            </li>
-                            <li class="nav-item dropdown dropdown-large">
-                                <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <i class='bx bx-category'></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <div class="row row-cols-3 g-3 p-3">
-                                        <div class="col text-center">
-                                            <div class="app-box mx-auto bg-gradient-cosmic text-white"><i class='bx bx-group'></i>
-                                            </div>
-                                            <div class="app-title">Teams</div>
-                                        </div>
-                                        <div class="col text-center">
-                                            <div class="app-box mx-auto bg-gradient-burning text-white"><i class='bx bx-atom'></i>
-                                            </div>
-                                            <div class="app-title">Projects</div>
-                                        </div>
-                                        <div class="col text-center">
-                                            <div class="app-box mx-auto bg-gradient-lush text-white"><i class='bx bx-shield'></i>
-                                            </div>
-                                            <div class="app-title">Tasks</div>
-                                        </div>
-                                        <div class="col text-center">
-                                            <div class="app-box mx-auto bg-gradient-kyoto text-dark"><i class='bx bx-notification'></i>
-                                            </div>
-                                            <div class="app-title">Feeds</div>
-                                        </div>
-                                        <div class="col text-center">
-                                            <div class="app-box mx-auto bg-gradient-blues text-dark"><i class='bx bx-file'></i>
-                                            </div>
-                                            <div class="app-title">Files</div>
-                                        </div>
-                                        <div class="col text-center">
-                                            <div class="app-box mx-auto bg-gradient-moonlit text-white"><i class='bx bx-filter-alt'></i>
-                                            </div>
-                                            <div class="app-title">Alerts</div>
-                                        </div>
-                                    </div>
+                </div>
+
+                <div class="dropdown d-none d-lg-inline-block ms-1">
+                    <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
+                        <i class="ri-fullscreen-line"></i>
+                    </button>
+                </div>
+
+                <div class="dropdown d-inline-block">
+                    <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown"
+                          data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="ri-notification-3-line"></i>
+                        <span class="noti-dot"></span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                        aria-labelledby="page-header-notifications-dropdown">
+                        <div class="p-3">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h6 class="m-0"> Notifications </h6>
                                 </div>
-                            </li>
-                            <li class="nav-item dropdown dropdown-large">
-                                <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <span class="alert-count">7</span>
-                                    <i class='bx bx-bell'></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="javascript:;">
-                                        <div class="msg-header">
-                                            <p class="msg-header-title">Notifications</p>
-                                            <p class="msg-header-clear ms-auto">Marks all as read</p>
-                                        </div>
-                                    </a>
-                                    <div class="header-notifications-list">
-                                        <a class="dropdown-item" href="javascript:;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="notify bg-light-primary text-primary"><i class="bx bx-group"></i>
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="msg-name">New Customers<span class="msg-time float-end">14 Sec
-                                                ago</span></h6>
-                                                    <p class="msg-info">5 new user registered</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="notify bg-light-danger text-danger"><i class="bx bx-cart-alt"></i>
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="msg-name">New Orders <span class="msg-time float-end">2 min
-                                                ago</span></h6>
-                                                    <p class="msg-info">You have recived new orders</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="notify bg-light-success text-success"><i class="bx bx-file"></i>
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="msg-name">24 PDF File<span class="msg-time float-end">19 min
-                                                ago</span></h6>
-                                                    <p class="msg-info">The pdf files generated</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="notify bg-light-warning text-warning"><i class="bx bx-send"></i>
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="msg-name">Time Response <span class="msg-time float-end">28 min
-                                                ago</span></h6>
-                                                    <p class="msg-info">5.1 min avarage time response</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="notify bg-light-info text-info"><i class="bx bx-home-circle"></i>
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="msg-name">New Product Approved <span
-                                                class="msg-time float-end">2 hrs ago</span></h6>
-                                                    <p class="msg-info">Your new product has approved</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="notify bg-light-danger text-danger"><i class="bx bx-message-detail"></i>
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="msg-name">New Comments <span class="msg-time float-end">4 hrs
-                                                ago</span></h6>
-                                                    <p class="msg-info">New customer comments recived</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="notify bg-light-success text-success"><i class='bx bx-check-square'></i>
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="msg-name">Your item is shipped <span class="msg-time float-end">5 hrs
-                                                ago</span></h6>
-                                                    <p class="msg-info">Successfully shipped your item</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="notify bg-light-primary text-primary"><i class='bx bx-user-pin'></i>
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="msg-name">New 24 authors<span class="msg-time float-end">1 day
-                                                ago</span></h6>
-                                                    <p class="msg-info">24 new authors joined last week</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="notify bg-light-warning text-warning"><i class='bx bx-door-open'></i>
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="msg-name">Defense Alerts <span class="msg-time float-end">2 weeks
-                                                ago</span></h6>
-                                                    <p class="msg-info">45% less alerts last 4 weeks</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <a href="javascript:;">
-                                        <div class="text-center msg-footer">View All Notifications</div>
-                                    </a>
+                                <div class="col-auto">
+                                    <a href="#!" class="small"> View All</a>
                                 </div>
-                            </li>
-                            <li class="nav-item dropdown dropdown-large">
-                                <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <span class="alert-count">8</span>
-                                    <i class='bx bx-comment'></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="javascript:;">
-                                        <div class="msg-header">
-                                            <p class="msg-header-title">Messages</p>
-                                            <p class="msg-header-clear ms-auto">Marks all as read</p>
-                                        </div>
-                                    </a>
-                                    <div class="header-message-list">
-                                        <a class="dropdown-item" href="javascript:;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="user-online">
-                                                    <img src="assets/images/avatars/avatar-1.png" class="msg-avatar" alt="user avatar">
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="msg-name">Daisy Anderson <span class="msg-time float-end">5 sec
-                                                ago</span></h6>
-                                                    <p class="msg-info">The standard chunk of lorem</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="user-online">
-                                                    <img src="assets/images/avatars/avatar-2.png" class="msg-avatar" alt="user avatar">
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="msg-name">Althea Cabardo <span class="msg-time float-end">14
-                                                sec ago</span></h6>
-                                                    <p class="msg-info">Many desktop publishing packages</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="user-online">
-                                                    <img src="assets/images/avatars/avatar-3.png" class="msg-avatar" alt="user avatar">
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="msg-name">Oscar Garner <span class="msg-time float-end">8 min
-                                                ago</span></h6>
-                                                    <p class="msg-info">Various versions have evolved over</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="user-online">
-                                                    <img src="assets/images/avatars/avatar-4.png" class="msg-avatar" alt="user avatar">
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="msg-name">Katherine Pechon <span class="msg-time float-end">15
-                                                min ago</span></h6>
-                                                    <p class="msg-info">Making this the first true generator</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="user-online">
-                                                    <img src="assets/images/avatars/avatar-5.png" class="msg-avatar" alt="user avatar">
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="msg-name">Amelia Doe <span class="msg-time float-end">22 min
-                                                ago</span></h6>
-                                                    <p class="msg-info">Duis aute irure dolor in reprehenderit</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="user-online">
-                                                    <img src="assets/images/avatars/avatar-6.png" class="msg-avatar" alt="user avatar">
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="msg-name">Cristina Jhons <span class="msg-time float-end">2 hrs
-                                                ago</span></h6>
-                                                    <p class="msg-info">The passage is attributed to an unknown</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="user-online">
-                                                    <img src="assets/images/avatars/avatar-7.png" class="msg-avatar" alt="user avatar">
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="msg-name">James Caviness <span class="msg-time float-end">4 hrs
-                                                ago</span></h6>
-                                                    <p class="msg-info">The point of using Lorem</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="user-online">
-                                                    <img src="assets/images/avatars/avatar-8.png" class="msg-avatar" alt="user avatar">
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="msg-name">Peter Costanzo <span class="msg-time float-end">6 hrs
-                                                ago</span></h6>
-                                                    <p class="msg-info">It was popularised in the 1960s</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="user-online">
-                                                    <img src="assets/images/avatars/avatar-9.png" class="msg-avatar" alt="user avatar">
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="msg-name">David Buckley <span class="msg-time float-end">2 hrs
-                                                ago</span></h6>
-                                                    <p class="msg-info">Various versions have evolved over</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="user-online">
-                                                    <img src="assets/images/avatars/avatar-10.png" class="msg-avatar" alt="user avatar">
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="msg-name">Thomas Wheeler <span class="msg-time float-end">2 days
-                                                ago</span></h6>
-                                                    <p class="msg-info">If you are going to use a passage</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item" href="javascript:;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="user-online">
-                                                    <img src="assets/images/avatars/avatar-11.png" class="msg-avatar" alt="user avatar">
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="msg-name">Johnny Seitz <span class="msg-time float-end">5 days
-                                                ago</span></h6>
-                                                    <p class="msg-info">All the Lorem Ipsum generators</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <a href="javascript:;">
-                                        <div class="text-center msg-footer">View All Messages</div>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="user-box dropdown">
-                        <a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="assets/images/avatars/avatar-2.png" class="user-img" alt="user avatar">
-                            <div class="user-info ps-3">
-                                <p class="user-name mb-0">{{auth()->user()->name}}</p>
-                                <p class="designattion mb-0">Admin</p>
                             </div>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="{{ url('user-profile') }}"><i class="bx bx-user"></i><span>Profile</span></a>
-                            </li>
-                            <li><a class="dropdown-item" href="{{ url('ecommerce-orders') }}"><i class="bx bx-cog"></i><span>Orders</span></a>
-                            </li>
-                            <li><a class="dropdown-item" href="{{ url('index') }}"><i class='bx bx-home-circle'></i><span>Dashboard</span></a>
-                            </li>
-                            <li><a class="dropdown-item" href="{{ url('earnings') }}"><i class='bx bx-dollar-circle'></i><span>Earnings</span></a>
-                            </li>
-                            <li><a class="dropdown-item" href="{{ url('downloads') }}"><i class='bx bx-download'></i><span>Downloads</span></a>
-                            </li>
-                            <li>
-                                <div class="dropdown-divider mb-0"></div>
-                            </li>
-                            <li><a class="dropdown-item" href="{{ url('authentication-signin') }}"><i class='bx bx-log-out-circle'></i><span>Logout</span></a>
-                            </li>
-                        </ul>
+                        </div>
+                        <div data-simplebar style="max-height: 230px;">
+                            <a href="" class="text-reset notification-item">
+                                <div class="d-flex">
+                                    <div class="avatar-xs me-3">
+                                        <span class="avatar-title bg-primary rounded-circle font-size-16">
+                                            <i class="ri-shopping-cart-line"></i>
+                                        </span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h6 class="mb-1">Your order is placed</h6>
+                                        <div class="font-size-12 text-muted">
+                                            <p class="mb-1">If several languages coalesce the grammar</p>
+                                            <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 3 min ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="" class="text-reset notification-item">
+                                <div class="d-flex">
+                                    <img src="assets/images/users/avatar-3.jpg"
+                                        class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                    <div class="flex-1">
+                                        <h6 class="mb-1">James Lemire</h6>
+                                        <div class="font-size-12 text-muted">
+                                            <p class="mb-1">It will seem like simplified English.</p>
+                                            <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 1 hours ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="" class="text-reset notification-item">
+                                <div class="d-flex">
+                                    <div class="avatar-xs me-3">
+                                        <span class="avatar-title bg-success rounded-circle font-size-16">
+                                            <i class="ri-checkbox-circle-line"></i>
+                                        </span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h6 class="mb-1">Your item is shipped</h6>
+                                        <div class="font-size-12 text-muted">
+                                            <p class="mb-1">If several languages coalesce the grammar</p>
+                                            <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 3 min ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="" class="text-reset notification-item">
+                                <div class="d-flex">
+                                    <img src="assets/images/users/avatar-4.jpg"
+                                        class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                    <div class="flex-1">
+                                        <h6 class="mb-1">Salena Layfield</h6>
+                                        <div class="font-size-12 text-muted">
+                                            <p class="mb-1">As a skeptical Cambridge friend of mine occidental.</p>
+                                            <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 1 hours ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="p-2 border-top">
+                            <div class="d-grid">
+                                <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
+                                    <i class="mdi mdi-arrow-right-circle me-1"></i> View More..
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                </nav>
+                </div>
+
+                <div class="dropdown d-inline-block user-dropdown">
+                    <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-2.jpg"
+                            alt="Header Avatar">
+                        <span class="d-none d-xl-inline-block ms-1">Adam</span>
+                        <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <!-- item-->
+                        <a class="dropdown-item" href="#"><i class="ri-user-line align-middle me-1"></i> Profile</a>
+                        <a class="dropdown-item" href="#"><i class="ri-wallet-2-line align-middle me-1"></i> My Wallet</a>
+                        <a class="dropdown-item d-block" href="#"><span class="badge bg-success float-end mt-1">11</span><i class="ri-settings-2-line align-middle me-1"></i> Settings</a>
+                        <a class="dropdown-item" href="#"><i class="ri-lock-unlock-line align-middle me-1"></i> Lock screen</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-danger" href="#"><i class="ri-shut-down-line align-middle me-1 text-danger"></i> Logout</a>
+                    </div>
+                </div>
+
+                <div class="dropdown d-inline-block">
+                    <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">
+                        <i class="ri-settings-2-line"></i>
+                    </button>
+                </div>
+            
             </div>
-        </header>
-    <!-- Page wrapper end -->
+        </div>
+    </header>

@@ -19,6 +19,10 @@ Breadcrumbs::for('register', function (BreadcrumbTrail $trail) {
     $trail->parent('/');
     $trail->push('Registrasi', route('register'));
 });
+Breadcrumbs::for('login', function (BreadcrumbTrail $trail) {
+    $trail->parent('/');
+    $trail->push('Login', route('register'));
+});
 // Breadcrumbs::for("produkview", function(BreadcrumbTrail $trail, Product $product ) {
 //     $trail->parent("produk");
 //     $trail->push($product->name, route("frontend.product.view", $product->slug));

@@ -25,17 +25,41 @@
     <!-- favicon.ico in the root directory -->
     <link rel="apple-touch-icon" href="icon.png">
     <meta name="theme-color" content="#3454d1">
-    <link href="{{asset("assets/css/styles.css")}}" rel="stylesheet">
+    <!-- Sweet Alert-->
+    <link href="{{ asset('admin/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet">
 </head>
 
 <body>
-    @yield("content")
-    @include("layouts.inc.frontend.footer")
+    @yield('content')
+    @include('layouts.inc.frontend.footer')
 
     <!-- SCROLL TO TOP -->
     <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
     <!-- END SCROLL TO TOP -->
-    <script src="{{asset("assets/js/index.bundle.js")}}"></script>
+    <!-- Sweet Alerts js -->
+    <script src="{{ asset('admin/libs/sweetalert2/sweetalert2.min.js') }}"></script>
+
+    <script src="{{ asset('assets/js/index.bundle.js') }}"></script>
+
+    <script>
+        document.addEventListener('livewire:init', () => {
+            Livewire.on("alert", ({
+                message
+            }) => {
+                Swal.fire({
+                    ...message,
+                    confirmButtonColor: "#038a98",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "login"
+                    }
+                });
+            })
+        })
+    </script>
+    @yield("scripts")
 </body>
 
 </html>

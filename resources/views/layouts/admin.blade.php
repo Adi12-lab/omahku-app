@@ -2,165 +2,99 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--favicon-->
-    <link rel="icon" href="{{ asset('admin/images/favicon-32x32.png') }}" type="image/png" />
-    <!--plugins-->
-    @livewireStyles
-    @yield('style')
-    <link href="{{ asset('admin/plugins/simplebar/css/simplebar.css') }}" rel="stylesheet" />
-    <link href="{{ asset('admin/plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}" rel="stylesheet" />
-    <link href="{{ asset('admin/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
-    <!-- loader-->
-    <link href="{{ asset('admin/css/pace.min.css') }}" rel="stylesheet" />
-    <script src="{{ asset('admin/js/pace.min.js') }}"></script>
-    <!-- Bootstrap CSS -->
-    <link href="{{ asset('admin/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('admin/css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('admin/css/icons.css') }}" rel="stylesheet">
 
-    <!-- Theme Style CSS -->
-    <link rel="stylesheet" href="{{ asset('admin/css/dark-theme.css') }}" />
-    <link rel="stylesheet" href="{{ asset('admin/css/semi-dark.css') }}" />
-    <link rel="stylesheet" href="{{ asset('admin/css/header-colors.css') }}" />
+    <meta charset="utf-8" />
+    <title>Admin Omahku</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesdesign" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{{asset("admin/images/favicon.ico")}}">
 
-    <title>Syndron - Bootstrap5 Admin Template</title>
+     <!-- Sweet Alert-->
+     <link href="{{asset("admin/libs/sweetalert2/sweetalert2.min.css")}}" rel="stylesheet" type="text/css" />
+
+    <!-- jquery.vectormap css -->
+    <link href="{{asset("admin/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css")}}" rel="stylesheet"
+        type="text/css" />
+    
+    <link rel="stylesheet" href="{{asset("admin/libs/morris.js/morris.css")}}">
+
+    <!-- DataTables -->
+    <link href="{{asset("admin/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css")}}" rel="stylesheet" type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="{{asset("admin/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css")}}" rel="stylesheet"
+        type="text/css" />
+
+    <!-- Bootstrap Css -->
+    <link href="{{asset("admin/css/bootstrap.min.css")}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="{{asset("admin/css/icons.min.css")}}" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="{{asset("admin/css/app.min.css")}}" id="app-style" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body>
-    <!--wrapper-->
-    <div class="wrapper">
-        <!--start header -->
-        @include('layouts.inc.admin.header')
-        <!--end header -->
-        <!--navigation-->
-        @include('layouts.inc.admin.nav')
-        <!--end navigation-->
-        <!--start page wrapper -->
-        @yield('wrapper')
-        <!--end page wrapper -->
-        <!--start overlay-->
-        <div class="overlay toggle-icon"></div>
-        <!--end overlay-->
-        <!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i
-                class='bx bxs-up-arrow-alt'></i></a>
-        <!--End Back To Top Button-->
-        <footer class="page-footer">
-            <p class="mb-0">Copyright © 2023. All right reserved.</p>
-        </footer>
-    </div>
-    <!--end wrapper-->
-    <!--start switcher-->
-    <div class="switcher-wrapper">
-        <div class="switcher-btn"> <i class='bx bx-cog bx-spin'></i>
-        </div>
-        <div class="switcher-body">
-            <div class="d-flex align-items-center">
-                <h5 class="mb-0 text-uppercase">Theme Customizer</h5>
-                <button type="button" class="btn-close ms-auto close-switcher" aria-label="Close"></button>
-            </div>
-            <hr />
-            <h6 class="mb-0">Theme Styles</h6>
-            <hr />
-            <div class="d-flex align-items-center justify-content-between">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="lightmode" checked>
-                    <label class="form-check-label" for="lightmode">Light</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="darkmode">
-                    <label class="form-check-label" for="darkmode">Dark</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="semidark">
-                    <label class="form-check-label" for="semidark">Semi Dark</label>
-                </div>
-            </div>
-            <hr />
-            <div class="form-check">
-                <input class="form-check-input" type="radio" id="minimaltheme" name="flexRadioDefault">
-                <label class="form-check-label" for="minimaltheme">Minimal Theme</label>
-            </div>
-            <hr />
-            <h6 class="mb-0">Header Colors</h6>
-            <hr />
-            <div class="header-colors-indigators">
-                <div class="row row-cols-auto g-3">
-                    <div class="col">
-                        <div class="indigator headercolor1" id="headercolor1"></div>
-                    </div>
-                    <div class="col">
-                        <div class="indigator headercolor2" id="headercolor2"></div>
-                    </div>
-                    <div class="col">
-                        <div class="indigator headercolor3" id="headercolor3"></div>
-                    </div>
-                    <div class="col">
-                        <div class="indigator headercolor4" id="headercolor4"></div>
-                    </div>
-                    <div class="col">
-                        <div class="indigator headercolor5" id="headercolor5"></div>
-                    </div>
-                    <div class="col">
-                        <div class="indigator headercolor6" id="headercolor6"></div>
-                    </div>
-                    <div class="col">
-                        <div class="indigator headercolor7" id="headercolor7"></div>
-                    </div>
-                    <div class="col">
-                        <div class="indigator headercolor8" id="headercolor8"></div>
-                    </div>
-                </div>
-            </div>
-            <hr />
-            <h6 class="mb-0">Sidebar Colors</h6>
-            <hr />
-            <div class="header-colors-indigators">
-                <div class="row row-cols-auto g-3">
-                    <div class="col">
-                        <div class="indigator sidebarcolor1" id="sidebarcolor1"></div>
-                    </div>
-                    <div class="col">
-                        <div class="indigator sidebarcolor2" id="sidebarcolor2"></div>
-                    </div>
-                    <div class="col">
-                        <div class="indigator sidebarcolor3" id="sidebarcolor3"></div>
-                    </div>
-                    <div class="col">
-                        <div class="indigator sidebarcolor4" id="sidebarcolor4"></div>
-                    </div>
-                    <div class="col">
-                        <div class="indigator sidebarcolor5" id="sidebarcolor5"></div>
-                    </div>
-                    <div class="col">
-                        <div class="indigator sidebarcolor6" id="sidebarcolor6"></div>
-                    </div>
-                    <div class="col">
-                        <div class="indigator sidebarcolor7" id="sidebarcolor7"></div>
-                    </div>
-                    <div class="col">
-                        <div class="indigator sidebarcolor8" id="sidebarcolor8"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--end switcher-->
-    @livewireScripts
-    <!-- Bootstrap JS -->
-    <script src="{{ asset('admin/js/bootstrap.bundle.min.js') }}"></script>
-    <!--plugins-->
-    <script src="{{ asset('admin/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('admin/plugins/simplebar/js/simplebar.min.js') }}"></script>
-    <script src="{{ asset('admin/plugins/metismenu/js/metisMenu.min.js') }}"></script>
-    <script src="{{ asset('admin/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
-    <!--app JS-->
-    <script src="{{ asset('admin/js/app.js') }}"></script>
-    @yield('script')
-    @stack('script')
-    @include('layouts.inc.admin.theme-control')
+    
+<!-- <body data-layout="horizontal" data-topbar="light"> -->
+
+<!-- Begin page -->
+<div id="layout-wrapper">
+
+    @include('layouts.inc.admin.header')
+    @include("layouts.inc.admin.left-sidebard")
+
+    
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    @yield('content')
+    <!-- end main content-->
+
+</div>
+<!-- END layout-wrapper -->
+
+@include("layouts.inc.admin.right-sidebar")
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+
+<!-- JAVASCRIPT -->
+<script src="{{asset("admin/libs/jquery/jquery.min.js")}}"></script>
+<script src="{{asset("admin/libs/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
+<script src="{{asset("admin/libs/metismenu/metisMenu.min.js")}}"></script>
+<script src="{{asset("admin/libs/simplebar/simplebar.min.js")}}"></script>
+<script src="{{asset("admin/libs/node-waves/waves.min.js")}}"></script>
+
+        <!-- Sweet Alerts js -->
+<script src="{{asset("admin/libs/sweetalert2/sweetalert2.min.js")}}"></script>
+
+        <!-- Sweet alert init js-->
+<script src="{{asset("admin/js/pages/sweet-alerts.init.js")}}"></script>
+
+
+<!-- morris chart -->
+<script src="{{asset("admin/libs/morris.js/morris.min.js")}}"></script>
+<script src="{{asset("admin/libs/raphael/raphael.min.js")}}"></script>
+
+<!-- jquery.vectormap map -->
+<script src="{{asset("admin/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js")}}"></script>
+<script src="{{asset("admin/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js")}}"></script>
+
+<!-- Required datatable js -->
+<script src="{{asset("admin/libs/datatables.net/js/jquery.dataTables.min.js")}}"></script>
+<script src="{{asset("admin/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js")}}"></script>
+
+<!-- Responsive examples -->
+<script src="{{asset("admin/libs/datatables.net-responsive/js/dataTables.responsive.min.js")}}"></script>
+<script src="{{asset("admin/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js")}}"></script>
+
+<script src="{{asset("admin/js/pages/dashboard.init.js")}}"></script>
+
+<!-- App js -->
+<script src="{{asset("admin/js/app.js")}}"></script>
 </body>
 
 </html>

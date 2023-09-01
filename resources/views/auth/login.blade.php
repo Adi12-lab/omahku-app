@@ -1,47 +1,71 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@extends('layouts.app')
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+@section('content')
+    {{ Breadcrumbs::render('login') }}
+    <!-- LISTING LIST -->
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Form Login -->
+                    <div class="card mx-auto" style="max-width: 380px;">
+                        @if (session('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{session("success")}}
+                            </div>
+                        @endif
+                        <div class="card-body">
+                            <h4 class="card-title mb-4">Login ke akun anda</h4>
+                            <form action="#">
+                                <a href="#" class="btn btn-facebook btn-block mb-2 text-white"> <i
+                                        class="fa fa-facebook"></i> &nbsp; Sign
+                                    in
+                                    with
+                                    Facebook</a>
+                                <a href="#" class="btn btn-primary btn-block mb-4"> <i class="fa fa-google"></i>
+                                    &nbsp;
+                                    Sign in with
+                                    Google</a>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Username" name="email" type="email">
+                                </div> <!-- form-group// -->
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Password" name="email" type="password">
+                                </div> <!-- form-group// -->
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                <div class="form-group">
+                                    <a href="#" class="float-right">Forgot password?</a>
+                                    <label class="float-left custom-control custom-checkbox"> <input type="checkbox"
+                                            class="custom-control-input" name="remember">
+                                        <span class="custom-control-label"> Remember </span>
+                                    </label>
+                                </div> <!-- form-group form-check .// -->
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block"> Login </button>
+                                    <button type="button" disabled class="d-none btn btn-primary btn-block">
+                                        Logging </button>
+                                </div> <!-- form-group// -->
+                            </form>
+                        </div> <!-- card-body.// -->
+                    </div> <!-- card .// -->
+
+                    <p class="text-center mt-4">Belum memiliki akun? <a href="{{route("register")}}">Registrasi</a></p>
+                </div>
+            </div>
         </div>
+    </section>
+    <!-- END LISTING LIST -->
+@endsection
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ml-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+@extends('layouts.app')
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $("form").on("submit", function() {
+                $("input").attr("disabled")
+                $("button[type='submit']").hide();
+                $("button[disabled]").removeClass("d-none")
+            })
+        })
+    </script>
+@endsection
