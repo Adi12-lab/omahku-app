@@ -371,7 +371,7 @@
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-2.jpg"
                             alt="Header Avatar">
-                        <span class="d-none d-xl-inline-block ms-1">Adam</span>
+                        <span class="d-none d-xl-inline-block ms-1">{{auth()->user()->username}}</span>
                         <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">

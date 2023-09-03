@@ -13,15 +13,17 @@ return new class extends Migration
     {
         Schema::create('agents', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("user_id");
             $table->string("name");
-            $table->bigInteger("phone");
+            $table->string("phone");
             $table->string("email");
             $table->string("facebook")->nullable();
             $table->string("twitter")->nullable();
             $table->string("instagram")->nullable();
-            $table->bigInteger("whatsapp")->nullable();
+            $table->string("whatsapp")->nullable();
             $table->longText("description");
             $table->timestamps();
+            $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
         });
     }
 

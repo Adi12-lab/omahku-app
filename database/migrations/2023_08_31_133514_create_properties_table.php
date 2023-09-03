@@ -14,17 +14,26 @@ return new class extends Migration
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
             $table->string("name");
+            $table->string("slug");
             $table->unsignedBigInteger("category_id");
-            $table->integer("status")->default(0)->comment("0=rent, 1=sale, 2=soldout");
+            $table->integer("for")->default(0)->comment("0=sale, 1=rent,");
+            $table->integer("status")->default(0)->comment("0=soldout, 1=active");
+            $table->integer("isFeaatured")->default(0)->comment("0=no, 1=yes");
             $table->integer("size");
             $table->bigInteger("price");
             $table->longText("description");
             $table->integer("bedrooms")->nullable();
             $table->integer("bathrooms")->nullable();
             $table->integer("rooms")->nullable();
+            $table->integer("province_id");
+            $table->integer("city_id");
+            $table->integer("subdistrict_id");
             $table->date("year_built");
             $table->timestamps();
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            // $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            // $table->foreign('province_id')->references('province_id')->on('tb_ro_provinces');
+            // $table->foreign('city_id')->references('city_id')->on('tb_ro_cities');
+            // $table->foreign('subdistrict_id')->references('subdistrict_id')->on('tb_ro_subdistricts');
         });
     }
 
@@ -33,6 +42,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('propeties');
+        Schema::dropIfExists('properties');
     }
 };

@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('features', function (Blueprint $table) {
+        Schema::create('locations', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->tinyInteger("status")->default(0)->comment("0=aktif, 1=diarsipkan");
+            $table->unsignedBigInteger("property_id");
+            $table->mediumText("web_view");
+            $table->mediumText("street_view")->nullable();
             $table->timestamps();
+            $table->foreign("property_id")->references("id")->on("properties")->onDelete("cascade");
         });
     }
 
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('features');
+        Schema::dropIfExists('locations');
     }
 };

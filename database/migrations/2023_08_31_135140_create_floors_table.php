@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('floors', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("property_id");
+            $table->string("name");
+            $table->mediumText("description");
             $table->integer("size");
+            $table->string("image");
             $table->timestamps();
             $table->foreign("property_id")->references("id")->on("properties")->onDelete("cascade");
         });

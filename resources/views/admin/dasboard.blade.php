@@ -1,9 +1,7 @@
 @extends("layouts.admin")
 @section("content")
 
-<div class="main-content">
 
-    <div class="page-content">
         <div class="container-fluid">
 
             <!-- start page title -->
@@ -287,9 +285,6 @@
             <!-- end row -->
         </div>
 
-    </div>
-    <!-- End Page-content -->
-    @include("layouts.inc.admin.footer")
-</div>
+  
 
 @endsection
