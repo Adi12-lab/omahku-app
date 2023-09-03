@@ -17,7 +17,7 @@ class Index extends Component
     #[Rule("required")]
     public $name;
     
-    public $status;
+    public $status = true;
 
     public function save() {
         $this->validate();

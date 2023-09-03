@@ -45,8 +45,12 @@
                         <ul class="topbar-link">
                             <li><a href="#" title="">Career</a></li>
                             <li><a href="#" title="">Contact Us</a></li>
-                            <li><a href="#" title="">Login</a></li>
-                            <li><a href="{{ route('register') }}" title="">Register</a></li>
+                            @if (!Auth::check())
+                                <li><a href="{{ route('login') }}" title="">Login</a></li>
+                                <li><a href="{{ route('register') }}" title="">Register</a></li>
+                            @else
+                                <li> <a href="{{route("profile")}}">Akun saya</a></li>
+                            @endif
                         </ul>
                         <ul class="topbar-sosmed">
                             <li>

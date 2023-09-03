@@ -19,11 +19,11 @@
                         </div>
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">
-                                Arsipkan
+                                Aktif
                             </label>
                             {{-- Id membuaat input fade --}}
                             <div class="col-sm-10">
-                                <input class="form-check-input mt-2" type="checkbox" name="status"
+                                <input class="form-check-input mt-2" type="checkbox" checked
                                     wire:model.defer="status">
                             </div>
                         </div>
@@ -66,11 +66,11 @@
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">
-                                    Arsipkan
+                                    Aktif
                                 </label>
                                 {{-- Id membuaat input fade --}}
                                 <div class="col-sm-10">
-                                    <input class="form-check-input mt-2" type="checkbox" name="status"
+                                    <input class="form-check-input mt-2" type="checkbox"
                                         wire:model.defer="status">
                                 </div>
                             </div>

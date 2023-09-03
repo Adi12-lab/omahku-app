@@ -33,9 +33,13 @@ Route::prefix("manage")->middleware(["auth", "isAdminOrAgent"])->group(function(
     Route::get("/", function() {
         return view("admin.dasboard");
     })->name("dashboard.admin");
-    Route::get("kategori", App\Livewire\Admin\Category\Index::class)->name("category");
-    Route::get("fasilitas", App\Livewire\Admin\Feature\Index::class)->name("feature");
-    Route::resource("property", App\Http\Controllers\Admin\PropertyController::class)->middleware(["isAgent"]);
+    
+    Route::middleware("isAdmin")->group(function() {
+        Route::get("kategori", App\Livewire\Admin\Category\Index::class)->name("category");
+        Route::get("fasilitas", App\Livewire\Admin\Feature\Index::class)->name("feature");
+    });
+
+    Route::resource("property", App\Http\Controllers\Admin\PropertyController::class);
 });
 
 

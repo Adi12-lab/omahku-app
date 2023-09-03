@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("user_id");
             $table->string("name");
+            $table->tinyInteger("status")->default(1)->comment("1=active, 0=nonactive");
             $table->string("phone");
             $table->string("email");
             $table->string("facebook")->nullable();

@@ -30,7 +30,7 @@
                                         <th scope="row">{{$loop->iteration}}</th>
                                         <td>{{ $category->name }}</td>
                                         <td>
-                                            @if ($category->status === 0)
+                                            @if ($category->status === 1)
                                                 <span class="badge bg-success">
                                                     Aktif
                                                 </span>

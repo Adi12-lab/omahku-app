@@ -43,4 +43,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function isAdmin() {
+        return $this->role_as === 2;
+    }
+
+    public function isAgent() {
+        return $this->role_as === 1;
+    }
 }

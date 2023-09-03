@@ -15,7 +15,7 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-
+                @if(auth()->user()->role_as === 2)
                 <li>
                     <a href="{{ route('category') }}" class=" waves-effect">
                         <i class="ri-calendar-2-line"></i>
@@ -29,7 +29,7 @@
                         <span>Fasilitas</span>
                     </a>
                 </li>
-
+                @endif
 
                 @if (auth()->user()->role_as === 1)
                     <li class="menu-title">Units</li>
@@ -47,7 +47,7 @@
                 @endif
 
 
-
+                @if(auth()->user()->role_as === 2)
                 <li class="menu-title">User</li>
                 <li>
                     <a href="apps-chat.html" class=" waves-effect">
@@ -61,6 +61,7 @@
                         <span>Agent</span>
                     </a>
                 </li>
+                @endif
             </ul>
         </div>
         <!-- Sidebar -->
