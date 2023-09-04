@@ -277,7 +277,7 @@
                                                     <input type="checkbox" name="features[]"
                                                         value="{{ $feature->id }}">
                                                 </div>
-                                                <label class="col-11 col-form-label">
+                                                <label class="col-10 col-form-label">
                                                     {{ $feature->name }}
                                                 </label>
                                             </div>

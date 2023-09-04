@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('email')->unique();
+            $table->string("image")->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->tinyInteger("status")->default(1)->comment("0=nonaktif, 1=aktif");
             $table->integer("role_as")->default(0)->comment("0=guest, 1=agent, 2=admin");
             $table->rememberToken();
             $table->timestamps();

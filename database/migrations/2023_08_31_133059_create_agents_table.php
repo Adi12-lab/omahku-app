@@ -16,13 +16,12 @@ return new class extends Migration
             $table->unsignedBigInteger("user_id");
             $table->string("name");
             $table->tinyInteger("status")->default(1)->comment("1=active, 0=nonactive");
-            $table->string("phone");
-            $table->string("email");
             $table->string("facebook")->nullable();
             $table->string("twitter")->nullable();
             $table->string("instagram")->nullable();
             $table->string("whatsapp")->nullable();
             $table->longText("description");
+            $table->string("image")->nullable();
             $table->timestamps();
             $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
         });

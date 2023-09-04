@@ -31,28 +31,28 @@
                 </li>
                 @endif
 
-                @if (auth()->user()->role_as === 1)
-                    <li class="menu-title">Units</li>
-
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class="ri-account-circle-line"></i>
-                            <span>Properties</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
+                <li class="menu-title">Units</li>
+                
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-account-circle-line"></i>
+                        <span>Properties</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                            @if (auth()->user()->role_as === 1)
                             <li><a href="{{ route('property.create') }}">Tambah Properti</a></li>
-                            <li><a href="auth-register.html">Semua Properti</a></li>
+                            @endif
+                            <li><a href="{{route("property.index")}}">Semua Properti</a></li>
                         </ul>
                     </li>
-                @endif
 
 
                 @if(auth()->user()->role_as === 2)
                 <li class="menu-title">User</li>
                 <li>
-                    <a href="apps-chat.html" class=" waves-effect">
+                    <a href="{{route("users")}}" class=" waves-effect">
                         <i class="ri-chat-1-line"></i>
-                        <span>Guest</span>
+                        <span>Users</span>
                     </a>
                 </li>
                 <li>

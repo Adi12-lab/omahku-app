@@ -29,7 +29,7 @@ class PropertyPolicy
      */
     public function create(User $user): bool
     {
-        return $user->isAgent();
+        return $user->isAgent() && $user->agent;
     }
 
     public function edit(User $user): bool

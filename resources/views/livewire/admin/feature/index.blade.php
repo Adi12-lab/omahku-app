@@ -18,19 +18,17 @@
 
                             <thead class="table-light">
                                 <tr>
-                                    <th>#</th>
                                     <th>Nama</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($categories as $category)
+                                @forelse ($features as $feature)
                                     <tr>
-                                        <th scope="row">{{$loop->iteration}}</th>
-                                        <td>{{ $category->name }}</td>
+                                        <td>{{ $feature->name }}</td>
                                         <td>
-                                            @if ($category->status === 1)
+                                            @if ($feature->status === 1)
                                                 <span class="badge bg-success">
                                                     Aktif
                                                 </span>
@@ -41,10 +39,10 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-warning text-white" wire:click="edit({{$category->id}})" data-bs-target="#updateFeatureModal" data-bs-toggle="modal">
+                                            <button type="button" class="btn btn-warning text-white" wire:click="edit({{$feature->id}})" data-bs-target="#updateFeatureModal" data-bs-toggle="modal">
                                                 <i class="ri-pencil-line"></i> 
                                             </button>
-                                            <button type="button" class="btn btn-danger text-white" wire:click="delete({{$category->id}})">
+                                            <button type="button" class="btn btn-danger text-white" wire:click="delete({{$feature->id}})">
                                                 <i class="ri-delete-bin-line"></i> 
                                             </button>
                                         </td>
@@ -57,9 +55,13 @@
                             </tbody>
                         </table>
                     </div>
-
+                   
                 </div>
+               
             </div>
+        </div>
+        <div class="row">
+            {{$features->links()}}
         </div>
     </div>
     <!-- end row -->

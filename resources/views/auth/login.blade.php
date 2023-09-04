@@ -55,7 +55,6 @@
     <!-- END LISTING LIST -->
 @endsection
 
-@extends('layouts.app')
 @section('scripts')
     <script>
         $(document).ready(function() {

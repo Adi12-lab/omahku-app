@@ -8,9 +8,11 @@ use Livewire\Attributes\Rule;
 use Livewire\Attributes\On;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
+    use WithPagination;
     #[Locked]
     public $feature_id;
 
@@ -67,10 +69,10 @@ class Index extends Component
 
     public function render()
     {
-        $categories = Feature::all();
+        $features = Feature::paginate(10);
         return view('livewire.admin.feature.index')
                 ->with([
-                    "categories" => $categories
+                    "features" => $features
                 ])
                 ->extends("layouts.admin")
                 ->section("content");

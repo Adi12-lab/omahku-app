@@ -24,7 +24,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
@@ -37,6 +36,12 @@ Route::prefix("manage")->middleware(["auth", "isAdminOrAgent"])->group(function(
     Route::middleware("isAdmin")->group(function() {
         Route::get("kategori", App\Livewire\Admin\Category\Index::class)->name("category");
         Route::get("fasilitas", App\Livewire\Admin\Feature\Index::class)->name("feature");
+        Route::get("users", App\Livewire\Admin\User\Index::class)->name("users");
+    });
+
+    Route::controller(ProfileController::class)->group(function() {
+        Route::get("/profile", "viewInAdmin")->name("profile");
+        Route::patch("/profile/agent", "createOrUpdateAgent")->name("profile.agent.cu");
     });
 
     Route::resource("property", App\Http\Controllers\Admin\PropertyController::class);

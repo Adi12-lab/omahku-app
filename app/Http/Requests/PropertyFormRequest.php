@@ -21,10 +21,11 @@ class PropertyFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+
+        $rules =  [
             "name" => ["string", "required", "max:225"],
             "category_id" => ["integer", "required"],
-            "slug" => ["string", "required", "max:50", "unique:properties,slug"],
+            "slug" => ["string", "required", "max:50"],
             "size" => ["required", "numeric"],
             "description" => ["string", "required", "min:10"],
             "province_id" => ["integer", "required"],
@@ -41,5 +42,9 @@ class PropertyFormRequest extends FormRequest
             "latitude" => ["numeric", "nullable"],
             "longitude" => ["numeric", "nullable"],
         ];
+        if(!$this->isMethod("PATCH")) {
+            $rules["slug"][] = "unique:properties,slug";
+        }
+        return $rules;
     }
 }

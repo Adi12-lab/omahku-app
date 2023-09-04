@@ -10,6 +10,7 @@ use App\Models\PropertyFeature;
 
 use App\Http\Requests\PropertyFormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -20,7 +21,12 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        // return view("")
+        if(Auth::user()->role_as === 1) {
+            $properties = Property::with(["agent", "propertyImages", "category"])->where("agent_id", Auth::user()->id)->get();
+        } else {
+            $properties = Property::with(["agent", "propertyImages", "category"])->get();
+        }
+        return view("admin.property.index", compact("properties"));
     }
 
     /**
@@ -31,7 +37,7 @@ class PropertyController extends Controller
         $this->authorize("create", Property::class);
         $categories = Category::all(); 
         $provinces = DB::table('tb_ro_provinces')->get();
-        $features = Feature::all();
+        $features = Feature::where("status", 1)->get();
         return view("admin.property.create", compact("categories", "provinces", "features"));
     }
 
@@ -44,7 +50,7 @@ class PropertyController extends Controller
         $property = new Property;
         $property->agent_id = Auth::user()->id;
         $property->name = $request->name;
-        $property->slug = $request->slug;
+        $property->slug = Str::slug($request->slug);
         $property->category_id = $request->category_id;
         $property->for = $request->for === 'on' ? 1 : 0;
         $property->status = $request->status === "on" ? 1 : 0;
