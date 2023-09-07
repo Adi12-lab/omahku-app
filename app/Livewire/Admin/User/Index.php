@@ -4,6 +4,8 @@ namespace App\Livewire\Admin\User;
 
 use App\Models\User;
 use Exception;
+use Illuminate\Support\Facades\File;
+
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -17,62 +19,49 @@ class Index extends Component
 
     public function promoteToAgent(int $id) {
         $this->id = $id;
-        try {
-            $user = User::findOrFail($this->id);
+     
+            $user = User::find($this->id);
             $this->dispatch("confirmToAgent", data: [
                 "title" => "Promosi ke Agen",
                 "text" => "\"$user->username\" akan dipromosikan menjadi agent",
                 "type" => "warning"
             ]);
-
-        } catch(Exception $e) {
-            
-        }
+     
     }
 
     #[On("promotingToAgent")]
     public function promotingToAgent() {
-        try {
-            $user = User::findOrFail($this->id);
+       
+            $user = User::find($this->id);
             $user->role_as = 1;
             $user->update();
+
+            
     
             $this->dispatch("alert", data: [
                 "title" => "Berhasil",
                 "text" => "\"$user->username\" berhasil menjadi agen",
                 "type" => "success",
             ]);
-        } catch(Exception $e) {
-            $this->dispatch("alert", data: [
-                "title" => "Gagal",
-                "text" => "Something went wrong",
-                "type" => "warning"
-            ]);
-        } finally {
-            $this->reset("id");
-        }
 
     }
 
     public function suspend(int $id) {
         $this->id = $id;
-        try {
-            $user = User::findOrFail($this->id);
+
+            $user = User::find($this->id);
             $this->dispatch("confirmSuspend", data: [
                 "title" => "Ban User",
                 "text" => "\"$user->username\" akan Ban",
                 "type" => "warning",
             ]);
 
-        } catch(Exception $e) {
-            
-        }
     }
 
     #[On("suspending")]
     public function suspending() {
-        try {
-            $user = User::findOrFail($this->id);
+     
+            $user = User::find($this->id);
             $user->status = 0;
             $user->update();
             $this->dispatch("alert", data: [
@@ -80,43 +69,88 @@ class Index extends Component
                 "text" => "\"$user->username\" telah di Ban",
                 "type" => "success",
             ]);
-
-        } catch(Exception $e) {
-            
-        }
     }
 
     public function unsuspend(int $id) {
         $this->id = $id;
-        try {
-            $user = User::findOrFail($this->id);
+      
+            $user = User::find($this->id);
             $this->dispatch("confirmUnSuspend", data: [
                 "title" => "Aktifkan User",
                 "text" => "\"$user->username\" akan diaktifkan kembali",
                 "type" => "info",
             ]);
 
-        } catch(Exception $e) {
-            
-        }
     }
 
     #[On("unsuspending")]
     public function unsuspending() {
-        try {
-            $user = User::findOrFail($this->id);
-            $user->status = 1;
-            $user->update();
-            $this->dispatch("alert", data: [
-                "title" => "Diaktifkan",
-                "text" => "\"$user->username\" telah diaktifkan",
-                "type" => "success",
-            ]);
-
-        } catch(Exception $e) {
-            
-        }
+  
+        $user = User::find($this->id);
+        $user->status = 1;
+        $user->update();
+        $this->dispatch("alert", data: [
+            "title" => "Diaktifkan",
+            "text" => "\"$user->username\" telah diaktifkan",
+            "type" => "success",
+        ]);
     }
+
+    public function downgrade(int $id) {
+        $this->id = $id;
+        $user = User::find($id);
+        $this->dispatch("confirmDowngrade", data: [
+            "title" => "Diturunkan",
+            "text" => "\"$user->username\" akan diturunkan",
+            "type" => "info",
+        ]);
+    }
+
+    #[On('downgrading')]
+    public function downgrading() {
+        $user = User::find($this->id);
+        if($user->agent) {
+            if(File::exists($user->agent->image)) {
+                File::delete($user->agent->image);
+            }
+            $user->agent->delete();
+        }
+        $user->role_as = 0;
+        $user->update();
+        $this->dispatch("alert", data: [
+            "title" => "Berhasil diturunkan",
+            "text" => "\"$user->username\" berhasil diturunkan",
+            "type" => "success",
+        ]);
+    }
+
+    // ----- Delete User -----
+    public function delete(int $id) {
+        $this->id = $id;
+        $user = User::find($id);
+        $this->dispatch("confirmDelete", data: [
+                "title" => "Dihapus",
+                "text" => "\"$user->username\" akan dihapus",
+                "type" => "warning",
+            ]);
+    }
+
+    #[On('deleting')]
+    public function destroying() {
+
+        $user = User::find($this->id);
+        if(File::exists($user->image)) {
+            File::delete($user->image);
+        }
+        $user->delete();
+        $this->dispatch("alert", data: [
+            "title" => "dihapus",
+            "text" => "\"$user->username\" telah dihapus",
+            "type" => "success",
+        ]);
+    }
+
+    
 
     public function render()
     {

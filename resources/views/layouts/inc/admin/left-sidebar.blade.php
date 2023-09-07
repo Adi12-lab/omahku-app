@@ -56,7 +56,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="apps-chat.html" class=" waves-effect">
+                    <a href="{{route("agents")}}" class=" waves-effect">
                         <i class="ri-chat-1-line"></i>
                         <span>Agent</span>
                     </a>

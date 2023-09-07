@@ -49,7 +49,7 @@ class ProfileController extends Controller
             $finalImagePathName = $uploadPath.$filename;
             //hapus foto terdahulu
 
-            if(File::exists($agent->image)) {
+            if(File::exists($agent->image ?? false)) {
                 File::delete($agent->image);
             }
 

@@ -116,7 +116,7 @@
                                             <div class="row mb-3">
                                                 <div class="col">
                                                     <label class="col-form-label">Nama</label>
-                                                    <input type="text" class="form-control" name="name" value="{{$agent->name}}">
+                                                    <input type="text" class="form-control" name="name" value="{{$agent->name ?? null}}">
                                                     @error('name')
                                                         <small class="text-danger">
                                                             {{ $message }}
@@ -130,7 +130,7 @@
                                                 <div class="col-md-6">
                                                     <label class="col-form-label"> <i class="ri-whatsapp-line"></i>
                                                         Whatsapp</label>
-                                                    <input type="number" class="form-control" name="whatsapp" value="{{$agent->whatsapp}}">
+                                                    <input type="number" class="form-control" name="whatsapp" value="{{$agent->whatsapp ?? null}}">
                                                     @error('whatsapp')
                                                         <small class="text-danger">
                                                             {{ $message }}
@@ -140,7 +140,7 @@
                                                 <div class="col-md-6">
                                                     <label class="col-form-label"> <i class="ri-facebook-fill"></i>
                                                         Facebook</label>
-                                                    <input type="text" class="form-control" name="facebook" value="{{$agent->facebook}}">
+                                                    <input type="text" class="form-control" name="facebook" value="{{$agent->facebook ?? null}}">
                                                     @error('facebook')
                                                         <small class="text-danger">
                                                             {{ $message }}
@@ -150,7 +150,7 @@
                                                 <div class="col-md-6">
                                                     <label class="col-form-label"> <i class="ri-twitter-line"></i>
                                                         Twitter</label>
-                                                    <input type="text" class="form-control" name="twitter" value="{{$agent->twitter}}">
+                                                    <input type="text" class="form-control" name="twitter" value="{{$agent->twitter ?? null}}">
                                                     @error('twitter')
                                                         <small class="text-danger">
                                                             {{ $message }}
@@ -160,7 +160,7 @@
                                                 <div class="col-md-6">
                                                     <label class="col-form-label"> <i class="ri-instagram-line"></i>
                                                         Instagram</label>
-                                                    <input type="text" class="form-control" name="instagram" value="{{$agent->instagram}}">
+                                                    <input type="text" class="form-control" name="instagram" value="{{$agent->instagram ?? null}}">
                                                     @error('instagram')
                                                         <small class="text-danger">
                                                             {{ $message }}

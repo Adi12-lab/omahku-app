@@ -4,75 +4,57 @@
             <div class="alert alert-success">{{ session('message') }}</div>
         @endif
         <div class="col-lg-8">
+            <h4>List Agen</h4>
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title d-flex justify-content-between mb-2">
-                        User Guest
-                    </h4>
                     {{-- <p>User dibawah ini hanyalah user biasa tanpa bisa melakukan operasi pada database sedikitpun</p> --}}
                     <div class="table-responsive">
                         <table class="table mb-0">
 
                             <thead class="table-light">
                                 <tr>
-                                    <th>Jabatan</th>
-                                    <th>Username</th>
+                                    <th>Pemilik</th>
+                                    <th>Nama</th>
                                     <th>Email</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($users as $user)
+                                @forelse ($agents as $agent)
                                     <tr>
                                         <td>
-                                            @if ($user->role_as === 1)
-                                                <span class="badge bg-success">
-                                                    Agent
-                                                </span>
-                                            @else
-                                                <span class="badge bg-secondary">
-                                                    Guest
-                                                </span>
-                                            @endif
+                                            {{ $agent->username }}
                                         </td>
-                                        <td>{{ $user->username }}</td>
-                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $agent->name ?? '---' }}</td>
+                                        <td>{{ $agent->email }}</td>
                                         <td>
-                                            @if ($user->status === 1)
+                                            @if ($agent->status === 1 && $agent->name)
                                                 <span class="badge rounded-pill badge-soft-info">Aktif</span>
                                             @else
                                                 <span class="badge rounded-pill badge-soft-secondary">Nonaktif</span>
                                             @endif
                                         </td>
                                         <td>
-                                            @if ($user->role_as !== 1)
-                                                <button type="button" class="btn btn-success text-white"
-                                                    wire:click="promoteToAgent({{ $user->id }})">
-                                                    <i class="ri-arrow-up-fill"></i>
-                                                </button>
-                                            @else
-                                                <button type="button" class="btn btn-secondary text-white"
-                                                    wire:click="downgrade({{ $user->id }})">
-                                                    <i class="ri-arrow-down-fill"></i>
-                                                </button>
-                                            @endif
-                                            @if ($user->status !== 0)
-                                                <button type="button" class="btn btn-warning text-white"
-                                                    wire:click="suspend({{ $user->id }})">
-                                                    <i class="mdi mdi-block-helper"></i>
-                                                </button>
-                                            @else
-                                                <button type="button" class="btn btn-info text-white"
-                                                    wire:click="unsuspend({{ $user->id }})">
-                                                    <i class="ri-key-fill"></i>
+                                            @if ($agent->name)
+                                                @if ($agent->status !== 0)
+                                                    <button type="button" class="btn btn-warning text-white"
+                                                        wire:click="suspend({{ $agent->id }})">
+                                                        <i class="mdi mdi-block-helper"></i>
+                                                    </button>
+                                                @elseif($agent->status === 0)
+                                                    <button type="button" class="btn btn-info text-white"
+                                                        wire:click="unsuspend({{ $agent->id }})">
+                                                        <i class="ri-key-fill"></i>
+                                                    </button>
+                                                @endif      
+                                                <button type="button" class="btn btn-danger text-white"
+                                                    wire:click="delete({{ $agent->id }})">
+                                                    <i class="ri-delete-bin-line"></i>
                                                 </button>
                                             @endif
-                                            <button type="button" class="btn btn-danger text-white"
-                                                wire:click="delete({{ $user->id }})">
-                                                <i class="ri-delete-bin-line"></i>
-                                            </button>
                                         </td>
+
                                     </tr>
                                 @empty
                                     <tr>
@@ -88,7 +70,7 @@
             </div>
         </div>
         <div class="row">
-            {{ $users->links() }}
+            {{ $agents->links() }}
         </div>
     </div>
     <!-- end row -->
@@ -97,23 +79,6 @@
 @push('script')
     <script>
         document.addEventListener("livewire:init", () => {
-            Livewire.on("confirmToAgent", ({
-                data
-            }) => {
-                Swal.fire({
-                    title: data.title,
-                    text: data.text,
-                    icon: data.type,
-                    showCancelButton: !0,
-                    confirmButtonColor: "#1cbb8c",
-                    cancelButtonColor: "#e66060",
-                    confirmButtonText: "Ya, Promosikan",
-                }).then(function(result) {
-                    if (result.isConfirmed) {
-                        Livewire.dispatch("promotingToAgent")
-                    }
-                });
-            })
 
             // SUSPEND
 
@@ -152,8 +117,8 @@
                     }
                 });
             })
-
-            Livewire.on("confirmDowngrade", ({
+            
+            Livewire.on("confirmDelete", ({
                 data
             }) => {
                 Swal.fire({
@@ -161,16 +126,15 @@
                     text: data.text,
                     icon: data.type,
                     showCancelButton: !0,
-                    confirmButtonColor: "#e6ca17",
-                    cancelButtonColor: "#8d948b",
-                    confirmButtonText: "Ya, Turunkan",
+                    confirmButtonColor: "#e82420",
+                    cancelButtonColor: "#8d948b0",
+                    confirmButtonText: "Ya, Hapus",
                 }).then(function(result) {
                     if (result.isConfirmed) {
-                        Livewire.dispatch("downgrading")
+                        Livewire.dispatch("deleting")
                     }
                 });
             })
-
 
             Livewire.on("alert", ({
                 data

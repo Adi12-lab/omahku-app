@@ -37,6 +37,7 @@ Route::prefix("manage")->middleware(["auth", "isAdminOrAgent"])->group(function(
         Route::get("kategori", App\Livewire\Admin\Category\Index::class)->name("category");
         Route::get("fasilitas", App\Livewire\Admin\Feature\Index::class)->name("feature");
         Route::get("users", App\Livewire\Admin\User\Index::class)->name("users");
+        Route::get("agents", App\Livewire\Admin\Agent\Index::class)->name("agents");
     });
 
     Route::controller(ProfileController::class)->group(function() {
