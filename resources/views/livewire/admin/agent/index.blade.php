@@ -3,7 +3,7 @@
         @if (session('message'))
             <div class="alert alert-success">{{ session('message') }}</div>
         @endif
-        <div class="col-lg-8">
+        <div class="col-lg-10">
             <h4>List Agen</h4>
             <div class="card">
                 <div class="card-body">

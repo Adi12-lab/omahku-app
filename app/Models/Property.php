@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Category;
 use App\Models\PropertyImage;
+use App\Models\PropertyFloor;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -22,6 +23,11 @@ class Property extends Model
 
     public function propertyImages():HasMany {
         return $this->hasMany(PropertyImage::class, "property_id", "id");
+    }
+
+    public function propertyFloors():HasMany {
+        return $this->hasMany(PropertyFLoor::class, "property_id", "id");
+        
     }
 
     public function agent():BelongsTo {

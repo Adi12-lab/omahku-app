@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('property_features', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
+        Schema::create('property_floors', function (Blueprint $table) {
+            $table->engine = "innoDB";
             $table->id();
             $table->unsignedBigInteger("property_id");
-            $table->unsignedBigInteger("feature_id");
+            $table->mediumText("description")->nullable();
+            $table->integer("size");
+            $table->string("image");
+            $table->timestamps();
             $table->foreign("property_id")->references("id")->on("properties")->onDelete("cascade");
-            $table->foreign("feature_id")->references("id")->on("features")->onDelete("cascade");
         });
     }
 
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('property_features');
+        Schema::dropIfExists('property_floors');
     }
 };

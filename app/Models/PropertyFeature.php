@@ -12,4 +12,5 @@ class PropertyFeature extends Model
     protected $table = 'property_features';
 
     protected $guarded = ["id"];
+    public $timestamps = false;
 }

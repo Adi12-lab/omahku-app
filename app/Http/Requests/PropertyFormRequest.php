@@ -28,8 +28,6 @@ class PropertyFormRequest extends FormRequest
             "slug" => ["string", "required", "max:50"],
             "size" => ["required", "numeric"],
             "description" => ["string", "required", "min:10"],
-            "province_id" => ["integer", "required"],
-            "city_id" => ["integer", "required"],
             "year_built" => ["date"],
             "subdistrict_id" => ["integer", "required"],
             "bathrooms" => ["integer", "required"],
@@ -39,6 +37,8 @@ class PropertyFormRequest extends FormRequest
             "status" => ["in:on,off", "nullable"],
             "price" => ["required", "integer"],
             "isFeatured" => ["in:on,off", "nullable"],
+            "previous_image.*" => ["nullable", "integer"],
+            "address" => ["required", "string", "min:5"],
             "latitude" => ["numeric", "nullable"],
             "longitude" => ["numeric", "nullable"],
         ];

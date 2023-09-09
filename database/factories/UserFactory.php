@@ -4,6 +4,9 @@ namespace Database\Factories;
 
 use App\Models\User;
 use App\Models\Agent;
+use App\Models\Property;
+use App\Models\PropertyFeature;
+use App\Models\PropertyImage;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -41,17 +44,19 @@ class UserFactory extends Factory
         // ]); mengubah sekranag role_as nya menjadi 1
         return $this->afterCreating(function (User $user) {
             if($user->role_as === 1) {
-                $fakeParagraphs = fake()->paragraphs(4);
-                $mergeParagraphs = '<p>' . implode('</p><p>', $fakeParagraphs) . '</p>';
-                Agent::create([
-                    'user_id' => $user->id,
-                    "name" => fake()->name(),
-                    "facebook" => fake()->domainName(),
-                    "twitter" => fake()->domainName(),
-                    "instagram" => fake()->domainName(),
-                    "whatsapp" => fake()->phoneNumber(),
-                    "description" => $mergeParagraphs,
-                ]);
+
+                $agent = Agent::factory(1)->create(['user_id' => $user->id]);
+                $user->refresh(); // Refresh instance User untuk memastikan koleksi agent diperbarui
+
+                $user->agent->properties()->saveMany(Property::factory(5)->create([
+                    'agent_id' => $user->agent->id,
+                ]));
+    
+                $user->agent->properties->each(function (Property $property) {
+                    $property->propertyImages()->saveMany(PropertyImage::factory(10)->create([
+                        'property_id' => $property->id,
+                    ]));
+                });
 
             }
         });

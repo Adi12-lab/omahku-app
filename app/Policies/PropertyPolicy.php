@@ -42,7 +42,7 @@ class PropertyPolicy
      */
     public function update(User $user, Property $property): bool
     {
-        return $user->isAgent();
+        return $user->isAgent() && $property->agent_id === $user->agent->id;
     }
 
     /**

@@ -22,9 +22,10 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <form action="{{ route('property.store') }}" method="POST" enctype="multipart/form-data"
+                    <form action="{{ route('property.update', $property->slug) }}" method="POST" enctype="multipart/form-data"
                         class="card-body">
                         @csrf
+                        @method("PATCH")
                         <!-- Nav tabs -->
                         <ul class="nav nav-pills nav-justified" role="tablist">
                             <li class="nav-item waves-effect waves-light">
@@ -63,7 +64,7 @@
                                             <option selected="">Pilih Kategori</option>
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}"
-                                                    {{ old('category_id') === $category->id ? 'selected' : '' }}>
+                                                    {{ old('category_id', $property->category->id) === $category->id ? 'selected' : '' }}>
                                                     {{ $category->name }}
                                                 </option>
                                             @endforeach
@@ -78,7 +79,7 @@
                                     <label for=name" class="col-sm-2 col-form-label">Nama</label>
                                     <div class="col-sm-10">
                                         <input class="form-control" type="text" id=name" name="name"
-                                            value="{{ old('name') }}">
+                                            value="{{ old('name', $property->name) }}">
                                         @error('name')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -91,7 +92,7 @@
                                     <label for="slug" class="col-sm-2 col-form-label">Slug</label>
                                     <div class="col-sm-10">
                                         <input class="form-control" type="text" id="slug" name="slug"
-                                            value="{{ old('slug') }}">
+                                            value="{{ old('slug', $property->slug) }}">
                                         @error('slug')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -102,7 +103,7 @@
                                     <label for="description" class="col-sm-2 col-form-label">Deskripsi</label>
                                     <div class="col-sm-10">
                                         <textarea name="description" id="description" rows="5">
-                                            {{ old('description') }}
+                                            {{ old('description', $property->description) }}
                                         </textarea>
                                         @error('description')
                                             <small class="text-danger">{{ $message }}</small>
@@ -116,7 +117,7 @@
                                         dibangun</label>
                                     <div class="col-sm-10">
                                         <input class="form-control" type="date" name="year_built" value="2011-08-19"
-                                            id="example-date-input" value="{{ old('year_built') }}">
+                                            id="example-date-input" value="{{ old('year_built', $property->year_built) }}">
                                         @error('year_built')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -134,7 +135,7 @@
                                                     </label>
                                                     <div class="col">
                                                         <input type="number" class="form-control" name="bathrooms"
-                                                            value="{{ old('bathrooms') }}">
+                                                            value="{{ old('bathrooms', $property->bathrooms) }}">
                                                         @error('bathrooms')
                                                             <small class="text-danger">{{ $message }}</small>
                                                         @enderror
@@ -148,7 +149,7 @@
                                                     </label>
                                                     <div class="col">
                                                         <input type="number" class="form-control" name="bedrooms"
-                                                            value="{{ old('bedrooms') }}">
+                                                            value="{{ old('bedrooms', $property->bedrooms) }}">
                                                         @error('bedrooms')
                                                             <small class="text-danger">{{ $message }}</small>
                                                         @enderror
@@ -162,7 +163,7 @@
                                                     </label>
                                                     <div class="col">
                                                         <input type="number" class="form-control" name="rooms"
-                                                            value="{{ old('rooms') }}">
+                                                            value="{{ old('rooms', $property->rooms) }}">
                                                         @error('rooms')
                                                             <small class="text-danger">{{ $message }}</small>
                                                         @enderror
@@ -185,7 +186,7 @@
                                                     </label>
                                                     <div class="col mt-3">
                                                         <input type="checkbox" id="for" switch="primary"
-                                                            {{ old('for') ? 'checked' : '' }} name="for" />
+                                                            {{ old('for', $property->for) ? 'checked' : '' }} name="for" />
                                                         <label for="for" data-on-label="Yes"
                                                             data-off-label="No"></label>
                                                         @error('for')
@@ -201,7 +202,7 @@
                                                     </label>
                                                     <div class="col mt-3">
                                                         <input type="checkbox" id="isFeatured" switch="success"
-                                                            {{ old('isFeatured') ? 'checked' : '' }} name="isFeatured" />
+                                                            {{ old('isFeatured', $property->isFeatured) ? 'checked' : '' }} name="isFeatured" />
                                                         <label for="isFeatured" data-on-label="Yes"
                                                             data-off-label="No"></label>
                                                         @error('isFeatured')
@@ -217,7 +218,7 @@
                                                     </label>
                                                     <div class="col mt-3">
                                                         <input type="checkbox" id="status" switch="success" checked
-                                                            {{ old('status') ? 'checked' : '' }} name="status" />
+                                                            {{ old('status', $property->status) ? 'checked' : '' }} name="status" />
                                                         <label for="status" data-on-label="Yes"
                                                             data-off-label="No"></label>
                                                         @error('status')
@@ -235,7 +236,7 @@
                                     <label class="col-sm-2">Harga Properti</label>
                                     <div class="col-sm-10">
                                         <input type="number" class="form-control" name="price"
-                                            value="{{ old('price') }}">
+                                            value="{{ old('price', $property->price) }}">
                                     </div>
                                 </div>
                                 <!-- end row -->
@@ -243,13 +244,14 @@
                                     <label class="col-sm-2">Luas Properti (m2)</label>
                                     <div class="col-sm-10">
                                         <input type="number" class="form-control" name="size"
-                                            value="{{ old('size') }}">
+                                            value="{{ old('size', $property->size) }}">
                                     </div>
                                 </div>
                                 <!-- end row -->
 
                             </div>
                             <div class="tab-pane" id="image-1" role="tabpanel">
+                              
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="card">
@@ -260,6 +262,35 @@
                                                     Gambar pertama yang anda upload akan menjadi thumbnail properti
                                                     tersebut
                                                 </p>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="col-md-5 mx-auto">
+                                                            <table class="table mb-0">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col">Image</th>
+                                                                        <th scope="col">Hapus</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach($property->propertyImages as $image)
+                                                                    <tr>
+                                                                        <td>
+                                                                            <img src="{{asset($image->image)}}" width="120" alt="Product image">
+                                                                            <input type="hidden" name="previous_image[]" value="{{$image->id}}">
+                                                                        </td>
+                                                                        <td>
+                                                                            <button type="button" class="remove-image border-0 bg-white">
+                                                                                <span class="text-danger fs-3"><i class="mdi mdi-trash-can"></i></span>
+                                                                            </button>
+                                                                        </td>
+                                                                    </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <input id="property_image" name="images[]" type="file"
                                                     accept="image/*" multiple>
 
@@ -270,15 +301,15 @@
                             </div>
                             <div class="tab-pane" id="feature-1" role="tabpanel">
                                 <div class="row">
-                                    @foreach ($features as $feature)
+                                    @foreach ($mergePropertiesFeatures as $feature)
                                         <div class="col-sm-4 col-lg-3">
                                             <div class="row align-items-center">
                                                 <div class="col-1">
                                                     <input type="checkbox" name="features[]"
-                                                        value="{{ $feature->id }}">
+                                                        value="{{ $feature["id"] }}" {{$feature["isSelected"] ? "checked" : ""}}>
                                                 </div>
                                                 <label class="col-10 col-form-label">
-                                                    {{ $feature->name }}
+                                                    {{ $feature["name"] }}
                                                 </label>
                                             </div>
                                         </div>
@@ -286,15 +317,17 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="location-1" role="tabpanel">
-
+                             
                                 <div class="row mb-3">
                                     <label class="col-form-label"> Kecamatan</label>
 
                                     <select class="select2 form-control w-100" name="subdistrict_id">
                                         <option>Pilih Kecamatan</option>
-                                        @foreach ($subdistricts as $subdistrict)
-                                            <option value="{{ $subdistrict->subdistrict_id }}">
-                                                {{ $subdistrict->subdistrict_name }}</option>
+                                        @foreach($subdistricts as $subdistrict)
+                                        
+                                        <option value="{{$subdistrict->subdistrict_id}}" {{$subdistrict->subdistrict_id === $property->subdistrict_id ? "selected" : ""}}>
+                                            {{$subdistrict->subdistrict_name}}
+                                        </option>
                                         @endforeach
                                     </select>
                                     @error('subdistrict_id')
@@ -305,13 +338,14 @@
                                     <label class="col-sm-2 col-form-label">Alamat</label>
                                     <div class="col-sm-10">
                                     <textarea name="address" class="form-control" rows="6">
-                                            {{ old('address') }}
+                                            {{ old('address', $property->address) }}
                                     </textarea>
-                                        @error('description')
+                                        @error('address')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
                                 </div>
+                                <!-- end row -->
                                 <div class="row mb-3">
                                     <div class="col-lg-6">
                                         <div class="row">
@@ -320,8 +354,9 @@
                                             </label>
                                             <div class="col">
                                                 <input type="text" class="form-control" inputmode="decimal"
-                                                    name="latitude" placeholder="-12.043333" step="any"
-                                                    value="{{ old('latitude') }}" pattern="-?\d+(\.\d+)?">
+                                                    name="latitude" placeholder="-12.043333"
+                                                    step="any"
+                                                    value="{{ old('latitude', $property->latitude) }}" pattern="-?\d+(\.\d+)?">
 
                                                 @error('latitude')
                                                     <small class="text-danger">{{ $message }}</small>
@@ -337,7 +372,7 @@
                                             <div class="col">
                                                 <input type="number" class="form-control" inputmode="decimal"
                                                     name="longitude" placeholder="-77.028333"
-                                                    value="{{ old('longitude') }}" step="any"
+                                                    value="{{ old('longitude', $property->longitude) }}" step="any"
                                                     pattern="-?\d+(\.\d+)?">
                                                 @error('longitude')
                                                     <small class="text-danger">{{ $message }}</small>
@@ -382,6 +417,9 @@
 
             //initial
 
+            $(".remove-image").click(function(e) {
+                $(this).parents("tr").remove()
+            })
         })
     </script>
 

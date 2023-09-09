@@ -53,12 +53,12 @@
                                             <td width="190px">
                                                 <div class="row align-items-center">
                                                     <div class="col">
-                                                        <a href="{{ route('property.edit', $property->slug) }}"
+                                                        <a href="{{ route('property.image', $property->slug) }}"
                                                             class="btn btn-info text-white">
-                                                            <i class="ri-pencil-line"></i>
+                                                            <i class="ri-image-fill"></i>
                                                         </a>
-    
                                                     </div>
+                                              
                                                     <div class="col">
                                                         <a href="{{ route('property.edit', $property->slug) }}"
                                                             class="btn btn-warning text-white">
@@ -67,7 +67,7 @@
     
                                                     </div>
                                                     <div class="col"> 
-                                                        <form action="{{ route('property.destroy', $property->id) }}" method="POST">
+                                                        <form action="{{ route('property.destroy', $property->slug) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="btn btn-danger text-white"

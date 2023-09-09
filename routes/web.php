@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Property;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,10 +36,10 @@ Route::prefix("manage")->middleware(["auth", "isAdminOrAgent"])->group(function(
     })->name("dashboard.admin");
     
     Route::middleware("isAdmin")->group(function() {
-        Route::get("kategori", App\Livewire\Admin\Category\Index::class)->name("category");
-        Route::get("fasilitas", App\Livewire\Admin\Feature\Index::class)->name("feature");
-        Route::get("users", App\Livewire\Admin\User\Index::class)->name("users");
-        Route::get("agents", App\Livewire\Admin\Agent\Index::class)->name("agents");
+        Route::get("kategori", \App\Livewire\Admin\Category\Index::class)->name("category");
+        Route::get("fasilitas", \App\Livewire\Admin\Feature\Index::class)->name("feature");
+        Route::get("users", \App\Livewire\Admin\User\Index::class)->name("users");
+        Route::get("agents", \App\Livewire\Admin\Agent\Index::class)->name("agents");
     });
 
     Route::controller(ProfileController::class)->group(function() {
@@ -45,7 +47,11 @@ Route::prefix("manage")->middleware(["auth", "isAdminOrAgent"])->group(function(
         Route::patch("/profile/agent", "createOrUpdateAgent")->name("profile.agent.cu");
     });
 
-    Route::resource("property", App\Http\Controllers\Admin\PropertyController::class);
+    Route::resource("property", \App\Http\Controllers\Admin\PropertyController::class);
+    Route::get("floors/{property}", function(Property $property) {
+        $property_floors = $property->propertyFloors;
+        return view("admin.property.property_floor", compact("property_floors", "property"));
+    })->name("property.image");
 });
 
 

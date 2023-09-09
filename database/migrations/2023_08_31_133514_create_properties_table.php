@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('properties', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->id();
             $table->unsignedBigInteger("agent_id"); //typo
             $table->string("name");
@@ -26,9 +27,8 @@ return new class extends Migration
             $table->integer("bedrooms");
             $table->integer("bathrooms");
             $table->integer("rooms");
-            $table->integer("province_id");
-            $table->integer("city_id");
             $table->integer("subdistrict_id");
+            $table->mediumText("address");
             $table->float("latitude")->nullable();
             $table->float("longitude")->nullable();
             $table->date("year_built");

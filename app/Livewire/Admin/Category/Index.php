@@ -28,9 +28,9 @@ class Index extends Component
             $category->status = $this->status ? 1 : 0;
             $category->save();
             
-            session()->flash("message", "Kategori berhasil ditambahkan");
             $this->reset("name", "status");
             $this->dispatch("close-modal");
+            return session()->flash("message", "Kategori berhasil ditambahkan");
         }
     }
 
