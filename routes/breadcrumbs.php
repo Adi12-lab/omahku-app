@@ -3,6 +3,7 @@
 // this import. This is nice for IDE syntax and refactoring.
 
 use App\Models\Product;
+use App\Models\Property;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 
 // This import is also not required, and you could replace `BreadcrumbTrail $trail`
@@ -23,10 +24,15 @@ Breadcrumbs::for('login', function (BreadcrumbTrail $trail) {
     $trail->parent('/');
     $trail->push('Login', route('register'));
 });
-// Breadcrumbs::for("produkview", function(BreadcrumbTrail $trail, Product $product ) {
-//     $trail->parent("produk");
-//     $trail->push($product->name, route("frontend.product.view", $product->slug));
-// });
+Breadcrumbs::for("property", function(BreadcrumbTrail $trail) {
+    $trail->parent("/");
+    $trail->push("Daftar Properti", route("frontend.property.index"));
+});
+
+Breadcrumbs::for("propertyView", function(BreadcrumbTrail $trail, Property $property ) {
+    $trail->parent("property");
+    $trail->push($property->name, route("frontend.property.view", $property->slug));
+});
 
 Breadcrumbs::for("wishlist", function(BreadcrumbTrail $trail ) {
     $trail->parent("/");

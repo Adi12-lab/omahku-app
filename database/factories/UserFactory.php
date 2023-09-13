@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\User;
 use App\Models\Agent;
 use App\Models\Property;
+use App\Models\Feature;
 use App\Models\PropertyFeature;
 use App\Models\PropertyImage;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -37,26 +38,27 @@ class UserFactory extends Factory
         ];
     }
 
-    public function agent(): static
+    public function agent($features): static
     {
         // $this->state([
         //     "role_as" == 1
         // ]); mengubah sekranag role_as nya menjadi 1
-        return $this->afterCreating(function (User $user) {
+        return $this->afterCreating(function (User $user) use($features) {
             if($user->role_as === 1) {
 
-                $agent = Agent::factory(1)->create(['user_id' => $user->id]);
+                Agent::factory(1)->create(['user_id' => $user->id]);
                 $user->refresh(); // Refresh instance User untuk memastikan koleksi agent diperbarui
 
-                $user->agent->properties()->saveMany(Property::factory(5)->create([
+                $user->agent->properties()->saveMany(Property::factory(8)->features($features)->create([
                     'agent_id' => $user->agent->id,
                 ]));
-    
+                
                 $user->agent->properties->each(function (Property $property) {
                     $property->propertyImages()->saveMany(PropertyImage::factory(10)->create([
                         'property_id' => $property->id,
                     ]));
                 });
+
 
             }
         });

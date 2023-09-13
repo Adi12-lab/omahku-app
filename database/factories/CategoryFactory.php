@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Str;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -15,9 +17,11 @@ class CategoryFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition(): array
-    {
+    {   
+        $name = fake()->word();
         return [
-            "name" => fake()->word(),
+            "name" => $name,
+            "slug" => Str::slug($name),
             "status" => mt_rand(0, 1)
         ];
     }

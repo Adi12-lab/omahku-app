@@ -4,19 +4,28 @@ namespace App\Livewire\Admin\Agent;
 
 use App\Models\Agent;
 use App\Models\User;
-use Exception;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Url;
 
 class Index extends Component
 {
     use WithPagination;
+
     #[Locked]
     public $id;
+
+    #[Url(as: 'q')] 
+    public $search = null;
+
+
+    public function query() {
+        $this->resetPage();
+    }
 
     public function suspend(int $id) {
         $this->id = $id;
@@ -94,9 +103,22 @@ class Index extends Component
     }
 
     public function render()
-    {
-        $agents = User::select(DB::raw("agents.id, agents.name, agents.status, users.username, users.email"))->
-                        leftJoin("agents", "agents.user_id", '=', 'users.id')->where("users.role_as", 1)->paginate(5);
+    {   
+        $agents = User::select(DB::raw("agents.id, agents.name, agents.status, users.username, users.email"))
+                        ->leftJoin("agents", "agents.user_id", '=', 'users.id')
+                        ->where("users.role_as", 1);
+
+        if($this->search) {
+            $agents->where(function ($q) {
+                $q->where('agents.name', 'like', '%' . $this->search . '%')
+                  ->orWhere('users.username', 'like', '%' . $this->search . '%')
+                  ->orWhere('users.email', 'like', '%' . $this->search . '%');
+            });
+        }
+
+        $agents = $agents->paginate(5);
+
+
         return view('livewire.admin.agent.index')->with(["agents" => $agents])->extends("layouts.admin")->section("content");
     }
 }

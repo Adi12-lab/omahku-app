@@ -4,6 +4,10 @@
             <div class="alert alert-success">{{ session('message') }}</div>
         @endif
         <div class="col-lg-10">
+            <form class="d-flex mb-3" wire:submit="query">
+                <input type="text" class="form-control w-50" placeholder="Cari Agen, Username, Email" wire:model="search">
+                <button type="submit" class="btn btn-secondary waves-effect waves-light ms-2">Search</button>
+            </form>
             <h4>List Agen</h4>
             <div class="card">
                 <div class="card-body">

@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Admin\PropertyFLoor;
 
+use App\Models\Property;
 use App\Models\PropertyFloor;
+
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -29,9 +31,9 @@ class Index extends Component
     #[Rule('required|image|max:1024')]
     public $image;
 
-    public function mount($data, $property) {
-        $this->property_floors = $data;
+    public function mount(Property $property) {
         $this->property = $property;
+        $this->property_floors = $property->propertyFloors ?? null;
     }
 
     public function save() {
@@ -114,6 +116,6 @@ class Index extends Component
                 ->with([
                     "property_floors" => $this->property_floors,
                     "property" => $this->property
-                ]);
+                ])->extends("layouts.admin")->section("content");
     }
 }

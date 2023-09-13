@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Feature;
 use App\Models\User;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -31,7 +32,7 @@ class UserSeeder extends Seeder
         'email_verified_at' => now(),
         "password" => "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
     ]);
-    
-     User::factory(30)->agent()->create();   
+    $features= Feature::select("id")->get();
+     User::factory(30)->agent($features)->create();   
     }
 }

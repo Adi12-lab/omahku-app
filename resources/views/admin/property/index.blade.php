@@ -6,6 +6,10 @@
                 <div class="alert alert-success">{{ session('message') }}</div>
             @endif
             <div class="col">
+                <form class="d-flex mb-3" action="{{route("property.index")}}" method="GET">
+                    <input type="text" class="form-control w-50" name="q" placeholder="Cari Properti atau Agen" value="{{request("q")}}">
+                    <button type="submit" class="btn btn-secondary waves-effect waves-light ms-2">Search</button>
+                </form>
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title d-flex justify-content-between mb-2">
@@ -53,9 +57,9 @@
                                             <td width="190px">
                                                 <div class="row align-items-center">
                                                     <div class="col">
-                                                        <a href="{{ route('property.image', $property->slug) }}"
+                                                        <a href="{{ route('property.floor', $property->slug) }}"
                                                             class="btn btn-info text-white">
-                                                            <i class="ri-image-fill"></i>
+                                                            <i class="mdi mdi-floor-plan"></i>
                                                         </a>
                                                     </div>
                                               
@@ -95,6 +99,6 @@
                 </div>
             </div>
         </div>
-
+        {{$properties->links()}}
     </div>
 @endsection

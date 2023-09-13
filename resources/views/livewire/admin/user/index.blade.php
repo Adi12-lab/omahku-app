@@ -3,7 +3,11 @@
         @if (session('message'))
             <div class="alert alert-success">{{ session('message') }}</div>
         @endif
-        <div class="col-lg-8">
+        <div class="col-lg-10">
+            <form class="d-flex mb-3" wire:submit="query">
+                <input type="text" class="form-control w-50" placeholder="Cari Username, Email" wire:model="search">
+                <button type="submit" class="btn btn-secondary waves-effect waves-light ms-2">Search</button>
+            </form>
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title d-flex justify-content-between mb-2">

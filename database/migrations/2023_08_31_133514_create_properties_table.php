@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer("isFeatured")->default(0)->comment("0=no, 1=yes");
             $table->integer("size");
             $table->bigInteger("price");
+            $table->mediumText("small_description");
             $table->longText("description");
             $table->integer("bedrooms");
             $table->integer("bathrooms");
@@ -32,6 +33,8 @@ return new class extends Migration
             $table->float("latitude")->nullable();
             $table->float("longitude")->nullable();
             $table->date("year_built");
+            $table->mediumText("map_iframe");
+            $table->mediumText("street_iframe");
 
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

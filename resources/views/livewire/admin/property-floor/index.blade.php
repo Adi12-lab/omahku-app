@@ -26,6 +26,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                             
                                 @forelse($property_floors as $floor)
                                     <tr class="align-middle text-center" wire:key="{{str()->random(10)}}">
                                         <td>
@@ -65,5 +66,6 @@
             </div>
         </div>
     </div>
+   
     @include("livewire.admin.property-floor.modal-form")
 </div>

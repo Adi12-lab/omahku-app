@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Admin\Category;
 
+use Illuminate\Support\Str;
+
 use App\Models\Category;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\Rule;
@@ -16,7 +18,7 @@ class Index extends Component
 
     #[Rule("required|min:3")]
     public $name;
-    
+
     public $status = true;
 
     public function save() {

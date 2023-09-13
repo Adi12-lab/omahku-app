@@ -21,19 +21,37 @@ class PropertyController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {   
-        if(Auth::user()->role_as === 1 && Auth::user()->agent) {
-            $properties = Property::with(["agent", "propertyImages", "category"])->where("agent_id", Auth::user()->agent->id)->get();
-        }
 
-        elseif(Auth::user()->role_as === 2) {
-            $properties = Property::with(["agent", "propertyImages", "category"])->get();
-        }
-        
-        else {
+        // Menentukan query awal berdasarkan peran pengguna
+        if(Auth::user()->role_as === 1 && Auth::user()->agent) {
+            $query = Property::with(["agent", "propertyImages", "category"])
+                            ->where("agent_id", Auth::user()->agent->id);
+        } elseif(Auth::user()->role_as === 2) {
+            $query = Property::with(["agent", "propertyImages", "category"]);
+        } else {
             return to_route("dashboard.admin");
         }
+
+        // Jika ada query pencarian, tambahkan ke query awal
+        if($request->has("q")) {
+            $searchTerm = $request->q;
+
+            // Mencari properti berdasarkan nama atau nama agen
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('name', 'like', '%' . $searchTerm . '%')
+                ->orWhereHas('agent', function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', '%' . $searchTerm . '%');
+                });
+            });
+            
+            //dd($query); // Untuk debugging, hapus baris ini saat sudah selesai
+        }
+    
+            // Melakukan paginasi hasil query dan mengirimnya ke view
+             $properties = $query->paginate(6)->withQueryString();
+    
         return view("admin.property.index", compact("properties"));
     }
 
@@ -74,6 +92,8 @@ class PropertyController extends Controller
         $property->longitude = $request->longitude;
         $property->year_built = $request->year_built;
         $property->price = $request->price;
+        $property->map_iframe = $request->map_iframe;
+        $property->street_iframe = $request->street_iframe;
         $property->save();
 
         if($request->hasFile("images")) {
@@ -102,7 +122,7 @@ class PropertyController extends Controller
             }
         }
 
-        return redirect()->back()->with("message", "Property berhasil ditambahkan");
+        return to_route("property.index")->with("message", "Properti $property->name berhasil ditambahkan");
         
     }
 
@@ -206,21 +226,36 @@ class PropertyController extends Controller
                 }
         }
         //Hapus feature yang tidak ada di request
-        $previous_property_features = PropertyFeature::all();
+
+        $propertyId = $property->id;
+
         if($request->features) {
-            PropertyFeature::whereNotIn("feature_id", $request->features)->where("property_id")->delete();
-            $new_property_features = $previous_property_features->whereNotIn("feature_id",$request->features)->map(function($item) use ($property) {
+            // Menghapus feature yang tidak ada dalam request
+            PropertyFeature::where('property_id', $propertyId)
+                           ->whereNotIn('feature_id', $request->features)
+                           ->delete();
+        
+            // Mendapatkan daftar feature yang belum ada dalam database
+            $newFeatures = collect($request->features)->diff(
+                PropertyFeature::where('property_id', $propertyId)->pluck('feature_id')
+            );
+        
+            // Menyiapkan data untuk ditambahkan ke database
+            $newPropertyFeatures = $newFeatures->map(function ($featureId) use ($propertyId) {
                 return [
-                    "property_id" => $property->id,
-                    "feature_id" => $item
+                    'property_id' => $propertyId,
+                    'feature_id' => $featureId,
                 ];
             })->toArray();
-            PropertyFeature::insert($new_property_features);
-
+        
+            // Menambahkan feature baru ke database
+            PropertyFeature::insert($newPropertyFeatures);
         } else {
-            PropertyFeature::where("property_id", $property->id)->delete();
+             // Jika tidak ada feature dalam request, menghapus semua feature dari properti ini
+             PropertyFeature::where("property_id", $propertyId)->delete();
         }
 
+        return to_route("property.index")->with("message", "Properti $property->name berhasil diedit");
 
     }
 

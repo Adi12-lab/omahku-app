@@ -10,12 +10,22 @@ use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\Attributes\Url;
 class Index extends Component
 {
     use WithPagination;
 
     #[Locked]
     public $id;
+
+    #[Url(as: 'q')] 
+    public $search = null;
+
+
+    public function query() {
+        $this->resetPage();
+    }
+
 
     public function promoteToAgent(int $id) {
         $this->id = $id;
@@ -154,7 +164,15 @@ class Index extends Component
 
     public function render()
     {
-        $users = User::whereNot("role_as", 2)->paginate(5);
+        $users = User::whereNot("role_as", 2);
+
+        if($this->search) {
+            $users->where(function($q) {
+                $q->where("username", "like", "%".$this->search."%")
+                  ->orWhere("email", "like", "%".$this->search."%");  
+            }); 
+        }
+        $users = $users->paginate(5);
         return view('livewire.admin.user.index')->with(["users" => $users])->extends("layouts.admin")->section("content");
     }
 }

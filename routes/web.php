@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Frontend\PropertyController;
 use App\Models\Property;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
@@ -16,10 +17,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.index');
-})->name("home");
-
+Route::get('/', [\App\Http\Controllers\Frontend\IndexController::class, "index"])->name("home");
+Route::controller(PropertyController::class)->group(function() {
+    Route::get("/properti", "index")->name("frontend.property.index");
+    Route::post("properti", "index");
+});
+Route::get("properti/{property:slug}", \App\Livewire\Frontend\Property\Detail::class)->name("frontend.property.view");
+// Route::get("/properti", \App\Livewire\Frontend\Property\Index::class)->name("frontend.property.index");
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -48,10 +52,7 @@ Route::prefix("manage")->middleware(["auth", "isAdminOrAgent"])->group(function(
     });
 
     Route::resource("property", \App\Http\Controllers\Admin\PropertyController::class);
-    Route::get("floors/{property}", function(Property $property) {
-        $property_floors = $property->propertyFloors;
-        return view("admin.property.property_floor", compact("property_floors", "property"));
-    })->name("property.image");
+    Route::get("floors/{property:slug}", \App\Livewire\Admin\PropertyFLoor\Index::class)->name("property.floor");
 });
 
 

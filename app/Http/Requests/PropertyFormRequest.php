@@ -41,6 +41,8 @@ class PropertyFormRequest extends FormRequest
             "address" => ["required", "string", "min:5"],
             "latitude" => ["numeric", "nullable"],
             "longitude" => ["numeric", "nullable"],
+            "map_iframe" => ["string", "min:10", "nullable"],
+            "street_iframe" => ["string", "min:10", "nullable"]
         ];
         if(!$this->isMethod("PATCH")) {
             $rules["slug"][] = "unique:properties,slug";
