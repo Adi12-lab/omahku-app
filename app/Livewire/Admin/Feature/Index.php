@@ -27,7 +27,6 @@ class Index extends Component
 
             $feature = new Feature;
             $feature->name = $this->name;
-            $feature->status = $this->status ? 1 : 0;
             $feature->save();
             
             session()->flash("message", "Fasilitas berhasil ditambahkan");
@@ -40,14 +39,12 @@ class Index extends Component
         $this->feature_id = $feature_id;
         $feature = Feature::findOrFail($feature_id);
         $this->name = $feature->name;
-        $this->status = $feature->status === 1 ? true : false;
     }
 
     public function update() {
         $this->validate();
         Feature::findOrFail($this->feature_id)->update([
             "name" => $this->name,
-            "status" => $this->status ? 1 : 0
         ]);
         session()->flash("message", "Fasilitas $this->name berhasil diedit");
         $this->reset("name", "status");

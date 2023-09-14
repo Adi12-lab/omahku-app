@@ -20,7 +20,8 @@ class ProfileController extends Controller
      */
 
     public function viewInFrontend() {
-           
+        $user = Auth::user();
+        return view("frontend.profile", compact("user"));
     }
 
     public function viewInAdmin() {
@@ -124,4 +125,5 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
 }

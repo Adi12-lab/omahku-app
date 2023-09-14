@@ -36,7 +36,7 @@ class PropertyController extends Controller
         $minPrice = Property::min('price');
         $maxPrice = Property::max("price");
         // Apply filters to the query
-        $properties = Property::with(["agent", "category", "propertyImages", "location"]);
+        $properties = Property::with(["agent", "category", "propertyImages", "location", 'propertyFloors']);
         $filters = ['category_id', 'for', 'subdistrict_id', 'bedrooms', 'bathrooms', 'size','price', 'features'];
 
         foreach ($filters as $filter) {

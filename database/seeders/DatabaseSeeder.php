@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Category::factory()->count(10)->create();
-        Feature::factory()->count(40)->create();
+        Feature::factory()->count(20)->create();
         
         $this->call([
             UserSeeder::class,

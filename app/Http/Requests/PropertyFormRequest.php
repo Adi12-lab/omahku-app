@@ -27,6 +27,7 @@ class PropertyFormRequest extends FormRequest
             "category_id" => ["integer", "required"],
             "slug" => ["string", "required", "max:50"],
             "size" => ["required", "numeric"],
+            "small_description" => ["string", "nullable", "max:75"],
             "description" => ["string", "required", "min:10"],
             "year_built" => ["date"],
             "subdistrict_id" => ["integer", "required"],

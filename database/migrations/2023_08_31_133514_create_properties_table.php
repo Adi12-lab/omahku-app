@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer("isFeatured")->default(0)->comment("0=no, 1=yes");
             $table->integer("size");
             $table->bigInteger("price");
-            $table->mediumText("small_description");
+            $table->mediumText("small_description")->nullable();
             $table->longText("description");
             $table->integer("bedrooms");
             $table->integer("bathrooms");

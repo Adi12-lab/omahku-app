@@ -36,7 +36,7 @@
                                         <tr class="align-middle text-center">
                                             <td>{{ $property->category->name }}</td>
                                             <td>
-                                                <img src="{{ asset($property->propertyImages[0]->image) }}"
+                                                <img src="{{ asset($property->propertyImages[0]->image  ?? "assets/images/360x300.jpg") }}"
                                                     class="rounded" width="220">
                                             </td>
                                             <td>{{ $property->name }}</td>

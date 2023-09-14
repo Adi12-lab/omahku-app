@@ -32,7 +32,7 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
         if($user->role_as === 1 || $user->role_as === 2) {
-            return to_route("dashboard.admin");
+            return to_route("frontend.profile");
         }
 
         return redirect()->intended(RouteServiceProvider::HOME);

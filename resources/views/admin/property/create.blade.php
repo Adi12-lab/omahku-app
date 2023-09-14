@@ -14,6 +14,7 @@
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                     <h4 class="mb-sm-0">Tambah Properti</h4>
                 </div>
+                
             </div>
         </div>
         <!-- end page title -->
@@ -22,6 +23,15 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                     <form action="{{ route('property.store') }}" method="POST" enctype="multipart/form-data"
                         class="card-body">
                         @csrf
@@ -63,7 +73,7 @@
                                             <option selected="">Pilih Kategori</option>
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}"
-                                                    {{ old('category_id') === $category->id ? 'selected' : '' }}>
+                                                    {{ old('category_id') == $category->id ? 'selected' : '' }}>
                                                     {{ $category->name }}
                                                 </option>
                                             @endforeach
@@ -99,9 +109,9 @@
                                 </div>
                                 <!-- end row -->
                                 <div class="row mb-3">
-                                    <label for="small_description" class="col-sm-2 col-form-label">Deskripsi Kecil</label>
+                                    <label for="small_description" class="col-sm-2 col-form-label">Deskripsi Singkat</label>
                                     <div class="col-sm-10">
-                                        <textarea name="small_description" id="small_description" rows="5">
+                                        <textarea name="small_description" id="small_description" rows="3" class="form-control" rows="5">
                                             {{ old('small_description') }}
                                         </textarea>
                                         @error('small_description')
@@ -306,7 +316,7 @@
                                     <select class="select2 form-control w-100" name="subdistrict_id">
                                         <option>Pilih Kecamatan</option>
                                         @foreach ($subdistricts as $subdistrict)
-                                            <option value="{{ $subdistrict->subdistrict_id }}">
+                                            <option value="{{ $subdistrict->subdistrict_id }}" {{old("subdistrict_id") == $subdistrict->subdistrict_id ? "selected" : ""}}>
                                                 {{ $subdistrict->subdistrict_name }}</option>
                                         @endforeach
                                     </select>
@@ -366,7 +376,7 @@
                                     <textarea name="map_iframe" class="form-control" rows="6">
                                             {{ old('map_iframe') }}
                                     </textarea>
-                                        @error('description')
+                                        @error('map_iframe')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
@@ -377,7 +387,7 @@
                                     <textarea name="street_iframe" class="form-control" rows="6">
                                             {{ old('street_iframe') }}
                                     </textarea>
-                                        @error('description')
+                                        @error('strree_iframe')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>

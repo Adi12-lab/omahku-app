@@ -49,7 +49,16 @@
                                 <li><a href="{{ route('login') }}" title="">Login</a></li>
                                 <li><a href="{{ route('register') }}" title="">Register</a></li>
                             @else
-                                <li> <a href="{{ route('profile') }}">Akun saya</a></li>
+                                <li> <a href="{{ route('frontend.profile') }}">Akun saya</a></li>
+                                <li>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit"
+                                            style="background: transparent; font-size:14px; font-weight:bold; color: #f7f30c; border:none; ">
+                                            Logout
+                                        </button>
+                                    </form>
+                                </li>
                             @endif
                         </ul>
                         <ul class="topbar-sosmed">
@@ -85,25 +94,49 @@
                 <div class="collapse navbar-collapse" id="main_nav99">
                     <ul class="navbar-nav mx-auto ">
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{route("home")}}"> Home </a>
-                         
+                            <a class="nav-link active" href="{{ route('home') }}"> Home </a>
+
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route("frontend.property.index")}}"> Properti </a>
-                  
+                            <a class="nav-link" href="{{ route('frontend.property.index') }}"> Properti </a>
+
                         </li>
 
                         <li class="nav-item"><a class="nav-link" href="/contact.html"> contact </a></li>
+                        @if (auth()->check())
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Akun
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-left animate fade-up">
+                                    <li><a class="dropdown-item" href="{{ route('frontend.profile') }}">Akun Saya </a>
+                                    </li>
+                                    <li>
+                                        <form action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="dropdown-item text-danger"> Logout </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
                     </ul>
+                    
 
 
                     <!-- Search bar.// -->
-                    <ul class="navbar-nav ">
-                        <li>
-                            <a href="#" class="btn btn-primary text-capitalize">
-                                <i class="fa fa-plus-circle mr-1"></i> add listing</a>
-                        </li>
-                    </ul>
+                    @if (auth()->check())
+                        <ul class="navbar-nav">
+                            <li>
+                                <a href="{{ route('frontend.profile') }}">
+                                    {{-- @dd(auth()->user()) --}}
+                                    <img src="{{ asset(auth()->user()->image ?? 'assets/images/80x80.jpg') }}"
+                                        alt="user_image"
+                                        style="width:70px; height:70px; object-fit: cover; border-radius: 50%;">
+                                </a>
+                            </li>
+                        </ul>
+                    @endif
+
                     <!-- Search content bar.// -->
                     <div class="top-search navigation-shadow">
                         <div class="container">
@@ -155,8 +188,7 @@
                                                 <div class="row input-group no-gutters">
                                                     <div class="col-sm-12 col-md-5">
                                                         <input type="text" class="form-control"
-                                                            aria-label="Text input"
-                                                            placeholder="Cari properti">
+                                                            aria-label="Text input" placeholder="Cari properti">
                                                     </div>
 
 
@@ -165,8 +197,9 @@
                                                         <select class="select_option form-control" name="category"
                                                             id="categories">
                                                             <option selected>Semua kategori</option>
-                                                            @foreach($categories as $category)
-                                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                                            @foreach ($categories as $category)
+                                                                <option value="{{ $category->id }}">
+                                                                    {{ $category->name }}</option>
                                                             @endforeach
 
                                                         </select>
@@ -218,17 +251,22 @@
                                 <div class="card__image card__box">
                                     <div class="card__image-header h-250">
                                         <div class="ribbon text-capitalize">featured</div>
-                                        <img src="{{ asset($property->propertyImages[0]->image) }}" alt=""
-                                            class="img-fluid w100 img-transition">
+                                        <a href="{{route("frontend.property.view", $property->slug)}}">
+                                            <img src="{{ asset($property->propertyImages[0]->image) }}" alt=""
+                                                class="img-fluid w100 img-transition">
+                                        </a>
                                         <div class="info"> {{ $property->for === 0 ? 'dijual' : 'disewakan' }}</div>
 
                                     </div>
                                     <div class="card__image-body">
                                         <span
-                                            class="badge badge-primary text-capitalize mb-2">{{ $property->category->name }}</span>
-                                        <h6 class="text-capitalize">
-                                            {{ $property->name }}
-                                        </h6>
+                                            class="badge badge-primary text-capitalize mb-2">{{ $property->category->name }}
+                                        </span>
+                                        <a href="{{route("frontend.property.view", $property->slug)}}">
+                                            <h6 class="text-capitalize">
+                                                {{ $property->name }}
+                                            </h6>
+                                        </a>
 
                                         <p class="text-capitalize">
                                             <i class="fa fa-map-marker"></i>
@@ -264,7 +302,7 @@
                                     </div>
                                     <div class="card__image-footer">
                                         <figure>
-                                            <img src="images/80x80.jpg" alt=""
+                                            <img src="{{asset($property->agent->image ?? "assets/images/80x80.jpg")}}" alt=""
                                                 class="img-fluid rounded-circle">
                                         </figure>
                                         <ul class="list-inline my-auto">
@@ -314,13 +352,16 @@
                         <!-- ONE -->
                         <div class="card__image card__box">
                             <div class="card__image-header h-250">
+                                
                                 @if ($property->isFeatured === 1 && $property->status === 1)
                                     <div class="ribbon text-capitalize">featured</div>
                                 @elseif($property->status === 0)
                                     <div class="ribbon-danger text-capitalize">soldout</div>
                                 @endif
-                                <img src="{{ asset($property->propertyImages[0]->image) }}" alt=""
-                                    class="img-fluid w100 img-transition">
+                                <a href="{{route("frontend.property.view", $property->slug)}}">
+                                    <img src="{{ asset($property->propertyImages[0]->image) }}" alt=""
+                                        class="img-fluid w100 img-transition">
+                                </a>
 
                                 <div class="info">{{ $property->for === 0 ? 'dijual' : 'disewakan' }}</div>
 
@@ -328,9 +369,12 @@
                             <div class="card__image-body">
                                 <span
                                     class="badge badge-primary text-capitalize mb-2">{{ $property->category->name }}</span>
-                                <h6 class="text-capitalize">
-                                    {{ $property->name }}
-                                </h6>
+                                    <a href="{{route("frontend.property.view", $property->slug)}}">
+
+                                        <h6 class="text-capitalize">
+                                            {{ $property->name }}
+                                        </h6>
+                                    </a>
 
                                 <p class="text-capitalize">
                                     <i class="fa fa-map-marker"></i>

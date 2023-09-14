@@ -64,7 +64,8 @@
                                                                                     class="ribbon-danger text-capitalize">
                                                                                     soldout</div>
                                                                             @endif
-                                                                            <img src="{{ asset($property->propertyImages[0]->image) }}"
+
+                                                                            <img src="{{ asset($property->propertyImages[0]->image ?? "assets/images/360x300.jpg") }}"
                                                                                 alt=""
                                                                                 class="img-fluid w100 img-transition">
                                                                             <div class="info">

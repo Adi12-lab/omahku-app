@@ -17,16 +17,6 @@
                                     wire:model.defer="name">
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">
-                                Aktif
-                            </label>
-                            {{-- Id membuaat input fade --}}
-                            <div class="col-sm-10">
-                                <input class="form-check-input mt-2" type="checkbox" 
-                                    wire:model.defer="status">
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -64,16 +54,6 @@
                                         wire:model.defer="name">
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">
-                                    Aktif
-                                </label>
-                                {{-- Id membuaat input fade --}}
-                                <div class="col-sm-10">
-                                    <input class="form-check-input mt-2" type="checkbox"
-                                        wire:model.defer="status">
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -104,7 +84,7 @@
                     showCancelButton: !0,
                     confirmButtonColor: "#1cbb8c",
                     cancelButtonColor: "#e66060",
-                    confirmButtonText: "Yes, delete it!",
+                    confirmButtonText: "Ya, Hapus!",
                 }).then(function (result) {
                     if(result.isConfirmed) {
                         Livewire.dispatch("destroyFeature")

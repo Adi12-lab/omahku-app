@@ -7,7 +7,7 @@
                     <div class="col-sm-12 col-md-5">
                         <div class="topbar-left">
                             <div class="topbar-text">
-                                Monday, March 22, 2020
+                                {{dateNow()}}
                             </div>
                         </div>
                     </div>
@@ -20,7 +20,16 @@
                                     <li><a href="{{ route('login') }}" title="">Login</a></li>
                                     <li><a href="{{ route('register') }}" title="">Register</a></li>
                                 @else
-                                    {{-- <li> <a href="{{ route('profile') }}">Akun saya</a></li> --}}
+                                    <li> <a href="{{ route('frontend.profile') }}">Akun saya</a></li>
+                                    <li>
+                                        <form action="{{route("logout")}}" method="POST">
+                                            @csrf
+                                            <button type="submit" 
+                                            style="background: transparent; font-size:14px; font-weight:bold; color: #f7f30c; border:none; ">
+                                                Logout
+                                            </button>
+                                        </form>
+                                    </li>
                                 @endif
                             </ul>
                             <ul class="topbar-sosmed">
@@ -58,22 +67,40 @@
                             <a class="nav-link {{Route::is("frontend.property.index") ? "active" : ""}}" href="{{route("frontend.property.index")}}"> Properti </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"> Blog
-                            </a>
-                        </li>
-
                         <li class="nav-item"><a class="nav-link" href="/contact.html"> contact </a></li>
+
+                        @if(auth()->check())
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Akun
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-left animate fade-up">
+                                <li><a class="dropdown-item" href="{{route("frontend.profile")}}">Akun Saya </a>
+                                </li>
+                                <li>
+                                    <form action="{{route("logout")}}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item text-danger"> Logout </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                        @endif
+               
                     </ul>
 
 
                     <!-- Search bar.// -->
+                    @if(auth()->check())
                     <ul class="navbar-nav">
                         <li>
-                            <a href="#" class="btn btn-primary text-capitalize">
-                                <i class="fa fa-plus-circle mr-1"></i> add listing</a>
+                            <a href="{{route("frontend.profile")}}">
+                                {{-- @dd(auth()->user()) --}}
+                                <img src="{{asset(auth()->user()->image ?? "assets/images/80x80.jpg")}}" alt="user_image" 
+                                style="width:70px; height:70px; object-fit: cover; border-radius: 50%;">
+                            </a>
                         </li>
                     </ul>
+                    @endif
                     <!-- Search content bar.// -->
                     <div class="top-search navigation-shadow">
                         <div class="container">

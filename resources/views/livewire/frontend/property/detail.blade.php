@@ -148,14 +148,14 @@
                                 <h6 class="text-capitalize detail-heading">deskripsi</h6>
                                 <div class="show__more">
                                     {!! $property->description !!}
-                                    <a href="javascript:void(0)" class="show__more-button ">read more</a>
+                                    <a href="javascript:void(0)" class="show__more-button ">lebih lengkap</a>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
 
                             <!-- PROPERTY DETAILS SPEC -->
                             <div class="single__detail-features">
-                                <h6 class="text-capitalize detail-heading">property details</h6>
+                                <h6 class="text-capitalize detail-heading">Detail Properti</h6>
                                 <!-- INFO PROPERTY DETAIL -->
                                 <div class="property__detail-info">
                                     <div class="row">
@@ -169,11 +169,10 @@
                                         </div>
                                         <div class="col-md-6 col-lg-6">
                                             <ul class="property__detail-info-list list-unstyled">
-                                                <li><b>Garage:</b> 1</li>
-                                                <li><b>Garage Size:</b> 458 SqFt</li>
                                                 <li><b>Tanggal dibangun:</b> {{$property->year_built}}</li>
-                                                <li><b>Property Type:</b> Full Family Home</li>
-                                                <li><b>Property Status:</b> For rent</li>
+                                                <li><b>Kategori Properti:</b> {{$property->category->name}}</li>
+                                                <li><b>Status Properti:</b>{{$property->for === "1" ? "Disewakan" : "Dijual"}}</li>
+                                                <li><b>Tersedia:</b>{{$property->status === "1" ? "Ya" : "Tidak"}}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -198,93 +197,45 @@
 
                             <!-- FLOR PLAN -->
                             <div class="single__detail-features">
-                                <h6 class="text-capitalize detail-heading">floor plan</h6>
+                                <h6 class="text-capitalize detail-heading">Daftar Lantai</h6>
                                 <!-- FLOR PLAN IMAGE -->
                                 <div id="accordion" class="floorplan" role="tablist">
+                                    @isset($property->propertyFloors)
+                                    @foreach($property->propertyFloors as $floor)
                                     <div class="card">
                                         <div class="card-header" role="tab" id="headingOne">
                                             <a class="text-capitalize" data-toggle="collapse" href="#collapseOne"
                                                 aria-expanded="true" aria-controls="collapseOne">
-                                                first floor <span class="badge badge-light rounded p-1 ml-2">460 sq
-                                                    ft</span>
+                                                {{$floor->name}}
+                                                <span class="badge badge-light rounded p-1 ml-2">
+                                                    {!!meter($floor->size)!!}
+                                                </span>
                                             </a>
                                         </div>
                                         <div id="collapseOne" class="collapse show" role="tabpanel"
                                             aria-labelledby="headingOne" data-parent="#accordion">
                                             <div class="card-body">
                                                 <figure>
-                                                    <img src="images/floorplan.jpg" alt="" class="img-fluid">
+                                                    <img src="{{asset($floor->image)}}" alt="" class="img-fluid">
                                                 </figure>
-
-                                                Excepteur sint ocaec at cupdatat proident suntin culpa qui officia
-                                                deserunt mol anim id esa laborum
-                                                perspiciat.
-                                                Duis aute irure dolor reprehenderit in voluptate velit essle cillum
-                                                dolore eu fugiat nulla pariatur.
+                                                {{$floor->description}}
 
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card">
-                                        <div class="card-header" role="tab" id="headingTwo">
-
-                                            <a class="collapsed text-capitalize" data-toggle="collapse"
-                                                href="#collapseTwo" aria-expanded="false"
-                                                aria-controls="collapseTwo">
-                                                second floor <span class="badge badge-light rounded p-1 ml-2">460 sq
-                                                    ft</span>
-                                            </a>
-                                        </div>
-                                        <div id="collapseTwo" class="collapse" role="tabpanel"
-                                            aria-labelledby="headingTwo" data-parent="#accordion">
-                                            <div class="card-body">
-                                                <figure>
-                                                    <img src="images/floorplan2.jpg" alt=""
-                                                        class="img-fluid">
-                                                </figure>
-                                                They offers a host of logistic management services and supply chain . We
-                                                provide innovative solutions
-                                                with the best. tempor incididunt ut labore et dolor empor tempor
-                                                incididunt innovative solutions
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header" role="tab" id="headingThree">
-                                            <a class="collapsed text-capitalize" data-toggle="collapse"
-                                                href="#collapseThree" aria-expanded="false"
-                                                aria-controls="collapseThree">
-                                                garage <span class="badge badge-light rounded p-1 ml-2">460 sq
-                                                    ft</span>
-                                            </a>
-                                        </div>
-                                        <div id="collapseThree" class="collapse" role="tabpanel"
-                                            aria-labelledby="headingThree" data-parent="#accordion">
-                                            <div class="card-body">
-                                                <figure>
-                                                    <img src="images/floorplan3.jpg" alt=""
-                                                        class="img-fluid">
-                                                </figure>
-                                                They offers a host of logistic management services and supply chain . We
-                                                provide innovative solutions
-                                                with the best. tempor incididunt ut labore et dolor empor tempor
-                                                incididunt innovative solutions
-
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                    @endforeach
+                                    @endisset
                                 </div>
                             </div>
                             <!-- END FLOR PLAN -->
 
-
+                            @if($property->street_iframe || $property->map_iframe)
                             <!-- LOCATION -->
                             <div class="single__detail-features">
-                                <h6 class="text-capitalize detail-heading">location</h6>
+                                <h6 class="text-capitalize detail-heading">lokasi</h6>
                                 <!-- FILTER VERTICAL -->
                                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                    @if($property->map_iframe)
                                     <li class="nav-item">
                                         <a class="nav-link active" id="pills-map-location-tab" data-toggle="pill"
                                             href="#pills-map-location" role="tab"
@@ -292,33 +243,39 @@
                                             <i class="fa fa-map-marker"></i>
                                         </a>
                                     </li>
+                                    @endif
+
+                                    @if($property->street_iframe)
                                     <li class="nav-item">
                                         <a class="nav-link" id="pills-street-view-tab" data-toggle="pill"
                                             href="#pills-street-view" role="tab"
                                             aria-controls="pills-street-view" aria-selected="false">
                                             <i class="fa fa-street-view "></i></a>
                                     </li>
-
+                                    @endif
 
                                 </ul>
                                 <div class="tab-content" id="pills-tabContent">
+                                    @if($property->map_iframe)
                                     <div class="tab-pane fade show active" id="pills-map-location" role="tabpanel"
                                         aria-labelledby="pills-map-location-tab">
                                         <div id="map-canvas">
                                             <iframe class="h600 w100"
-                                                src="https://maps.google.com/maps?q='+{{ $property->latitude }}+','+{{ $property->longitude }}+'&hl=es&z=14&amp;output=embed"
+                                                src="{{$property->map_iframe}}"
                                                 style="border:0;" allowfullscreen="" aria-hidden="false"
                                                 tabindex="0"></iframe>
                                         </div>
 
                                     </div>
+                                    @endif
+                                    @if($property->street_iframe)
                                     <div class="tab-pane fade" id="pills-street-view" role="tabpanel"
                                         aria-labelledby="pills-street-view-tab">
                                         <iframe class="h600 w100"
-                                            src="https://www.google.com/maps/embed?pb=!4v1553797194458!6m8!1m7!1sR4K_5Z2wRHTk9el8KLTh9Q!2m2!1d36.82551718071267!2d-76.34864590837246!3f305.15097!4f0!5f0.7820865974627469"
+                                            src="{{$property->street_iframe}}"
                                             style="border:0;" allowfullscreen></iframe>
                                     </div>
-
+                                    @endif
 
                                 </div>
                                 <!-- END FILTER VERTICAL -->
@@ -335,7 +292,7 @@
                             </div>
                             <!-- END PROPERTY VIEWS -->
 
-
+                            @endif
                         </div>
                     </div>
                     <!-- END DESCRIPTION -->

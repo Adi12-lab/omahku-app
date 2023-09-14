@@ -28,17 +28,6 @@
                                     <tr>
                                         <td>{{ $feature->name }}</td>
                                         <td>
-                                            @if ($feature->status === 1)
-                                                <span class="badge bg-success">
-                                                    Aktif
-                                                </span>
-                                            @else
-                                                <span class="badge bg-info">
-                                                    Diarsipkan
-                                                </span>
-                                            @endif
-                                        </td>
-                                        <td>
                                             <button type="button" class="btn btn-warning text-white" wire:click="edit({{$feature->id}})" data-bs-target="#updateFeatureModal" data-bs-toggle="modal">
                                                 <i class="ri-pencil-line"></i> 
                                             </button>

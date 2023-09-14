@@ -16,15 +16,15 @@
                                         <div class="btn-group">
                                             <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"
                                                 aria-haspopup="true" aria-expanded="false">
-                                                Based Properties
+                                                Nama Properti
                                             </a>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="javascript:void(0)">Low to High Price</a>
-                                                <a class="dropdown-item" href="javascript:void(0)">High to Low Price
-                                                </a>
-                                                <a class="dropdown-item" href="javascript:void(0)">Sell Properties</a>
-
-                                                <a class="dropdown-item" href="javascript:void(0)">Rent Properties</a>
+                                                <a class="dropdown-item property-control" data-sort="name:asc">Nama
+                                                    Properti</a>
+                                                <a class="dropdown-item property-control" data-sort="price:asc">Harga
+                                                    Termurah</a>
+                                                <a class="dropdown-item property-control" data-sort="price:desc">Harga
+                                                    Tertinggi</a>
                                             </div>
                                         </div>
                                     </li>
@@ -44,9 +44,10 @@
                                 <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade show active" id="pills-tab-one" role="tabpanel"
                                         aria-labelledby="pills-tab-one">
-                                        @foreach ($properties as $property)
-                                            <div class="row">
-                                                <div class="col-lg-12">
+                                        <div class="row container-mix-1">
+                                            @foreach ($properties as $property)
+                                                <div class="col-lg-12 property-item" data-price="{{ $property->price }}"
+                                                    data-name="{{ $property->name }}">
                                                     <div class="card__image card__box-v1">
                                                         <div class="row no-gutters">
                                                             <div class="col-md-4 col-lg-3 col-xl-4">
@@ -79,9 +80,7 @@
                                                                     </h6>
                                                                     <div class="card__image__body-desc">
                                                                         <p class="text-capitalize">
-                                                                            Lorem ipsum dolor sit amet consectetur
-                                                                            adipisicing
-                                                                            elit. Libero, alias!
+                                                                            {{ $property->small_description }}
                                                                         </p>
                                                                         <p class="text-capitalize">
                                                                             <i class="fa fa-map-marker"></i>
@@ -151,106 +150,101 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                            </div>
-                                        @endforeach
-
+                                            @endforeach
+                                        </div>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="tab-pane fade" id="pills-tab-two" role="tabpanel"
                                         aria-labelledby="pills-tab-two">
-                                        @php
-                                            $chunkProperties = array_chunk($properties->all(), 2);
-                                        @endphp
-                                        @foreach ($chunkProperties as $chunkItem)
-                                            <div class="row">
-                                                @foreach ($chunkItem as $property)
-                                                    <div class="col-md-6 col-lg-6">
-                                                        <div class="card__image card__box-v1">
-                                                            <div class="card__image-header h-250">
-                                                                @if ($property->isFeatured === 1 && $property->status === 1)
-                                                                    <div class="ribbon text-capitalize">featured
-                                                                    </div>
-                                                                @elseif($property->status === 0)
-                                                                    <div class="ribbon-danger text-capitalize">
-                                                                        soldout</div>
-                                                                @endif
-                                                                <img src="{{ asset($property->propertyImages[0]->image ?? 'assets/images/600x400.jpg') }}"
-                                                                    alt="" class="img-fluid w100 img-transition">
-                                                                <div class="info">
-                                                                    {{ $property->for === 1 ? 'disewakan' : 'dijual' }}
+
+                                        <div class="row container-mix-2">
+                                            @foreach ($properties as $property)
+                                                <div class="col-md-6 col-lg-6 property-item"
+                                                    data-price="{{ $property->price }}" data-name="{{ $property->name }}">
+                                                    <div class="card__image card__box-v1">
+                                                        <div class="card__image-header h-250">
+                                                            @if ($property->isFeatured === 1 && $property->status === 1)
+                                                                <div class="ribbon text-capitalize">featured
                                                                 </div>
-                                                            </div>
-                                                            <div class="card__image-body">
-                                                                <span
-                                                                    class="badge badge-primary text-capitalize mb-2">{{ $property->category->name }}</span>
-                                                                <h6 class="text-capitalize">
-                                                                    {{ $property->name }}
-                                                                </h6>
-
-                                                                <p class="text-capitalize">
-                                                                    <i class="fa fa-map-marker"></i>
-                                                                    {{ $property->location->subdistrict_name }}
-                                                                </p>
-                                                                <ul class="list-inline card__content">
-                                                                    <li class="list-inline-item">
-
-                                                                        <span>
-                                                                            baths <br>
-                                                                            <i class="fa fa-bath"></i>
-                                                                            {{ $property->bathrooms }}
-                                                                        </span>
-                                                                    </li>
-                                                                    <li class="list-inline-item">
-                                                                        <span>
-                                                                            beds <br>
-                                                                            <i class="fa fa-bed"></i>
-                                                                            {{ $property->bedrooms }}
-                                                                        </span>
-                                                                    </li>
-                                                                    <li class="list-inline-item">
-                                                                        <span>
-                                                                            rooms <br>
-                                                                            <i class="fa fa-inbox"></i>
-                                                                            {{ $property->rooms }}
-                                                                        </span>
-                                                                    </li>
-                                                                    <li class="list-inline-item">
-                                                                        <span>
-                                                                            area <br>
-                                                                            <i class="fa fa-map"></i>
-                                                                            {{ $property->size }}
-                                                                        </span>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="card__image-footer">
-                                                                <figure>
-                                                                    <img src="{{ asset($property->agent->image ?? 'assets/images/80x80.jpg') }}"
-                                                                        alt="" class="img-fluid rounded-circle">
-                                                                </figure>
-                                                                <ul class="list-inline my-auto">
-                                                                    <li class="list-inline-item ">
-                                                                        <a href="#">
-                                                                            {{ $property->agent->name }}
-                                                                        </a>
-
-                                                                    </li>
-
-                                                                </ul>
-                                                                <ul class="list-inline my-auto ml-auto">
-                                                                    <li class="list-inline-item">
-
-                                                                        <h6>{{ rupiah($property->price) }}</h6>
-                                                                    </li>
-
-                                                                </ul>
+                                                            @elseif($property->status === 0)
+                                                                <div class="ribbon-danger text-capitalize">
+                                                                    soldout</div>
+                                                            @endif
+                                                            <img src="{{ asset($property->propertyImages[0]->image ?? 'assets/images/600x400.jpg') }}"
+                                                                alt="" class="img-fluid w100 img-transition">
+                                                            <div class="info">
+                                                                {{ $property->for === 1 ? 'disewakan' : 'dijual' }}
                                                             </div>
                                                         </div>
+                                                        <div class="card__image-body">
+                                                            <span
+                                                                class="badge badge-primary text-capitalize mb-2">{{ $property->category->name }}</span>
+                                                            <h6 class="text-capitalize">
+                                                                {{ $property->name }}
+                                                            </h6>
+
+                                                            <p class="text-capitalize">
+                                                                <i class="fa fa-map-marker"></i>
+                                                                {{ $property->location->subdistrict_name }}
+                                                            </p>
+                                                            <ul class="list-inline card__content">
+                                                                <li class="list-inline-item">
+
+                                                                    <span>
+                                                                        baths <br>
+                                                                        <i class="fa fa-bath"></i>
+                                                                        {{ $property->bathrooms }}
+                                                                    </span>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <span>
+                                                                        beds <br>
+                                                                        <i class="fa fa-bed"></i>
+                                                                        {{ $property->bedrooms }}
+                                                                    </span>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <span>
+                                                                        rooms <br>
+                                                                        <i class="fa fa-inbox"></i>
+                                                                        {{ $property->rooms }}
+                                                                    </span>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <span>
+                                                                        area <br>
+                                                                        <i class="fa fa-map"></i>
+                                                                        {{ $property->size }}
+                                                                    </span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="card__image-footer">
+                                                            <figure>
+                                                                <img src="{{ asset($property->agent->image ?? 'assets/images/80x80.jpg') }}"
+                                                                    alt="" class="img-fluid rounded-circle">
+                                                            </figure>
+                                                            <ul class="list-inline my-auto">
+                                                                <li class="list-inline-item ">
+                                                                    <a href="#">
+                                                                        {{ $property->agent->name }}
+                                                                    </a>
+
+                                                                </li>
+
+                                                            </ul>
+                                                            <ul class="list-inline my-auto ml-auto">
+                                                                <li class="list-inline-item">
+
+                                                                    <h6>{{ rupiah($property->price) }}</h6>
+                                                                </li>
+
+                                                            </ul>
+                                                        </div>
                                                     </div>
-                                                @endforeach
-                                            </div>
-                                        @endforeach
+                                                </div>
+                                            @endforeach
+                                        </div>
 
                                         <div class="cleafix"></div>
                                     </div>
@@ -356,7 +350,8 @@
                                                 data-type="double" data-min="0" data-max="5e9"
                                                 data-prettify-separator="."
                                                 data-from="{{ session('rangeMinPrice') ?? $minPrice }}"
-                                                data-to="{{ session('rangeMaxPrice') ?? $maxPrice }}" data-prefix="Rp " />
+                                                data-to="{{ session('rangeMaxPrice') ?? $maxPrice }}"
+                                                data-prefix="Rp " />
                                         </div>
                                     </div>
 
@@ -375,10 +370,7 @@
                                                     <div class="checkbox checkbox-primary">
                                                         <input id="feature{{ $loop->iteration }}" type="checkbox"
                                                             name="feature[]" value="{{ $feature->id }}"
-                                                            @if(session("features") !== null)
-                                                            {{ is_int(array_search($feature->id, session('features'))) ? 'checked' : '' }}
-                                                            @endif
-                                                            >
+                                                            @if (session('features') !== null) {{ is_int(array_search($feature->id, session('features'))) ? 'checked' : '' }} @endif>
                                                         <label for="feature{{ $loop->iteration }}"
                                                             class="label-brand text-capitalize">
                                                             {{ $feature->name }}
@@ -435,4 +427,46 @@
         </div>
     </section>
     <!-- END LISTING LIST -->
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('assets/js/mixitup.min.js') }}"></script>
+    <script>
+        var containerEl1 = document.querySelector('.container-mix-1');
+        var mixer1 = mixitup(containerEl1, {
+            selectors: {
+                target: ".property-item"
+            },
+            load: {
+                sort: "name:asc"
+            },
+            controls: {
+                scope: 'local'
+            }
+        });
+
+        var containerEl2 = document.querySelector('.container-mix-2');
+        var mixer2 = mixitup(containerEl2, {
+            selectors: {
+                target: ".property-item"
+            },
+            load: {
+                sort: "name:asc"
+            },
+            controls: {
+                scope: 'local'
+            }
+        });
+
+        // Select all controls
+        var controls = $('.property-control');
+        controls.each(function() {
+            $(this).on('click', function() {
+                var sortOrder = $(this).attr('data-sort');
+                $(this).parents(".btn-group").children(".dropdown-toggle").text($(this).text());
+                mixer1.sort(sortOrder);
+                mixer2.sort(sortOrder);
+            });
+        });
+    </script>
 @endsection

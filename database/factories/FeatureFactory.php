@@ -18,7 +18,6 @@ class FeatureFactory extends Factory
     {
         return [
             "name" => fake()->word(),
-            "status" => mt_rand(0, 1)
         ];
     }
 }

@@ -49,7 +49,6 @@ class PropertyController extends Controller
             //dd($query); // Untuk debugging, hapus baris ini saat sudah selesai
         }
     
-            // Melakukan paginasi hasil query dan mengirimnya ke view
              $properties = $query->paginate(6)->withQueryString();
     
         return view("admin.property.index", compact("properties"));
@@ -82,6 +81,7 @@ class PropertyController extends Controller
         $property->status = $request->status === "on" ? 1 : 0;
         $property->isFeatured = $request->isFeatured === "on" ? 1 : 0;
         $property->size = $request->size;
+        $property->small_description = $request->small_description;
         $property->description = $request->description;
         $property->bedrooms = $request->bedrooms;
         $property->bathrooms = $request->bathrooms;
@@ -172,6 +172,7 @@ class PropertyController extends Controller
         $property->status = $request->status === "on" ? 1 : 0;
         $property->isFeatured = $request->isFeatured === "on" ? 1 : 0;
         $property->size = $request->size;
+        $property->small_description = $request->small_description;
         $property->description = $request->description;
         $property->bedrooms = $request->bedrooms;
         $property->bathrooms = $request->bathrooms;

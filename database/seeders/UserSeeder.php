@@ -32,6 +32,14 @@ class UserSeeder extends Seeder
         'email_verified_at' => now(),
         "password" => "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
     ]);
+    User::create([
+        "username" => "user",
+        "email" => "user@gmail.com",
+        "role_as" => 0,
+        "status" => 1,
+        'email_verified_at' => now(),
+        "password" => "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+    ]);
     $features= Feature::select("id")->get();
      User::factory(30)->agent($features)->create();   
     }

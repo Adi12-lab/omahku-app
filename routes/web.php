@@ -25,11 +25,10 @@ Route::controller(PropertyController::class)->group(function() {
 Route::get("properti/{property:slug}", \App\Livewire\Frontend\Property\Detail::class)->name("frontend.property.view");
 // Route::get("/properti", \App\Livewire\Frontend\Property\Index::class)->name("frontend.property.index");
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
+    Route::get("/profile", [ProfileController::class, "viewInFrontend"])->name("frontend.profile");
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });

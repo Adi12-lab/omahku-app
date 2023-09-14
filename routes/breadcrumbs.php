@@ -42,7 +42,7 @@ Breadcrumbs::for("cart", function(BreadcrumbTrail $trail ) {
     $trail->parent("/");
     $trail->push("Keranjang", route("cart"));
 });
-Breadcrumbs::for("profil", function(BreadcrumbTrail $trail ) {
+Breadcrumbs::for("profile", function(BreadcrumbTrail $trail ) {
     $trail->parent("/");
-    $trail->push("Profil Saya", route("profil"));
+    $trail->push("Profil Saya", route("frontend.profile"));
 });
