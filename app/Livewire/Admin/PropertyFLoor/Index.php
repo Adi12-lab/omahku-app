@@ -24,7 +24,10 @@ class Index extends Component
     public $property_floors;
 
     #[Rule("required|string")]
-    public $size, $description; 
+    public $name, $description; 
+
+    #[Rule("required|numeric")]
+    public $size;
 
     public $previous_image;
 
@@ -37,8 +40,10 @@ class Index extends Component
     }
 
     public function save() {
+        $this->validate();
         $floor = new PropertyFloor;
         $floor->property_id = $this->property->id;
+        $floor->name = $this->name;
         $floor->size = $this->size;
         $floor->description = $this->description;
         $uploadPath = 'uploads/floor/';
@@ -59,6 +64,7 @@ class Index extends Component
         if($floor->property->agent->user_id !== Auth::user()->id) {
             $this->dispatch("close-modal");
         } else {
+            $this->name = $floor->name;
             $this->size = $floor->size;
             $this->description = $floor->description;
             $this->previous_image = $floor->image;

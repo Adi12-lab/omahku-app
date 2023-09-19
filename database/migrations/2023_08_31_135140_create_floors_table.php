@@ -15,7 +15,7 @@ return new class extends Migration
             $table->engine = 'InnoDB';
             $table->id();
             $table->unsignedBigInteger("property_id");
-            $table->string("name");
+            $table->string("name", 20);
             $table->mediumText("description");
             $table->integer("size");
             $table->string("image");

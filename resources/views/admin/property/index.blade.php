@@ -6,8 +6,10 @@
                 <div class="alert alert-success">{{ session('message') }}</div>
             @endif
             <div class="col">
-                <form class="d-flex mb-3" action="{{route("property.index")}}" method="GET">
-                    <input type="text" class="form-control w-50" name="q" placeholder="Cari Properti atau Agen" value="{{request("q")}}">
+                <form class="d-flex mb-3" action="{{ route('property.index') }}" method="GET">
+                    <input type="text" class="form-control w-50" name="q"
+                        placeholder="Cari Properti {{ auth()->user()->role_as !== 1 ? ' atau agen' : '' }}"
+                        value="{{ request('q') }}">
                     <button type="submit" class="btn btn-secondary waves-effect waves-light ms-2">Search</button>
                 </form>
                 <div class="card">
@@ -36,7 +38,7 @@
                                         <tr class="align-middle text-center">
                                             <td>{{ $property->category->name }}</td>
                                             <td>
-                                                <img src="{{ asset($property->propertyImages[0]->image  ?? "assets/images/360x300.jpg") }}"
+                                                <img src="{{ asset($property->propertyImages[0]->image ?? 'assets/images/360x300.jpg') }}"
                                                     class="rounded" width="220">
                                             </td>
                                             <td>{{ $property->name }}</td>
@@ -62,16 +64,17 @@
                                                             <i class="mdi mdi-floor-plan"></i>
                                                         </a>
                                                     </div>
-                                              
+
                                                     <div class="col">
                                                         <a href="{{ route('property.edit', $property->slug) }}"
                                                             class="btn btn-warning text-white">
                                                             <i class="ri-pencil-line"></i>
                                                         </a>
-    
+
                                                     </div>
-                                                    <div class="col"> 
-                                                        <form action="{{ route('property.destroy', $property->slug) }}" method="POST">
+                                                    <div class="col">
+                                                        <form action="{{ route('property.destroy', $property->slug) }}"
+                                                            method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="btn btn-danger text-white"
@@ -79,7 +82,7 @@
                                                                 <i class="ri-delete-bin-line"></i>
                                                             </button>
                                                         </form>
-    
+
                                                     </div>
 
                                                 </div>
@@ -99,6 +102,6 @@
                 </div>
             </div>
         </div>
-        {{$properties->links()}}
+        {{ $properties->links() }}
     </div>
 @endsection

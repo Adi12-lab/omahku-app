@@ -11,7 +11,7 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('admin/images/favicon.ico') }}">
 
-    @yield("styles")
+    @yield('styles')
 
     <!-- Sweet Alert-->
     <link href="{{ asset('admin/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
@@ -36,6 +36,7 @@
     <link href="{{ asset('admin/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- App Css-->
     <link href="{{ asset('admin/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+    @vite(['resources/js/app.js'])
     @livewireStyles
 </head>
 
@@ -68,7 +69,7 @@
     </div>
     <!-- END layout-wrapper -->
 
-    
+
     <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>
 
@@ -101,13 +102,15 @@
     <script src="{{ asset('admin/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 
     <script src="{{ asset('admin/js/pages/dashboard.init.js') }}"></script>
-    
-    @yield("scripts")
+    <script>
+        window.userId = @json(auth()->id());
+    </script>
+    @yield('scripts')
 
     <!-- App js -->
     <script src="{{ asset('admin/js/app.js') }}"></script>
     @livewireScripts
-    @stack("script")
+    @stack('script')
 </body>
 
 </html>

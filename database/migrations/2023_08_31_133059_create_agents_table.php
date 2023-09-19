@@ -21,6 +21,9 @@ return new class extends Migration
             $table->string("twitter")->nullable();
             $table->string("instagram")->nullable();
             $table->string("whatsapp")->nullable();
+            $table->string("linkedin")->nullable();
+            $table->string("youtube")->nullable();
+            $table->string("emailAgent");
             $table->longText("description");
             $table->string("image")->nullable();
             $table->timestamps();

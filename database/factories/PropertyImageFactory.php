@@ -17,7 +17,7 @@ class PropertyImageFactory extends Factory
     public function definition(): array
     {
         return [
-            "image" => "https://source.unsplash.com/500x500?house"
+            "image" => "https://source.unsplash.com/1000x800?house"
         ];
     }
 }

@@ -7,7 +7,7 @@
                     <div class="col-sm-12 col-md-5">
                         <div class="topbar-left">
                             <div class="topbar-text">
-                                {{dateNow()}}
+                                {{ dateNow() }}
                             </div>
                         </div>
                     </div>
@@ -22,10 +22,10 @@
                                 @else
                                     <li> <a href="{{ route('frontend.profile') }}">Akun saya</a></li>
                                     <li>
-                                        <form action="{{route("logout")}}" method="POST">
+                                        <form action="{{ route('logout') }}" method="POST">
                                             @csrf
-                                            <button type="submit" 
-                                            style="background: transparent; font-size:14px; font-weight:bold; color: #f7f30c; border:none; ">
+                                            <button type="submit"
+                                                style="background: transparent; font-size:14px; font-weight:bold; color: #f7f30c; border:none; ">
                                                 Logout
                                             </button>
                                         </form>
@@ -61,71 +61,56 @@
                 <div class="collapse navbar-collapse" id="main_nav99">
                     <ul class="navbar-nav  mx-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route("home")}}"> Home </a>
+                            <a class="nav-link" href="{{ route('home') }}"> Home </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{Route::is("frontend.property.index") ? "active" : ""}}" href="{{route("frontend.property.index")}}"> Properti </a>
+                            <a class="nav-link {{ Route::is('frontend.property.index') ? 'active' : '' }}"
+                                href="{{ route('frontend.property.index') }}"> Properti </a>
                         </li>
 
                         <li class="nav-item"><a class="nav-link" href="/contact.html"> contact </a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{route("frontend.agent")}}"> agen </a></li>
 
-                        @if(auth()->check())
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Akun
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-left animate fade-up">
-                                <li><a class="dropdown-item" href="{{route("frontend.profile")}}">Akun Saya </a>
-                                </li>
-                                <li>
-                                    <form action="{{route("logout")}}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="dropdown-item text-danger"> Logout </button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
+                        @if (auth()->check())
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Akun
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-left animate fade-up">
+                                    <li><a class="dropdown-item" href="{{ route('frontend.profile') }}">Akun Saya </a>
+                                    </li>
+                                    <li>
+                                        <form action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="dropdown-item text-danger"> Logout </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
                         @endif
-               
+
                     </ul>
 
 
                     <!-- Search bar.// -->
-                    @if(auth()->check())
-                    <ul class="navbar-nav">
-                        <li>
-                            <a href="{{route("frontend.profile")}}">
-                                {{-- @dd(auth()->user()) --}}
-                                <img src="{{asset(auth()->user()->image ?? "assets/images/80x80.jpg")}}" alt="user_image" 
-                                style="width:70px; height:70px; object-fit: cover; border-radius: 50%;">
-                            </a>
-                        </li>
-                    </ul>
+                    @if (auth()->check())
+                        <ul class="navbar-nav mr-3">
+                            <li>
+                                <a href="{{ route('frontend.profile') }}">
+                                    {{-- @dd(auth()->user()) --}}
+                                    <img src="{{ asset(auth()->user()->image ?? 'assets/images/80x80.jpg') }}"
+                                        alt="user_image"
+                                        style="width:70px; height:70px; object-fit: cover; border-radius: 50%;">
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav">
+                            <li>
+                                <a href="{{route("wishlist")}}" class="btn btn-primary text-capitalize">
+                                    <i class="fa fa-heart mr-1"></i>Favorit</a>
+                            </li>
+                        </ul>
                     @endif
-                    <!-- Search content bar.// -->
-                    <div class="top-search navigation-shadow">
-                        <div class="container">
-                            <div class="input-group ">
-                                <form action="#">
 
-                                    <div class="row no-gutters mt-3">
-                                        <div class="col">
-                                            <input class="form-control border-secondary border-right-0 rounded-0"
-                                                type="search" value="" placeholder="Search "
-                                                id="example-search-input4">
-                                        </div>
-                                        <div class="col-auto">
-                                            <a class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right"
-                                                href="/search-result.html">
-                                                <i class="fa fa-search"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Search content bar.// -->
                 </div> <!-- navbar-collapse.// -->
             </div>
         </nav>

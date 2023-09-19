@@ -13,20 +13,54 @@
                         <div class="row mb-3">
                             <label for="name" class="col-sm-2 col-form-label">Nama</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" placeholder="Wisma" id="name"
+                                <input class="form-control" type="text" placeholder="Wisma Andari" id="name"
                                     wire:model.defer="name">
                             </div>
                         </div>
+                        <div class="row mb-3">
+                            <label for="name" class="col-sm-2 col-form-label">Slug</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" placeholder="wisma-andari" id="name"
+                                    wire:model.defer="slug">
+                            </div>
+                        </div>
+
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">
                                 Aktif
                             </label>
                             {{-- Id membuaat input fade --}}
                             <div class="col-sm-10">
-                                <input class="form-check-input mt-2" type="checkbox" checked
-                                    wire:model.defer="status">
+                                <input class="form-check-input mt-2" type="checkbox" checked wire:model.defer="status">
                             </div>
                         </div>
+                        <div class="row mb-3">
+
+                            <div class="col-12">
+                                <label for="description" class="col-12 col-form-label">Gambar</label>
+                            </div>
+                            <div class="col-12">
+
+                                @if ($image)
+                                    <img wire:loading.remove wire:target="image" src="{{ $image->temporaryUrl() }}"
+                                        height="200" width="300" alt="image_floor">
+                                @else
+                                    <img wire:loading.remove wire:target="image"
+                                        src="{{ asset('assets/images/600x400.jpg') }}" height="200" width="300"
+                                        alt="image_floor">
+                                @endif
+                                <div wire:loading wire:target="image" class="p-2">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>Loading...
+                                </div>
+                                <input type="file" class="form-control" wire:model="image">
+                                @error('photo')
+                                    <small class="danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -70,14 +104,14 @@
                                 </label>
                                 {{-- Id membuaat input fade --}}
                                 <div class="col-sm-10">
-                                    <input class="form-check-input mt-2" type="checkbox"
-                                        wire:model.defer="status">
+                                    <input class="form-check-input mt-2" type="checkbox" wire:model.defer="status">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-light waves-effect"
+                            data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-warning waves-effect waves-light">Update</button>
                     </div>
                 </form>
@@ -96,7 +130,9 @@
                 $("#updateCategoryModal").modal("hide");
             })
 
-            Livewire.on("deletetingCategory", ({data}) => {
+            Livewire.on("deletetingCategory", ({
+                data
+            }) => {
                 Swal.fire({
                     title: "Anda Yakin?",
                     text: "Anda akan menghapus kategori " + data.name,
@@ -105,8 +141,8 @@
                     confirmButtonColor: "#1cbb8c",
                     cancelButtonColor: "#e66060",
                     confirmButtonText: "Yes, delete it!",
-                }).then(function (result) {
-                    if(result.isConfirmed) {
+                }).then(function(result) {
+                    if (result.isConfirmed) {
                         Livewire.dispatch("destroyCategory")
                     }
                 });

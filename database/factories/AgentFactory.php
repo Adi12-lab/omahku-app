@@ -25,8 +25,12 @@ class AgentFactory extends Factory
             "facebook" => "facebook.com",
             "instagram" => "instagram.com",
             "twitter" => "twitter.com",
-            "whatsapp" => fake()->phoneNumber(),
-            "description" => $mergeParagraphs
+            "linkedin" => "linkedin.com",
+            "youtube" => "youtube.com",
+            "whatsapp" => preg_replace("/[^a-zA-Z0-9]/", "", fake()->phoneNumber()),
+            "emailAgent" => fake()->unique()->freeEmail(),
+            "description" => $mergeParagraphs,
+            "image" => "https://source.unsplash.com/500x500?person",
         ];
     }
 }

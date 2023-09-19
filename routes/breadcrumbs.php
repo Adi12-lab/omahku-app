@@ -2,6 +2,7 @@
 // Note: Laravel will automatically resolve `Breadcrumbs::` without
 // this import. This is nice for IDE syntax and refactoring.
 
+use App\Models\Agent;
 use App\Models\Product;
 use App\Models\Property;
 use Diglactic\Breadcrumbs\Breadcrumbs;
@@ -38,11 +39,18 @@ Breadcrumbs::for("wishlist", function(BreadcrumbTrail $trail ) {
     $trail->parent("/");
     $trail->push("Favorit", route("wishlist"));
 });
-Breadcrumbs::for("cart", function(BreadcrumbTrail $trail ) {
-    $trail->parent("/");
-    $trail->push("Keranjang", route("cart"));
-});
+
 Breadcrumbs::for("profile", function(BreadcrumbTrail $trail ) {
     $trail->parent("/");
     $trail->push("Profil Saya", route("frontend.profile"));
+});
+
+Breadcrumbs::for("agent", function(BreadcrumbTrail $trail ) {
+    $trail->parent("/");
+$trail->push("Agent Kami", route("frontend.agent"));
+});
+
+Breadcrumbs::for("agentDetails", function(BreadcrumbTrail $trail, Agent $agent ) {
+    $trail->parent("agent");
+$trail->push($agent->name, route("frontend.agent.view", $agent->id));
 });

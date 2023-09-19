@@ -102,9 +102,7 @@
                                 <div class="row mb-3">
                                     <label for="small_description" class="col-sm-2 col-form-label">Deskripsi Singkat</label>
                                     <div class="col-sm-10">
-                                        <textarea name="small_description" id="small_description" rows="3" class="form-control" rows="5">
-                                            {{ old('small_description', $property->small_description) }}
-                                        </textarea>
+                                        <textarea name="small_description" id="small_description" rows="3" class="form-control" rows="5">{{ old('small_description', $property->small_description) }}</textarea>
                                         @error('small_description')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -115,9 +113,7 @@
                                 <div class="row mb-3">
                                     <label for="description" class="col-sm-2 col-form-label">Deskripsi</label>
                                     <div class="col-sm-10">
-                                        <textarea name="description" id="description" rows="5">
-                                            {{ old('description', $property->description) }}
-                                        </textarea>
+                                        <textarea name="description" id="description" rows="5">{{ old('description', $property->description) }}</textarea>
                                         @error('description')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -350,9 +346,7 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label">Alamat</label>
                                     <div class="col-sm-10">
-                                    <textarea name="address" class="form-control" rows="6">
-                                            {{ old('address', $property->address) }}
-                                    </textarea>
+                                    <textarea name="address" class="form-control" rows="6">{{ old('address', $property->address) }}</textarea>
                                         @error('address')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -398,9 +392,7 @@
                                 <div class="row mb-3">
                                     <label class="col-form-label">Map Iframe</label>
                                     <div class="col-12">
-                                    <textarea name="map_iframe" class="form-control" rows="6">
-                                            {{ old('map_iframe', $property->map_iframe) }}
-                                    </textarea>
+                                    <textarea name="map_iframe" class="form-control" rows="6">{{ old('map_iframe', $property->map_iframe) }}</textarea>
                                         @error('description')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -409,9 +401,7 @@
                                 <div class="row mb-3">
                                     <label class="col-form-label">Street Iframe</label>
                                     <div class="col-12">
-                                    <textarea name="street_iframe" class="form-control" rows="6">
-                                            {{ old('street_iframe', $property->street_iframe) }}
-                                    </textarea>
+                                    <textarea name="street_iframe" class="form-control" rows="6">{{ old('street_iframe', $property->street_iframe) }}</textarea>
                                         @error('description')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror

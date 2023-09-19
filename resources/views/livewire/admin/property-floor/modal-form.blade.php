@@ -11,6 +11,13 @@
                 <div class="modal-body">
                     <div class="container">
                         <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Nama</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" placeholder="Lantai 1"
+                                    wire:model.defer="name">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
                             <label for="size" class="col-sm-2 col-form-label">Size</label>
                             <div class="col-sm-10">
                                 <input class="form-control" type="text" placeholder="643 m2" id="size"
@@ -20,23 +27,26 @@
 
                         <div class="row mb-3">
                             <label for="description" class="col-sm-2 col-form-label">Deskripsi</label>
-                            <div class="col-sm-10">
+                            <div class="col-12">
                                 <textarea class="form-control" placeholder="Wisma" id="description" rows="7" wire:model.defer="description">
                                 </textarea>
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                           
+
                             <div class="col-12">
                                 <label for="description" class="col-12 col-form-label">Gambar</label>
-                               
+
                                 <div class="col-12">
 
                                     @if ($image)
-                                        <img wire:loading.remove wire:target="image" src="{{ $image->temporaryUrl() }}" height="200" width="300" alt="image_floor">
+                                        <img wire:loading.remove wire:target="image" src="{{ $image->temporaryUrl() }}"
+                                            height="200" width="300" alt="image_floor">
                                     @else
-                                        <img wire:loading.remove wire:target="image" src="{{ asset('assets/images/600x400.jpg') }}" height="200" width="300" alt="image_floor">
+                                        <img wire:loading.remove wire:target="image"
+                                            src="{{ asset('assets/images/600x400.jpg') }}" height="200" width="300"
+                                            alt="image_floor">
                                     @endif
                                     <div wire:loading wire:target="image" class="p-2">
                                         <div class="spinner-border text-primary" role="status">
@@ -76,6 +86,13 @@
                 <div class="modal-body">
                     <div class="container">
                         <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Nama</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" placeholder="Lantai 1" 
+                                    wire:model.defer="name">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
                             <label for="size" class="col-sm-2 col-form-label">Size</label>
                             <div class="col-sm-10">
                                 <input class="form-control" type="text" placeholder="643 m2" id="size"
@@ -85,40 +102,45 @@
 
                         <div class="row mb-3">
                             <label for="description" class="col-sm-2 col-form-label">Deskripsi</label>
-                            <div class="col-sm-10">
+                            <div class="col-12">
                                 <textarea class="form-control" placeholder="Wisma" id="description" rows="7" wire:model.defer="description">
                                 </textarea>
                             </div>
                         </div>
 
-                        <div class="row mb-3">     
+                        <div class="row mb-3">
                             <div class="col-12">
-                            <label for="description" class="col-12 col-form-label">Gambar</label>
-                           
-                            <div class="col-12">
+                                <label for="description" class="col-12 col-form-label">Gambar</label>
 
-                                @if ($image)
-                                    <img wire:loading.remove wire:target="image" src="{{ $image->temporaryUrl() }}" height="200" width="300" alt="image_floor">
-                                @else
-                                    <img wire:loading.remove wire:target="image" src="{{ asset($previous_image) }}" height="200" width="300" alt="image_floor">
-                                @endif
-                                <div wire:loading wire:target="image" class="p-2">
-                                    <div class="spinner-border text-primary" role="status">
-                                        <span class="visually-hidden">Loading...</span>
-                                    </div>Loading...
+                                <div class="col-12">
+
+                                    @if ($image)
+                                        <img wire:loading.remove wire:target="image"
+                                            src="{{ $image->temporaryUrl() }}" height="200" width="300"
+                                            alt="image_floor">
+                                    @else
+                                        <img wire:loading.remove wire:target="image"
+                                            src="{{ asset($previous_image) }}" height="200" width="300"
+                                            alt="image_floor">
+                                    @endif
+                                    <div wire:loading wire:target="image" class="p-2">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>Loading...
+                                    </div>
+                                    <input type="file" class="form-control" wire:model="image">
+                                    @error('photo')
+                                        <small class="danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
-                                <input type="file" class="form-control" wire:model="image">
-                                @error('photo')
-                                    <small class="danger">{{ $message }}</small>
-                                @enderror
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-warning waves-effect waves-light">Update</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light waves-effect"
+                            data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-warning waves-effect waves-light">Update</button>
+                    </div>
 
             </form>
         </div><!-- /.modal-content -->

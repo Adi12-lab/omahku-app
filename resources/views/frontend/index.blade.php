@@ -26,6 +26,8 @@
     <link rel="apple-touch-icon" href="icon.png">
     <meta name="theme-color" content="#3454d1">
     <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet">
+    @vite(['resources/js/app.js'])
+
 </head>
 
 <body>

@@ -1,8 +1,10 @@
 <?php
 
+
+use App\Events\MessageDelivered;
+
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Frontend\PropertyController;
-use App\Models\Property;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +26,11 @@ Route::controller(PropertyController::class)->group(function() {
 });
 Route::get("properti/{property:slug}", \App\Livewire\Frontend\Property\Detail::class)->name("frontend.property.view");
 // Route::get("/properti", \App\Livewire\Frontend\Property\Index::class)->name("frontend.property.index");
+ROute::controller(\App\Http\Controllers\Frontend\AgentController::class)->group(function() {
+    Route::get("agen", "index")->name("frontend.agent");
+    Route::get("agen/{agent_id}", "view")->name("frontend.agent.view");
+    Route::post("agentMessage", "message");
+});
 
 
 
@@ -31,12 +38,14 @@ Route::middleware('auth')->group(function () {
     Route::get("/profile", [ProfileController::class, "viewInFrontend"])->name("frontend.profile");
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get("/favorit", \App\Livewire\Frontend\Wishlist\Index::class)->name("wishlist");
 });
 
 Route::prefix("manage")->middleware(["auth", "isAdminOrAgent"])->group(function() {
     Route::get("/", function() {
         return view("admin.dasboard");
     })->name("dashboard.admin");
+    Route::get("messages", \App\Livewire\Admin\Message\Index::class)->name("messages");
     
     Route::middleware("isAdmin")->group(function() {
         Route::get("kategori", \App\Livewire\Admin\Category\Index::class)->name("category");

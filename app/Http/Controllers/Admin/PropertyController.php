@@ -15,6 +15,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class PropertyController extends Controller
 {
@@ -22,15 +23,14 @@ class PropertyController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {   
-
+    { 
         // Menentukan query awal berdasarkan peran pengguna
         if(Auth::user()->role_as === 1 && Auth::user()->agent) {
             $query = Property::with(["agent", "propertyImages", "category"])
                             ->where("agent_id", Auth::user()->agent->id);
         } elseif(Auth::user()->role_as === 2) {
             $query = Property::with(["agent", "propertyImages", "category"]);
-        } else {
+        } else {// gak login
             return to_route("dashboard.admin");
         }
 
@@ -40,13 +40,14 @@ class PropertyController extends Controller
 
             // Mencari properti berdasarkan nama atau nama agen
             $query->where(function ($q) use ($searchTerm) {
-                $q->where('name', 'like', '%' . $searchTerm . '%')
-                ->orWhereHas('agent', function ($q) use ($searchTerm) {
-                    $q->where('name', 'like', '%' . $searchTerm . '%');
-                });
+                $q->where('name', 'like', '%' . $searchTerm . '%');
+                if(Auth::user()->role_as === 2) {// hanya admin yang bisa seperti ini
+                  $q = $q->orWhereHas('agent', function ($q) use ($searchTerm) {
+                        $q->where('name', 'like', '%' . $searchTerm . '%');
+                    });
+                }
             });
-            
-            //dd($query); // Untuk debugging, hapus baris ini saat sudah selesai
+
         }
     
              $properties = $query->paginate(6)->withQueryString();
@@ -62,7 +63,7 @@ class PropertyController extends Controller
         $this->authorize("create", Property::class);
         $categories = Category::all(); 
         $subdistricts = DB::table('tb_ro_subdistricts')->get();
-        $features = Feature::where("status", 1)->get();
+        $features = Feature::all();
         return view("admin.property.create", compact("categories", "subdistricts", "features"));
     }
 
@@ -142,7 +143,7 @@ class PropertyController extends Controller
         $this->authorize("edit", Property::class);
         $categories = Category::all(); 
         $subdistricts = DB::table('tb_ro_subdistricts')->get();
-        $features = Feature::where("status", 1)->get();
+        $features = Feature::all();
         $properties_features = PropertyFeature::where("property_id", $property->id)->get();
 
         $mergePropertiesFeatures = $features->map(function($feature) use ($properties_features) {
@@ -266,5 +267,6 @@ class PropertyController extends Controller
     public function destroy(Property $property)
     {
         Property::destroy($property->id);
+        return to_route("property.index")->with("message", "Properti berhasil dihapus");
     }
 }

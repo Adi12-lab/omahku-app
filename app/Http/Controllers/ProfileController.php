@@ -36,6 +36,9 @@ class ProfileController extends Controller
             "twitter" => ["string"],
             "instagram" => ["string"],
             "whatsapp" => ["numeric"],
+            "linkedin" => ["string"],
+            "youtube" => ["string"],
+            "emailAgent" => ["required", "email:rfc,dns"],
             "description" => ["required","string", "min:5"],
         ];
 

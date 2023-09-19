@@ -15,8 +15,8 @@ return new class extends Migration
             $table->engine = 'InnoDB';
             $table->id();
             $table->unsignedBigInteger("agent_id"); //typo
-            $table->string("name");
-            $table->string("slug");
+            $table->string("name", 40);
+            $table->string("slug", 40);
             $table->unsignedBigInteger("category_id");
             $table->integer("for")->default(0)->comment("0=sale, 1=rent,");
             $table->integer("status")->default(1)->comment("0=soldout, 1=active");

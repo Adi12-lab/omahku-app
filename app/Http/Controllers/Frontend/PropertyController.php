@@ -8,6 +8,8 @@ use App\Models\Property;
 use App\Models\Feature;
 use App\Models\Location;
 
+use App\Events\MessageDelivered;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 class PropertyController extends Controller
@@ -16,6 +18,7 @@ class PropertyController extends Controller
         // "feature" => intval($request->get("feature"))
 {
     public function index(Request $request) {
+
         if($request->isMethod("POST")) {
             $ranges = explode(";",$request->get("price_range")); 
             // dd($request);
@@ -78,6 +81,7 @@ class PropertyController extends Controller
         $categories = Category::withCount('properties as property_count')->get();
         $locations = Location::all();
         $features = Feature::all();
+        // dd($properties);
         return view("frontend.properties", compact("properties","categories", "locations", "features", "minPrice", "maxPrice"));
     }
 

@@ -19,7 +19,6 @@
                             <thead class="table-light">
                                 <tr>
                                     <th>Nama</th>
-                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>

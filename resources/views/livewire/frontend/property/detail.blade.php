@@ -10,17 +10,20 @@
                         <div class="row">
                             <div class="col-md-8 col-lg-8">
                                 <div class="single__detail-area-title">
-                                    <h3 class="text-capitalize">{{$property->name}}</h3>
-                                    <p> {{$property->address}}</p>
+                                    <h3 class="text-capitalize">{{ $property->name }}</h3>
+                                    <p> {{ $property->address }}</p>
                                 </div>
                             </div>
                             <div class="col-md-4 col-lg-4">
                                 <div class="single__detail-area-price">
-                                    <h3 class="text-capitalize text-gray">{{rupiah($property->price)}}</h3>
+                                    <h3 class="text-capitalize text-gray">{{ rupiah($property->price) }}</h3>
                                     <ul class="list-inline">
                                         <li class="list-inline-item">
-                                            <a href="#" class="badge badge-primary p-2 rounded"><i
-                                                    class="fa fa-heart"></i></a>
+                                            <a href="#" wire:click="addToWishlist({{ $property->id }})"
+                                                {{-- @dd($isInWishlist) --}}
+                                                class="badge badge-{{ $isInWishlist ? 'danger' : 'primary' }} p-2 rounded">
+                                                <i class="fa fa-heart"></i>
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -41,8 +44,15 @@
                                             <img src="{{ asset($property->agent->images ?? 'assets/images/80x80.jpg') }}"
                                                 alt="" class="img-fluid">
                                         </figure>
-                                        <span
-                                            class="badge badge-primary text-capitalize mb-2">{{ $property->category->name }}</span>
+                                        @if ($property->status === 1)
+                                            <span class="badge badge-primary text-capitalize mb-2">
+                                                {{ $property->for === 0 ? 'Dijual' : 'Disewakan' }}
+                                            </span>
+                                        @else
+                                            <span class="badge badge-danger text-capitalize mb-2">
+                                                soldout
+                                            </span>
+                                        @endif
                                         <div class="price">
                                             <h5 class="text-capitalize">{{ rupiah($property->price) }}</h5>
                                         </div>
@@ -85,7 +95,7 @@
                                                 <h5 class="text-capitalize">{{ $property->agent->name }}</h5>
                                             </li>
                                             <li><a href="tel:123456"><i
-                                                        class="fa fa-phone-square mr-1"></i>{{ $property->agent->whatsapp }}</a>
+                                                        class="fa fa-phone-square mr-1"></i>{{ formatPhoneNumber($property->agent->whatsapp) }}</a>
                                             </li>
                                             <li><a href="javascript:void(0)"><i class=" fa fa-building mr-1"></i>
                                                     Company name</a>
@@ -111,7 +121,7 @@
                                     </div>
                                     <div class="form-group mb-0">
                                         <textarea class="form-control required" rows="5" required="required"
-                                            placeholder="Saya tertarik dengan {{$property->name}}"></textarea>
+                                            placeholder="Saya tertarik dengan {{ $property->name }}"></textarea>
                                     </div>
                                 </div>
                                 <div class="profile__agent__footer">
@@ -125,18 +135,6 @@
 
                         </div>
                         <!-- END PROFILE AGENT -->
-                        <div class="download mb-0">
-                            <h5 class="text-center text-capitalize">Property Attachments</h5>
-                            <div class="download__item">
-                                <a href="#" target="_blank"><i class="fa fa-file-pdf-o mr-3"
-                                        aria-hidden="true"></i>Download Document.Pdf</a>
-                            </div>
-                            <div class="download__item">
-                                <a href="#" target="_blank"><i class="fa fa-file-word-o mr-3"
-                                        aria-hidden="true"></i>Presentation
-                                    2016-17.Doc</a>
-                            </div>
-                        </div>
 
                     </div>
                 </div>
@@ -161,22 +159,25 @@
                                     <div class="row">
                                         <div class="col-md-6 col-lg-6">
                                             <ul class="property__detail-info-list list-unstyled">
-                                                <li><b>Harga:</b> {{rupiah($property->price)}}</li>
-                                                <li><b>Luas Properti:</b> {{$property->size}}</li>
-                                                <li><b>Kamar Tidur:</b> {{$property->bedrooms}}</li>
-                                                <li><b>Kamar Mandi:</b> {{$property->bathrooms}}</li>
+                                                <li><b>Harga:</b> {{ rupiah($property->price) }}</li>
+                                                <li><b>Luas Properti:</b> {{ $property->size }}</li>
+                                                <li><b>Kamar Tidur:</b> {{ $property->bedrooms }}</li>
+                                                <li><b>Kamar Mandi:</b> {{ $property->bathrooms }}</li>
                                             </ul>
                                         </div>
                                         <div class="col-md-6 col-lg-6">
                                             <ul class="property__detail-info-list list-unstyled">
-                                                <li><b>Tanggal dibangun:</b> {{$property->year_built}}</li>
-                                                <li><b>Kategori Properti:</b> {{$property->category->name}}</li>
-                                                <li><b>Status Properti:</b>{{$property->for === "1" ? "Disewakan" : "Dijual"}}</li>
-                                                <li><b>Tersedia:</b>{{$property->status === "1" ? "Ya" : "Tidak"}}</li>
+                                                <li><b>Tanggal dibangun:</b> {{ $property->year_built }}</li>
+                                                <li><b>Kategori Properti:</b> {{ $property->category->name }}</li>
+                                                <li><b>Status
+                                                        Properti:</b>{{ $property->for === '1' ? 'Disewakan' : 'Dijual' }}
+                                                </li>
+                                                <li><b>Tersedia:</b>{{ $property->status === '1' ? 'Ya' : 'Tidak' }}
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
-                                 
+
                                 </div>
                                 <!-- END INFO PROPERTY DETAIL -->
                             </div>
@@ -195,102 +196,93 @@
                             </div>
                             <!-- END FEATURES -->
 
-                            <!-- FLOR PLAN -->
-                            <div class="single__detail-features">
-                                <h6 class="text-capitalize detail-heading">Daftar Lantai</h6>
-                                <!-- FLOR PLAN IMAGE -->
-                                <div id="accordion" class="floorplan" role="tablist">
-                                    @isset($property->propertyFloors)
-                                    @foreach($property->propertyFloors as $floor)
-                                    <div class="card">
-                                        <div class="card-header" role="tab" id="headingOne">
-                                            <a class="text-capitalize" data-toggle="collapse" href="#collapseOne"
-                                                aria-expanded="true" aria-controls="collapseOne">
-                                                {{$floor->name}}
-                                                <span class="badge badge-light rounded p-1 ml-2">
-                                                    {!!meter($floor->size)!!}
-                                                </span>
-                                            </a>
-                                        </div>
-                                        <div id="collapseOne" class="collapse show" role="tabpanel"
-                                            aria-labelledby="headingOne" data-parent="#accordion">
-                                            <div class="card-body">
-                                                <figure>
-                                                    <img src="{{asset($floor->image)}}" alt="" class="img-fluid">
-                                                </figure>
-                                                {{$floor->description}}
+                            @if ($property->propertyFloors->count() > 0)
+                                <!-- FLOR PLAN -->
+                                @dd($property->propertyFloors)
+                                <div class="single__detail-features">
+                                    <h6 class="text-capitalize detail-heading">Daftar Lantai</h6>
+                                    <!-- FLOR PLAN IMAGE -->
+                                    <div id="accordion" class="floorplan" role="tablist">
+                                        @foreach ($property->propertyFloors as $floor)
+                                            <div class="card">
+                                                <div class="card-header" role="tab" id="headingOne">
+                                                    <a class="text-capitalize" data-toggle="collapse"
+                                                        href="#collapseOne" aria-expanded="true"
+                                                        aria-controls="collapseOne">
+                                                        {{ $floor->name }}
+                                                        <span class="badge badge-light rounded p-1 ml-2">
+                                                            {!! meter($floor->size) !!}
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                                <div id="collapseOne" class="collapse show" role="tabpanel"
+                                                    aria-labelledby="headingOne" data-parent="#accordion">
+                                                    <div class="card-body">
+                                                        <figure>
+                                                            <img src="{{ asset($floor->image) }}" alt=""
+                                                                class="img-fluid">
+                                                        </figure>
+                                                        {{ $floor->description }}
 
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endforeach
                                     </div>
-                                    @endforeach
-                                    @endisset
                                 </div>
-                            </div>
+                            @endif
                             <!-- END FLOR PLAN -->
 
-                            @if($property->street_iframe || $property->map_iframe)
-                            <!-- LOCATION -->
-                            <div class="single__detail-features">
-                                <h6 class="text-capitalize detail-heading">lokasi</h6>
-                                <!-- FILTER VERTICAL -->
-                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                    @if($property->map_iframe)
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="pills-map-location-tab" data-toggle="pill"
-                                            href="#pills-map-location" role="tab"
-                                            aria-controls="pills-map-location" aria-selected="true">
-                                            <i class="fa fa-map-marker"></i>
-                                        </a>
-                                    </li>
-                                    @endif
+                            @if ($property->street_iframe || $property->map_iframe)
+                                <!-- LOCATION -->
+                                <div class="single__detail-features">
+                                    <h6 class="text-capitalize detail-heading">lokasi</h6>
+                                    <!-- FILTER VERTICAL -->
+                                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                        @if ($property->map_iframe)
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="pills-map-location-tab"
+                                                    data-toggle="pill" href="#pills-map-location" role="tab"
+                                                    aria-controls="pills-map-location" aria-selected="true">
+                                                    <i class="fa fa-map-marker"></i>
+                                                </a>
+                                            </li>
+                                        @endif
 
-                                    @if($property->street_iframe)
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="pills-street-view-tab" data-toggle="pill"
-                                            href="#pills-street-view" role="tab"
-                                            aria-controls="pills-street-view" aria-selected="false">
-                                            <i class="fa fa-street-view "></i></a>
-                                    </li>
-                                    @endif
+                                        @if ($property->street_iframe)
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="pills-street-view-tab" data-toggle="pill"
+                                                    href="#pills-street-view" role="tab"
+                                                    aria-controls="pills-street-view" aria-selected="false">
+                                                    <i class="fa fa-street-view "></i></a>
+                                            </li>
+                                        @endif
 
-                                </ul>
-                                <div class="tab-content" id="pills-tabContent">
-                                    @if($property->map_iframe)
-                                    <div class="tab-pane fade show active" id="pills-map-location" role="tabpanel"
-                                        aria-labelledby="pills-map-location-tab">
-                                        <div id="map-canvas">
-                                            <iframe class="h600 w100"
-                                                src="{{$property->map_iframe}}"
-                                                style="border:0;" allowfullscreen="" aria-hidden="false"
-                                                tabindex="0"></iframe>
-                                        </div>
+                                    </ul>
+                                    <div class="tab-content" id="pills-tabContent">
+                                        @if ($property->map_iframe)
+                                            <div class="tab-pane fade show active" id="pills-map-location"
+                                                role="tabpanel" aria-labelledby="pills-map-location-tab">
+                                                <div id="map-canvas">
+                                                    <iframe class="h600 w100" src="{{ $property->map_iframe }}"
+                                                        style="border:0;" allowfullscreen="" aria-hidden="false"
+                                                        tabindex="0"></iframe>
+                                                </div>
+
+                                            </div>
+                                        @endif
+                                        @if ($property->street_iframe)
+                                            <div class="tab-pane fade" id="pills-street-view" role="tabpanel"
+                                                aria-labelledby="pills-street-view-tab">
+                                                <iframe class="h600 w100" src="{{ $property->street_iframe }}"
+                                                    style="border:0;" allowfullscreen></iframe>
+                                            </div>
+                                        @endif
 
                                     </div>
-                                    @endif
-                                    @if($property->street_iframe)
-                                    <div class="tab-pane fade" id="pills-street-view" role="tabpanel"
-                                        aria-labelledby="pills-street-view-tab">
-                                        <iframe class="h600 w100"
-                                            src="{{$property->street_iframe}}"
-                                            style="border:0;" allowfullscreen></iframe>
-                                    </div>
-                                    @endif
-
+                                    <!-- END FILTER VERTICAL -->
                                 </div>
-                                <!-- END FILTER VERTICAL -->
-                            </div>
-                            <!-- END LOCATION -->
-
-                            <!-- PROPERTY VIEWS -->
-                            <div class="single__detail-features">
-                                <h6 class="text-capitalize detail-heading">property views</h6>
-                                <!-- CANVAS -->
-                                <div class="wrapper">
-                                    <canvas id="myChart" class="chart"></canvas>
-                                </div>
-                            </div>
-                            <!-- END PROPERTY VIEWS -->
+                                <!-- END LOCATION -->
 
                             @endif
                         </div>
@@ -401,3 +393,22 @@
     <!-- END SINGLE DETAIL -->
 
 </div>
+
+
+@push('scripts')
+    <!-- Sweet Alerts js -->
+    <script src="{{ asset('admin/libs/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script>
+        document.addEventListener("livewire:init", function() {
+            Livewire.on("wishlistAlert", function({
+                message
+            }) {
+                Swal.fire(
+                    message.head,
+                    message.text,
+                    message.type
+                )
+            })
+        })
+    </script>
+@endpush

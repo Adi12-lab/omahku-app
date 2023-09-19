@@ -8,18 +8,29 @@ use App\Models\Category;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\Rule;
 use Livewire\Attributes\On;
-
+use Livewire\WithFileUploads;
 use Livewire\Component;
 
+ 
 class Index extends Component
 {
+    
+    use WithFileUploads;
+
     #[Locked]
     public $category_id;
 
-    #[Rule("required|min:3")]
+    #[Rule("required|string|min:3")]
     public $name;
-
+    
+    #[Rule("required|string|unique:categories,slug")]
+    public $slug;
+    
+    #[Rule("required")]
     public $status = true;
+
+    #[Rule('required|image|max:1024')]
+    public $image;
 
     public function save() {
         $this->validate();
@@ -27,7 +38,15 @@ class Index extends Component
 
             $category = new Category;
             $category->name = $this->name;
+            $category->slug = Str::slug($this->slug);
             $category->status = $this->status ? 1 : 0;
+            $uploadPath = 'uploads/category/';
+
+            $extension = $this->image->getClientOriginalExtension();
+            $nameFile = Str::slug($this->slug)."-" . time() . ".{$extension}";
+            $this->image->storeAs($uploadPath, $nameFile, "public_uploads");
+            $category->image = $uploadPath.$nameFile;
+
             $category->save();
             
             $this->reset("name", "status");

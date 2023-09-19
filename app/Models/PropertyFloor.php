@@ -13,7 +13,7 @@ class PropertyFloor extends Model
     use HasFactory;
 
     protected $guarded = ["id"];
-
+    protected $table = 'property_floors';
     public function property(): BelongsTo {
         return $this->belongsTo(Property::class, "property_id", "id");
     }

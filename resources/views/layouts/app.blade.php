@@ -8,7 +8,8 @@
     <meta name="description" content="Rethouse - Real Estate HTML Template">
     <meta name="keywords" content="Real Estate, Property, Directory Listing, Marketing, Agency" />
     <meta name="author" content="mardianto - retenvi.com">
-    <title>Rethouse - Real Estate HTML Template</title>
+    <meta name="csrf-token" content="{{csrf_token()}}">
+    <title>Omahku</title>
 
     <!-- Facebook and Twitter integration -->
     <meta property="og:title" content="" />
@@ -29,6 +30,8 @@
     <link href="{{ asset('admin/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 
     <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet">
+    @livewireStyles
+    @vite(['resources/js/app.js'])
 </head>
 
 <body>
@@ -38,12 +41,11 @@
     <!-- SCROLL TO TOP -->
     <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
     <!-- END SCROLL TO TOP -->
-    <!-- Sweet Alerts js -->
-    <script src="{{ asset('admin/libs/sweetalert2/sweetalert2.min.js') }}"></script>
-
     <script src="{{ asset('assets/js/index.bundle.js') }}"></script>
 
+
     <script>
+        window.userId = @json(auth()->id());
         document.addEventListener('livewire:init', () => {
             Livewire.on("alert", ({
                 message
@@ -59,8 +61,9 @@
             })
         })
     </script>
-    @yield("scripts")
-    @stack("scripts")
+    @livewireScripts
+    @yield('scripts')
+    @stack('scripts')
 </body>
 
 </html>
