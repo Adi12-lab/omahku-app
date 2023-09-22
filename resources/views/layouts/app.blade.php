@@ -28,6 +28,7 @@
     <meta name="theme-color" content="#3454d1">
     <!-- Sweet Alert-->
     <link href="{{ asset('admin/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+    <script src="{{asset("admin/libs/sweetalert2/sweetalert2.min.js")}}"></script>
 
     <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet">
     @livewireStyles
@@ -42,7 +43,6 @@
     <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
     <!-- END SCROLL TO TOP -->
     <script src="{{ asset('assets/js/index.bundle.js') }}"></script>
-
 
     <script>
         window.userId = @json(auth()->id());

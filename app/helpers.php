@@ -29,3 +29,18 @@ function formatPhoneNumber($phoneNumber) {
         return substr_replace(substr_replace(substr_replace($phoneNumber,'-',4,0),'-',8,0),'-',13,0);
     }
 }
+
+function lastUpdate($date) {
+    return Carbon::parse($date)->diffForHumans();
+}
+
+function generateRandomHexColor() {
+    $hexColor = '#';
+
+    // Generate six random digits/letters in the range 0-9 and A-F
+    for ($i = 0; $i < 6; $i++) {
+        $hexColor .= dechex(mt_rand(0, 15));
+    }
+
+    return $hexColor;
+}

@@ -101,7 +101,6 @@
     <script src="{{ asset('admin/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('admin/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 
-    <script src="{{ asset('admin/js/pages/dashboard.init.js') }}"></script>
     <script>
         window.userId = @json(auth()->id());
     </script>

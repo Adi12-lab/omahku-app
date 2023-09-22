@@ -70,13 +70,24 @@ class PropertyController extends Controller
                             });
                         }
                     }
-                } else {
+                }  else {
                     $properties = $properties->where($filter, session($filter));
                 }
     
             } 
         }
-        $properties = $properties->paginate(6);
+
+        $searchParam = $request->get("search");
+        if($searchParam !== null) {
+            $properties =  $properties->where(function ($q) use($searchParam) {
+                    $q->where('name', 'like', '%' . $searchParam . '%')
+                        ->orWhereHas('agent', function ($q) use ($searchParam) {
+                            $q->where('name', 'like', '%' . $searchParam . '%');
+                        });
+                });
+        }
+        
+        $properties = $properties->inRandomOrder()->paginate(6);
         
         $categories = Category::withCount('properties as property_count')->get();
         $locations = Location::all();

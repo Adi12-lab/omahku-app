@@ -56,4 +56,8 @@ class User extends Authenticatable
     public function isAgent() {
         return $this->role_as === 1;
     }
+
+    public function messages() {
+        return $this->hasMany(Message::class, "receiver_id", "id");
+    }
 }

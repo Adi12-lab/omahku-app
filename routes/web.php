@@ -25,14 +25,14 @@ Route::controller(PropertyController::class)->group(function() {
     Route::post("properti", "index");
 });
 Route::get("properti/{property:slug}", \App\Livewire\Frontend\Property\Detail::class)->name("frontend.property.view");
-// Route::get("/properti", \App\Livewire\Frontend\Property\Index::class)->name("frontend.property.index");
-ROute::controller(\App\Http\Controllers\Frontend\AgentController::class)->group(function() {
+
+Route::controller(\App\Http\Controllers\Frontend\AgentController::class)->group(function() {
     Route::get("agen", "index")->name("frontend.agent");
     Route::get("agen/{agent_id}", "view")->name("frontend.agent.view");
     Route::post("agentMessage", "message");
 });
 
-
+Route::get("contact", \App\Livewire\Frontend\Contact\Index::class)->name("frontend.contact");
 
 Route::middleware('auth')->group(function () {
     Route::get("/profile", [ProfileController::class, "viewInFrontend"])->name("frontend.profile");
@@ -42,9 +42,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::prefix("manage")->middleware(["auth", "isAdminOrAgent"])->group(function() {
-    Route::get("/", function() {
-        return view("admin.dasboard");
-    })->name("dashboard.admin");
+    Route::get("/", [\App\Http\Controllers\Admin\DasboardController::class, "index"])->name("dashboard.admin");
     Route::get("messages", \App\Livewire\Admin\Message\Index::class)->name("messages");
     
     Route::middleware("isAdmin")->group(function() {

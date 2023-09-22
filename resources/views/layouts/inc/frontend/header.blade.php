@@ -68,7 +68,7 @@
                                 href="{{ route('frontend.property.index') }}"> Properti </a>
                         </li>
 
-                        <li class="nav-item"><a class="nav-link" href="/contact.html"> contact </a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{route("frontend.contact")}}"> contact </a></li>
                         <li class="nav-item"><a class="nav-link" href="{{route("frontend.agent")}}"> agen </a></li>
 
                         @if (auth()->check())

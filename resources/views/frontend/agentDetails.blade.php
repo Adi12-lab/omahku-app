@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('content')
+    @isset($agent)
     {{ Breadcrumbs::render('agentDetails', $agent) }}
+    @endisset
     <!-- LISTING LIST -->
     <section class="profile__agents">
         <div class="container">
@@ -228,7 +230,7 @@
                                     <h5 class="text-center text-capitalize">Hubungi {{ $agent->name }}</h5>
                                 </div>
                                 <div class="products__filter__body">
-                                    <input type="hidden" name="agent_user_id" value="{{ $agent->user_id }}">
+                                    <input type="hidden" name="user_id" value="{{ $agent->user_id }}">
                                     <div class="form-group">
                                         <label>Nama Lengkap</label>
                                         <input type="text" name="sender_name" class="form-control">
@@ -258,7 +260,7 @@
                                         <button type="submit" class="btn btn-primary text-capitalize btn-block send"> 
                                             submit <i class="fa fa-paper-plane ml-1"></i>
                                         </button>
-                                        <button type="submit" class="btn btn-primary text-capitalize btn-block loading d-none"> 
+                                        <button type="submit" class="btn btn-primary text-capitalize btn-block loading d-none" disabled> 
                                             <div class="spinner-border" role="status">
                                                 <span class="sr-only">Mengirim...</span>
                                               </div>
@@ -340,7 +342,7 @@
 
                 submitHandler: function(form) {
                     // form.submit()
-                    const userId = $('input[name="agent_user_id"]').val()
+                    const userId = $('input[name="user_id"]').val()
                     const senderName = $('input[name="sender_name"]').val()
                     const senderPhone = $('input[name="sender_phone"]').val()
                     const senderEmail = $('input[name="sender_email"]').val()
@@ -369,15 +371,16 @@
                             $("#sendMessage input").attr("disabled")
                             $("#sendMessage button.send").addClass("d-none")
                             $("#sendMessage button.loading").removeClass("d-none")
-
+                            
                         },
                         success: function(result) {
                             $("#sendMessage input").removeAttr("disabled")
                             $("#sendMessage button.send").removeClass("d-none")
                             $("#sendMessage button.loading").addClass("d-none")
+                            $("#sendMessage")[0].reset()
+                            Swal.fire("Berhasil", "Pesan anda berhasil dikirimkan", "success")
                         }
                     })
-                    return false
                 }
             })
         })

@@ -20,7 +20,7 @@ class AgentController extends Controller
         return view("frontend.agents", compact("agents"));
     }
 
-    public function view(int $agent_id) {
+    public function view($agent_id) {
         $agent = Agent::with(["properties", "properties.propertyImages"])->firstWhere("id", $agent_id);
         $categories = Category::withCount("properties")->get();
         return view("frontend.agentDetails", compact("agent","categories"));

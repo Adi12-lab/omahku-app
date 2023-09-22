@@ -33,7 +33,7 @@
                     <!-- END TITLE PROPERTY AND PRICE  -->
 
                     <!-- SLIDER IMAGE DETAIL -->
-                    <div class="slider__image__detail-large-two owl-carousel owl-theme">
+                    <div class="slider__image__detail-large-two owl-carousel owl-theme" wire:ignore>
                         @foreach ($property->propertyImages as $image)
                             <div class="item">
                                 <div class="slider__image__detail-large-one">
@@ -65,7 +65,7 @@
                         @endforeach
                     </div>
 
-                    <div class="slider__image__detail-thumb-two owl-carousel owl-theme">
+                    <div class="slider__image__detail-thumb-two owl-carousel owl-theme" wire:ignore>
                         @foreach ($property->propertyImages as $image)
                             <div class="item">
                                 <div class="slider__image__detail-thumb-one">
@@ -109,28 +109,61 @@
                                     </div>
 
                                 </div>
-                                <div class="profile__agent__body">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Nama Anda">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="No Telepon">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Email">
-                                    </div>
-                                    <div class="form-group mb-0">
-                                        <textarea class="form-control required" rows="5" required="required"
-                                            placeholder="Saya tertarik dengan {{ $property->name }}"></textarea>
-                                    </div>
-                                </div>
-                                <div class="profile__agent__footer">
-                                    <div class="form-group mb-0">
-                                        <button class="btn btn-primary text-capitalize btn-block"> Kirim Pesan <i
-                                                class="fa fa-paper-plane ml-1"></i></button>
+                                <form wire:submit="sendMessage">
+                                    <div class="profile__agent__body">
+                                        <input type="hidden" name="user_id" value="{{ $property->agent->user->id }}">
+                                        <div class="form-group">
+                                            <label>Nama Lengkap</label>
+                                            <input type="text" wire:model.defer="sender_name" class="form-control">
+                                            @error('sender_name')
+                                                <small class="text-danger"> {{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email (Optional)</label>
+                                            <input type="email" wire:model.defer="sender_email" class="form-control">
+                                            @error('sender_email')
+                                                <small class="text-danger"> {{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Phone</label>
+                                            <input type="text" wire:model.defer="sender_phone" class="form-control">
+                                            @error('sender_phone')
+                                                <small class="text-danger"> {{ $message }}</small>
+                                            @enderror
+                                        </div>
 
+                                        <div class="form-group">
+                                            <label>Subjek</label>
+                                            <input type="text" wire:model.defer="subject" class="form-control">
+                                            @error('subject')
+                                                <small class="text-danger"> {{ $message }}</small>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Pesan anda</label>
+                                            <textarea class="form-control" wire:model.defer="sender_message" rows="3"></textarea>
+                                            @error('sender_message')
+                                                <small class="text-danger"> {{ $message }}</small>
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="profile__agent__footer">
+                                        <div class="form-group mb-0">
+                                            <button wire:loading.remove type="submit" class="btn btn-primary text-capitalize btn-block">
+                                                Kirim Pesan <i class="fa fa-paper-plane ml-1"></i></button>
+                                            <button wire:loading class="btn btn-primary text-capitalize btn-block" disabled>
+                                                <div class="spinner-border" role="status">
+                                                    <span class="sr-only">Mengirim...</span>
+                                                </div>
+                                            </button>
+
+                                        </div>
+                                    </div>
+
+                                </form>
                             </div>
 
                         </div>
@@ -300,7 +333,7 @@
                         </h6>
                         <div class="similiar__property-carousel owl-carousel owl-theme">
                             @foreach ($similiarProperties as $property)
-                                <div class="item">
+                                <div class="item" wire:ignore>
                                     <!-- ONE -->
                                     <div class="card__image">
                                         <div class="card__image-header h-250">
@@ -397,7 +430,6 @@
 
 @push('scripts')
     <!-- Sweet Alerts js -->
-    <script src="{{ asset('admin/libs/sweetalert2/sweetalert2.min.js') }}"></script>
     <script>
         document.addEventListener("livewire:init", function() {
             Livewire.on("wishlistAlert", function({
@@ -408,6 +440,10 @@
                     message.text,
                     message.type
                 )
+            })
+
+            Livewire.on("successMessage", function() {
+                Swal.fire("Berhasil", "Pesan anda berhasil dikirimkan", "success")
             })
         })
     </script>

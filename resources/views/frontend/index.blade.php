@@ -38,7 +38,7 @@
                 <div class="col-sm-12 col-md-5">
                     <div class="topbar-left">
                         <div class="topbar-text">
-                            Monday, March 22, 2020
+                            {{dateNow()}}
                         </div>
                     </div>
                 </div>
@@ -185,28 +185,13 @@
                                 <div class="wrapper__section__components">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <!-- <h3 class="section_heading mt-4">Form Search with Categories</h3> -->
                                             <div class=" search__container">
                                                 <div class="row input-group no-gutters">
-                                                    <div class="col-sm-12 col-md-5">
+                                                    <div class="col-sm-12 col-md-9">
                                                         <input type="text" class="form-control"
                                                             aria-label="Text input" placeholder="Cari properti">
                                                     </div>
 
-
-                                                    <div class="col-sm-12 col-md-4 input-group">
-
-                                                        <select class="select_option form-control" name="category"
-                                                            id="categories">
-                                                            <option selected>Semua kategori</option>
-                                                            @foreach ($categories as $category)
-                                                                <option value="{{ $category->id }}">
-                                                                    {{ $category->name }}</option>
-                                                            @endforeach
-
-                                                        </select>
-
-                                                    </div>
                                                     <div class="col-sm-12 col-md-3 input-group-append">
                                                         <button class="btn btn-primary btn-block" type="submit">
                                                             <i class="fa fa-search"></i> <span

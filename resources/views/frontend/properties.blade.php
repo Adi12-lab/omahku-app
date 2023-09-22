@@ -5,6 +5,24 @@
     <section>
         <div class="container">
             <div class="row">
+
+                <div class="col-12">
+                    <div class=" search__container">
+                        <form class="row input-group no-gutters" method="GET" action="{{ route('frontend.property.index') }}">
+                            <div class="col-sm-12 col-md-9">
+                                <input type="text" class="form-control border" name="search" aria-label="Text input" placeholder="Cari properti" value="{{request("search")}}">
+                            </div>
+    
+                            <div class="col-sm-12 col-md-3 input-group-append">
+                                <button class="btn btn-primary btn-block" type="submit">
+                                    <i class="fa fa-search"></i> <span class="ml-1 text-uppercase">Search</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
                 <div class="col-lg-8">
                     <div class="row">
                         <div class="col-lg-12">
@@ -160,7 +178,8 @@
                                         <div class="row container-mix-2">
                                             @foreach ($properties as $property)
                                                 <div class="col-md-6 col-lg-6 property-item"
-                                                    data-price="{{ $property->price }}" data-name="{{ $property->name }}">
+                                                    data-price="{{ $property->price }}"
+                                                    data-name="{{ $property->name }}">
                                                     <div class="card__image card__box-v1">
                                                         <div class="card__image-header h-250">
                                                             @if ($property->isFeatured === 1 && $property->status === 1)

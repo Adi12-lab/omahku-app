@@ -54,3 +54,8 @@ Breadcrumbs::for("agentDetails", function(BreadcrumbTrail $trail, Agent $agent )
     $trail->parent("agent");
 $trail->push($agent->name, route("frontend.agent.view", $agent->id));
 });
+
+Breadcrumbs::for("contact", function(BreadcrumbTrail $trail ) {
+    $trail->parent("/");
+$trail->push("Hubungi Kami", route("frontend.contact"));
+});

@@ -22,42 +22,61 @@
                 </div>
             </div>
         </div> --}}
-        
+
     </div>
     <div class="row" id="old-message">
         @forelse($messages as $message)
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <p><strong>Subjek </strong><span class="ms-2 me-2">: </span> {{$message->subject}}</p>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <p><strong>Subjek </strong><span class="ms-2 me-2">: </span> {{ $message->subject }}</p>
 
-                    <p><strong>Nama </strong><span class="ms-2 me-2">: </span>{{$message->name}}</p>
-                    <p><strong>Email </strong><span class="ms-2 me-2">: </span>{{$message->email}}</p>
-                    <p><strong>Phone </strong><span class="ms-2 me-2">: </span>{{$message->phone}}</p>
-                    <strong>Pesan </strong><span class="ms-2">: </span>
-                    <p class="card-text">
-                        {{$message->message}}
-                    </p>
-                    <p class="card-text"><small class="text-muted">Last updated {{$message->sended_at}}</small></p>
+                        <p><strong>Nama </strong><span class="ms-2 me-2">: </span>{{ $message->name }}</p>
+                        <p><strong>Email </strong><span class="ms-2 me-2">: </span>{{ $message->email }}</p>
+                        <p><strong>Phone </strong><span class="ms-2 me-2">: </span>{{ $message->phone }}</p>
+                        <strong>Pesan </strong><span class="ms-2">: </span>
+                        <p class="card-text">
+                            {{ $message->message }}
+                        </p>
+                        <p class="card-text"><small class="text-muted">Last updated {{lastUpdate($message->created_at) }}</small>
+                        </p>
+                        <button type="button" class="btn" wire:click="delete({{ $message->id }})">
+                            <i class="fas fa-trash-alt text-danger"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
         @empty
-        <h4>Kotak Pesan masih Kosong</h4>
+            <h4>Kotak Pesan masih Kosong</h4>
         @endforelse
     </div>
+    <div class="row">
+        {{$messages->links()}}
+    </div>
 </div>
-{{-- 
+
 @push('script')
     <script>
-        if (window.userId) {
-            window.Echo.private(`users.${window.userId}`).listen(
-                "MessageDelivered",
-                (event) => {
-                    console.log("berhasil listen ke pusher");
-                    console.log(event);
-                }
-            );
-        }
+        document.addEventListener("livewire:init", () => {
+            Livewire.on("confirmDelete", function() {
+                Swal.fire({
+                    title: 'Yakin Hapus ?',
+                    text: "Tindakan anda tidak dapat diurungkan",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Hapus!'
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        Livewire.dispatch("destroyMessage")
+                    }
+                })
+            })
+
+            Livewire.on("success", function() {
+                Swal.fire("Berhasil", 'Berhasil menghapus pesan', 'success')
+            })
+        })
     </script>
-@endpush --}}
+@endpush
