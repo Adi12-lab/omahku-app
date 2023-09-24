@@ -41,7 +41,7 @@
                                         alt="" class="img-fluid w-100 img-transition">
                                     <div class="description">
                                         <figure>
-                                            <img src="{{ asset($property->agent->images ?? 'assets/images/80x80.jpg') }}"
+                                            <img src="{{ asset($property->agent->image ?? 'assets/images/80x80.jpg') }}"
                                                 alt="" class="img-fluid">
                                         </figure>
                                         @if ($property->status === 1)
@@ -231,7 +231,6 @@
 
                             @if ($property->propertyFloors->count() > 0)
                                 <!-- FLOR PLAN -->
-                                @dd($property->propertyFloors)
                                 <div class="single__detail-features">
                                     <h6 class="text-capitalize detail-heading">Daftar Lantai</h6>
                                     <!-- FLOR PLAN IMAGE -->

@@ -21,8 +21,6 @@ class CategoryFactory extends Factory
         $name = fake()->unique()->word();
         return [
             "name" => $name,
-            "slug" => Str::slug($name),
-            "image" => "https://source.unsplash.com/1000x800?house",
             "status" => mt_rand(0, 1)
         ];
     }

@@ -40,15 +40,15 @@ class Index extends Component
     }
 
     public function save() {
-        $this->validate();
+        $validated = $this->validate();
         $floor = new PropertyFloor;
         $floor->property_id = $this->property->id;
-        $floor->name = $this->name;
-        $floor->size = $this->size;
-        $floor->description = $this->description;
+        $floor->name = $validated["name"];
+        $floor->size = $validated["size"];
+        $floor->description = $validated["description"];
         $uploadPath = 'uploads/floor/';
 
-        $extension = $this->image->getClientOriginalExtension();
+        $extension = $validated["image"]->getClientOriginalExtension();
         $nameFile = "{$this->property->slug}-" . time() . ".{$extension}";
         $this->image->storeAs($uploadPath, $nameFile, "public_uploads");
         $floor->image = $uploadPath.$nameFile;
@@ -72,21 +72,24 @@ class Index extends Component
     }
 
     public function update() {
+        
         $floor = PropertyFloor::find($this->id);
+        $validated = $this->validate();
         if($floor) {
-            $floor->size = $this->size;
-            $floor->description = $this->description;
+            $floor->name = $validated["name"];
+            $floor->size = $validated["size"];
+            $floor->description = $validated["description"];
     
             //Hapus gambar terdahulu
             if(File::exists($floor->image)) {
                 File::delete($floor->image);
             }
             
-            if($this->image) {
+            if($validated["image"]) {
                 $uploadPath = 'uploads/floor/';
-                $extension = $this->image->getClientOriginalExtension();
+                $extension = $validated["image"]->getClientOriginalExtension();
                 $nameFile = "{$this->property->slug}-" . time() . ".{$extension}";
-                $this->image->storeAs($uploadPath, $nameFile, "public_uploads");
+                $validated["image"]->storeAs($uploadPath, $nameFile, "public_uploads");
                 $floor->image = $uploadPath.$nameFile;
             }
 

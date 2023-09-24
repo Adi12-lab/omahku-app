@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             @if (session('message'))
-                <div class="alert alert-success">{{ session('message') }}</div>
+                <div class="alert alert-{{session("message")["type"]}}">{{ session('message')["text"] }}</div>
             @endif
             <div class="col">
                 <form class="d-flex mb-3" action="{{ route('property.index') }}" method="GET">

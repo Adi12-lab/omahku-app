@@ -31,143 +31,11 @@
 </head>
 
 <body>
-    <!-- NAVBAR TOP -->
-    <div class="topbar d-none d-sm-block">
-        <div class="container ">
-            <div class="row">
-                <div class="col-sm-12 col-md-5">
-                    <div class="topbar-left">
-                        <div class="topbar-text">
-                            {{dateNow()}}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-7">
-                    <div class="list-unstyled topbar-right">
-                        <ul class="topbar-link">
-                            <li><a href="#" title="">Career</a></li>
-                            <li><a href="#" title="">Contact Us</a></li>
-                            @if (!Auth::check())
-                                <li><a href="{{ route('login') }}" title="">Login</a></li>
-                                <li><a href="{{ route('register') }}" title="">Register</a></li>
-                            @else
-                                <li> <a href="{{ route('frontend.profile') }}">Akun saya</a></li>
-                                <li>
-                                    <form action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                        <button type="submit"
-                                            style="background: transparent; font-size:14px; font-weight:bold; color: #f7f30c; border:none; ">
-                                            Logout
-                                        </button>
-                                    </form>
-                                </li>
-                            @endif
-                        </ul>
-                        <ul class="topbar-sosmed">
-                            <li>
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- END NAVBAR TOP -->
+    @include("layouts.inc.frontend.navbar-top")
     <!-- HEADER -->
     <header class="jumbotron bg-theme">
         <div class="bg-overlay"></div>
-        <!-- NAVBAR -->
-        <nav class="navbar navbar-hover navbar-expand-lg navbar-soft navbar-transparent">
-            <div class="container">
-                <a class="navbar-brand" href="/homepage-v1.html">
-                    <img src="images/logo-blue.png" alt="">
-                    <img src="images/logo-blue-stiky.png" alt="">
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav99">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="main_nav99">
-                    <ul class="navbar-nav mx-auto ">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{{ route('home') }}"> Home </a>
-
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('frontend.property.index') }}"> Properti </a>
-
-                        </li>
-
-                        <li class="nav-item"><a class="nav-link" href="/contact.html"> contact </a></li>
-                        @if (auth()->check())
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Akun
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-left animate fade-up">
-                                    <li><a class="dropdown-item" href="{{ route('frontend.profile') }}">Akun Saya </a>
-                                    </li>
-                                    <li>
-                                        <form action="{{ route('logout') }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="dropdown-item text-danger"> Logout </button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endif
-                    </ul>
-                    
-
-
-                    <!-- Search bar.// -->
-                    @if (auth()->check())
-                        <ul class="navbar-nav">
-                            <li>
-                                <a href="{{ route('frontend.profile') }}">
-                                    {{-- @dd(auth()->user()) --}}
-                                    <img src="{{ asset(auth()->user()->image ?? 'assets/images/80x80.jpg') }}"
-                                        alt="user_image"
-                                        style="width:70px; height:70px; object-fit: cover; border-radius: 50%;">
-                                </a>
-                            </li>
-                        </ul>
-                    @endif
-
-                    <!-- Search content bar.// -->
-                    <div class="top-search navigation-shadow">
-                        <div class="container">
-                            <div class="input-group ">
-                                <form action="#">
-
-                                    <div class="row no-gutters mt-3">
-                                        <div class="col">
-                                            <input class="form-control border-secondary border-right-0 rounded-0"
-                                                type="search" value="" placeholder="Search "
-                                                id="example-search-input4">
-                                        </div>
-                                        <div class="col-auto">
-                                            <a class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right"
-                                                href="/search-result.html">
-                                                <i class="fa fa-search"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Search content bar.// -->
-                </div> <!-- navbar-collapse.// -->
-            </div>
-        </nav>
-        <!-- END NAVBAR -->
+        @include("layouts.inc.frontend.navbar", ['transparent' => true])
         <!-- HERO -->
         <div class="wrap__intro d-flex align-items-md-center ">
             <div class="container  ">
@@ -185,22 +53,22 @@
                                 <div class="wrapper__section__components">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <div class=" search__container">
+                                            <form class=" search__container" method="GET" action="{{route("frontend.property.index")}}">
                                                 <div class="row input-group no-gutters">
                                                     <div class="col-sm-12 col-md-9">
                                                         <input type="text" class="form-control"
-                                                            aria-label="Text input" placeholder="Cari properti">
+                                                            aria-label="Text input" name="search" placeholder="Cari properti atau agen">
                                                     </div>
 
                                                     <div class="col-sm-12 col-md-3 input-group-append">
-                                                        <button class="btn btn-primary btn-block" type="submit">
+                                                        <button type="submit" class="btn btn-primary btn-block" type="submit">
                                                             <i class="fa fa-search"></i> <span
                                                                 class="ml-1 text-uppercase">Search</span>
                                                         </button>
 
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -426,116 +294,6 @@
     <!-- END RECENT PROPERTY -->
 
 
-
-
-    <!-- MOST POPULAR PLACES -->
-    <section class="wrap__heading ">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-lg-6 mx-auto">
-                    <div class="title__head">
-                        <h2 class="text-center text-capitalize">
-                            most popular places
-                        </h2>
-                        <p class="text-center text-capitalize">find properties in these cities.</p>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="row">
-                <div class="col-lg-5 col-xl-5 col-padd">
-                    <!-- CARD IMAGE -->
-
-                    <a href="#">
-                        <div class="card__image-hover-style-v3">
-                            <div class="card__image-hover-style-v3-thumb h-475">
-                                <img src="images/700x980.jpg" alt="" class="img-fluid w-100">
-                            </div>
-                            <div class="overlay">
-                                <div class="desc">
-                                    <h6 class="text-capitalize">tokyo</h6>
-                                    <p class="text-capitalize">70 properties</p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-7 col-xl-7">
-                    <div class="row">
-                        <div class="col-md-6 col-padd">
-                            <!-- CARD IMAGE -->
-                            <a href="#">
-                                <div class="card__image-hover-style-v3">
-                                    <div class="card__image-hover-style-v3-thumb h-230">
-                                        <img src="images/600x400.jpg" alt="" class="img-fluid w-100">
-                                    </div>
-                                    <div class="overlay">
-                                        <div class="desc">
-                                            <h6 class="text-capitalize">australia</h6>
-                                            <p class="text-capitalize">70 properties</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-6 col-padd">
-                            <!-- CARD IMAGE -->
-                            <a href="#">
-                                <div class="card__image-hover-style-v3">
-                                    <div class="card__image-hover-style-v3-thumb h-230">
-                                        <img src="images/600x400.jpg" alt="" class="img-fluid w-100">
-                                    </div>
-                                    <div class="overlay">
-                                        <div class="desc">
-                                            <h6 class="text-capitalize">rome</h6>
-                                            <p class="text-capitalize">70 properties</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-6 col-padd">
-                            <!-- CARD IMAGE -->
-                            <a href="#">
-                                <div class="card__image-hover-style-v3">
-                                    <div class="card__image-hover-style-v3-thumb h-230">
-                                        <img src="images/600x400.jpg" alt="" class="img-fluid w-100">
-                                    </div>
-                                    <div class="overlay">
-                                        <div class="desc">
-                                            <h6 class="text-capitalize">new york</h6>
-                                            <p class="text-capitalize">70 properties</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-6 col-padd">
-                            <!-- CARD IMAGE -->
-                            <a href="#">
-                                <div class="card__image-hover-style-v3">
-                                    <div class="card__image-hover-style-v3-thumb h-230">
-                                        <img src="images/600x400.jpg" alt="" class="img-fluid w-100">
-                                    </div>
-                                    <div class="overlay">
-                                        <div class="desc">
-                                            <h6 class="text-capitalize">london</h6>
-                                            <p class="text-capitalize">70 properties</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- END MOST POPULAR PLACES -->
-
-
-
-
     <!-- ABOUT -->
     <section class="home__about bg-theme-v4">
         <div class="container">
@@ -562,46 +320,25 @@
         </div>
     </section>
 
-
-    <!-- OUR PARTNERS -->
-    <section class="projects__partner bg-light">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-8 col-lg-6">
-                    <div class="title__head">
-                        <h2 class="text-center text-capitalize">our partners</h2>
-                        <p class="text-center text-capitalize">brand partners successful projects trusted many clients
-                            real estate </p>
+        <!-- CALL TO ACTION -->
+        <section class="bg-theme-v1">
+            <div class="cta">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-12 col-lg-12 text-center">
+                            <h2 class="text-uppercase text-white">signup & build your dream house</h2>
+                            <p class="text-capitalize text-white">We'll help you to grow your career and growth, please
+                                contact
+                                team
+                                walls real estate and get this offer promo</p>
+                            <a href="#" class="btn btn-primary text-uppercase ">request a quote
+                                <i class="fa fa-angle-right ml-3 arrow-btn "></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="projects__partner-logo">
-                        <ul class="list-inline mb-0">
-                            <li class="list-inline-item">
-                                <img src="images/partner-logo6.png" alt="" class="img-fluid">
-                            </li>
-                            <li class="list-inline-item">
-                                <img src="images/partner-logo7.png" alt="" class="img-fluid">
-                            </li>
-                            <li class="list-inline-item">
-                                <img src="images/partner-logo8.png" alt="" class="img-fluid">
-                            </li>
-                            <li class="list-inline-item">
-                                <img src="images/partner-logo1.png" alt="" class="img-fluid">
-                            </li>
-                            <li class="list-inline-item">
-                                <img src="images/partner-logo5.png" alt="" class="img-fluid">
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- END OUR PARTNERS -->
-
+        </section>
+        
     <!-- TESTIMONIAL -->
     <section>
         <div class="container">
@@ -718,26 +455,8 @@
     </section>
     <!-- END TESTIMONIAL -->
 
-    <!-- CALL TO ACTION -->
-    <section class="bg-theme-v1">
-        <div class="cta">
-            <div class="container">
-                <div class="row d-flex justify-content-center">
-                    <div class="col-md-12 col-lg-12 text-center">
-                        <h2 class="text-uppercase text-white">signup & build your dream house</h2>
-                        <p class="text-capitalize text-white">We'll help you to grow your career and growth, please
-                            contact
-                            team
-                            walls real estate and get this offer promo</p>
-                        <a href="#" class="btn btn-primary text-uppercase ">request a quote
-                            <i class="fa fa-angle-right ml-3 arrow-btn "></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- END BLOG -->
+
     @include('layouts.inc.frontend.footer')
 
     <!-- SCROLL TO TOP -->

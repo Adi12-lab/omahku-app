@@ -5,44 +5,50 @@
             <div class="row">
                 <div class="col-md-8">
                     <h5>Hubungi Kami</h5>
-                    <form class="row" wire:submit="send">
+                    <form class="row" wire:submit.prevent="send">
                         <div class="col-md-6">
-                            <div class="form-group form-group-name">
+                            <div class="form-group">
                                 <label>Nama <span class="required"></span></label>
-                                <input type="text" class="form-control" wire:model.defer="name" required>
+                                <input type="text" class="form-control" wire:model.defer="sender_name" required>
                                 @error("name") <small class="text-danger"> {{$message}} </small>  @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group form-group-name">
+                            <div class="form-group">
                                 <label>Email <span class="required"></span></label>
-                                <input type="email" class="form-control" wire:model.defer="email" required>
+                                <input type="email" class="form-control" wire:model.defer="sender_email">
                                 @error("email") <small class="text-danger"> {{$message}} </small>  @enderror
                             </div>
                         </div>
-    
+
                         <div class="col-md-6">
-                            <div class="form-group form-group-name">
+                            <div class="form-group">
                                 <label>Telepon (optional)</label>
-                                <input type="text" class="form-control" wire:model.defer="phone">
+                                <input type="text" class="form-control" wire:model.defer="sender_phone">
                                 @error("phone") <small class="text-danger"> {{$message}} </small>  @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group form-group-name">
+                            <div class="form-group">
                                 <label>Subjek <span class="required"></span></label>
-                                <input type="text" class="form-control" wire:model.defer="subject" required>
+                                <input type="text" class="form-control" wire:model.defer="subject">
                                 @error("subject") <small class="text-danger"> {{$message}} </small>  @enderror
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Pesan Anda </label>
-                                <textarea class="form-control" rows="9" wire:model.defer="message" required></textarea>
+                                <textarea class="form-control" rows="9" wire:model.defer="sender_message"></textarea>
                                 @error("message") <small class="text-danger"> {{$message}} </small>  @enderror
                             </div>
                             <div class="form-group float-right mb-0">
-                                <button type="submit" class="btn btn-primary btn-contact">Submit</button>
+                                <button type="submit" wire:loading.remove class="btn btn-primary btn-contact">Submit</button>
+                                <button type="button" wire:loading class="btn btn-primary btn-contact">
+                                    <div class="spinner-border" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                </button>
+                             
                             </div>
                         </div>
                     </form>
@@ -133,3 +139,15 @@
         </div>
     </section>
 </div>
+
+@push("scripts")
+
+<script>
+    document.addEventListener("livewire:init", function() {
+        Livewire.on("success", function() {
+            Swal.fire("Berhasil", "Pesan anda berhasil dikirm", "success")
+        })
+    })
+</script>
+
+@endpush

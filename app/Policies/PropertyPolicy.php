@@ -19,9 +19,10 @@ class PropertyPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Property $property): bool
+    public function viewInAdmin(User $user): bool
     {
-        return true;
+        $condition = $user->isAdmin() || ($user->isAgent() && $user->agent);
+        return  $condition;
     }
 
     /**
@@ -32,9 +33,9 @@ class PropertyPolicy
         return $user->isAgent() && $user->agent;
     }
 
-    public function edit(User $user): bool
+    public function edit(User $user, $property): bool
     {
-        return $user->isAgent();
+        return $user->isAgent() && $property->agent_id === $user->agent->id;;
     }
 
     /**
@@ -48,7 +49,7 @@ class PropertyPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Property $property): bool
+    public function destroy(User $user, Property $property): bool
     {
         return  $user->isAdmin() || ($user->isAgent() && $property->agent_id === $user->agent->id );
     }

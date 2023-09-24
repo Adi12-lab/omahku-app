@@ -33,8 +33,8 @@ return new class extends Migration
             $table->float("latitude")->nullable();
             $table->float("longitude")->nullable();
             $table->date("year_built");
-            $table->mediumText("map_iframe");
-            $table->mediumText("street_iframe");
+            $table->mediumText("map_iframe")->nullable();
+            $table->mediumText("street_iframe")->nullable();
 
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

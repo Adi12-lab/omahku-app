@@ -128,7 +128,8 @@
 
                                             <div class="row mb-3">
                                                 <div class="col">
-                                                    <label class="col-form-label" for="current_password">Password lama</label>
+                                                    <label class="col-form-label" for="current_password">Password
+                                                        lama</label>
                                                     <input type="password"
                                                         class="form-control @error('current_password') is-invalid @enderror "
                                                         name="current_password">
@@ -184,8 +185,9 @@
                                         <div class="row">
                                             <div class="col">
                                                 <h5>Pengaturan Agent</h5>
-                                                <p>Untuk mengatur berbagai list properti sebagai agent, klik link berikut </p>
-                                                <a href="{{route("dashboard.admin")}}">Halaman agent</a>
+                                                <p>Untuk mengatur berbagai list properti sebagai agent, klik link berikut
+                                                </p>
+                                                <a href="{{ route('dashboard.admin') }}">Halaman agent</a>
                                             </div>
                                         </div>
                                     </div>

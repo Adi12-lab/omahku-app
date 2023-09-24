@@ -10,7 +10,7 @@
                     <div class=" search__container">
                         <form class="row input-group no-gutters" method="GET" action="{{ route('frontend.property.index') }}">
                             <div class="col-sm-12 col-md-9">
-                                <input type="text" class="form-control border" name="search" aria-label="Text input" placeholder="Cari properti" value="{{request("search")}}">
+                                <input type="text" class="form-control border" name="search" aria-label="Text input" placeholder="Cari properti atau agen" value="{{request("search")}}">
                             </div>
     
                             <div class="col-sm-12 col-md-3 input-group-append">

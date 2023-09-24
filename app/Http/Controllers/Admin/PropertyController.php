@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class PropertyController extends Controller
 {
@@ -24,35 +25,42 @@ class PropertyController extends Controller
      */
     public function index(Request $request)
     { 
-        // Menentukan query awal berdasarkan peran pengguna
-        if(Auth::user()->role_as === 1 && Auth::user()->agent) {
-            $query = Property::with(["agent", "propertyImages", "category"])
-                            ->where("agent_id", Auth::user()->agent->id);
-        } elseif(Auth::user()->role_as === 2) {
-            $query = Property::with(["agent", "propertyImages", "category"]);
-        } else {// gak login
-            return to_route("dashboard.admin");
-        }
-
-        // Jika ada query pencarian, tambahkan ke query awal
-        if($request->has("q")) {
-            $searchTerm = $request->q;
-
-            // Mencari properti berdasarkan nama atau nama agen
-            $query->where(function ($q) use ($searchTerm) {
-                $q->where('name', 'like', '%' . $searchTerm . '%');
-                if(Auth::user()->role_as === 2) {// hanya admin yang bisa seperti ini
-                  $q = $q->orWhereHas('agent', function ($q) use ($searchTerm) {
-                        $q->where('name', 'like', '%' . $searchTerm . '%');
-                    });
-                }
-            });
-
-        }
+        try{
+            $this->authorize("viewInAdmin", Property::class); //Policy harus menggunakan PropertyClass
+            // Menentukan query awal berdasarkan peran pengguna
+            if(Auth::user()->role_as === 1 && Auth::user()->agent) {
+                $query = Property::with(["agent", "propertyImages", "category"])
+                                ->where("agent_id", Auth::user()->agent->id);
+            } elseif(Auth::user()->role_as === 2) {
+                $query = Property::with(["agent", "propertyImages", "category"]);
+            }
     
-             $properties = $query->paginate(6)->withQueryString();
+            // Jika ada query pencarian, tambahkan ke query awal
+            if($request->has("q")) {
+                $searchTerm = $request->q;
     
-        return view("admin.property.index", compact("properties"));
+                // Mencari properti berdasarkan nama atau nama agen
+                $query->where(function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', '%' . $searchTerm . '%');
+                    if(Auth::user()->role_as === 2) {// hanya admin yang bisa seperti ini
+                      $q = $q->orWhereHas('agent', function ($q) use ($searchTerm) {
+                            $q->where('name', 'like', '%' . $searchTerm . '%');
+                        });
+                    }
+                });
+    
+            }
+        
+                 $properties = $query->paginate(6)->withQueryString();
+        
+            return view("admin.property.index", compact("properties"));
+        } catch(AuthorizationException $e) {
+            return to_route("profile")->with("message", [
+                "text" => "Anda tidak bisa melihat daftar properti, Lengkapi Profile Agen anda",
+                "type" => "danger"
+            ]);
+        }
+  
     }
 
     /**
@@ -60,12 +68,20 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        $this->authorize("create", Property::class);
-        $categories = Category::all(); 
-        $subdistricts = DB::table('tb_ro_subdistricts')->get();
-        $features = Feature::all();
-        return view("admin.property.create", compact("categories", "subdistricts", "features"));
+        try {
+            $this->authorize("create", Property::class);
+            $categories = Category::all(); 
+            $subdistricts = DB::table('tb_ro_subdistricts')->get();
+            $features = Feature::all();
+            return view("admin.property.create", compact("categories", "subdistricts", "features"));
+        } catch(AuthorizationException $e) {
+            return to_route("profile")->with('message',[
+                "text" => "Anda tidak bisa membuat properti, Lengkapi Profile Agen anda",
+                "type" => "danger"
+            ]);
     }
+    }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -123,7 +139,10 @@ class PropertyController extends Controller
             }
         }
 
-        return to_route("property.index")->with("message", "Properti $property->name berhasil ditambahkan");
+        return to_route("property.index")->with("message",[
+            "text" =>  "Properti $property->name berhasil ditambahkan",
+            "type" => "success"
+        ]);
         
     }
 
@@ -140,7 +159,7 @@ class PropertyController extends Controller
      */
     public function edit(Property $property)
     {
-        $this->authorize("edit", Property::class);
+        $this->authorize("edit", $property);
         $categories = Category::all(); 
         $subdistricts = DB::table('tb_ro_subdistricts')->get();
         $features = Feature::all();
@@ -164,7 +183,7 @@ class PropertyController extends Controller
      */
     public function update(PropertyFormRequest $request, Property $property)
     {
-    
+        $this->authorize("update", $property);
         $property->agent_id = Auth::user()->agent->id;
         $property->name = $request->name;
         $property->slug = Str::slug($request->slug);
@@ -257,7 +276,10 @@ class PropertyController extends Controller
              PropertyFeature::where("property_id", $propertyId)->delete();
         }
 
-        return to_route("property.index")->with("message", "Properti $property->name berhasil diedit");
+        return to_route("property.index")->with("message", [
+            "text" => "Properti $property->name berhasil diedit",
+            "type" => "success"
+        ]);
 
     }
 
@@ -266,7 +288,11 @@ class PropertyController extends Controller
      */
     public function destroy(Property $property)
     {
+        $this->authorize("destroy", $property);
         Property::destroy($property->id);
-        return to_route("property.index")->with("message", "Properti berhasil dihapus");
+        return to_route("property.index")->with("message", [
+            "text" => "Properti berhasil dihapus",
+            "type" => "success"
+        ]);
     }
 }

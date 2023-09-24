@@ -4,7 +4,7 @@
     <section>
         <div class="container">
             <div class="row">
-                <div class="col-12 table-responsive">
+                <div class="col-12 table-responsive wishlist">
                     <table class="table table-bordered">
                         <thead>
                             <tr class="text-center">
@@ -18,6 +18,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                    
                             @forelse ($wishlists as $wishlist)
                                 <tr class="align-middle text-center">
                                     <th scope="row">
@@ -25,7 +26,7 @@
                                             <i class="fa fa-trash text-danger"></i>
                                         </a>
                                     </th>
-                                    <td style="width: 20%;">
+                                    <td class="td-image">
                                         {{-- <div class="d-flex justify-content-center"> --}}
                                         <img src="{{ asset($wishlist->image) }}" alt="" class="w-50">
                                         {{-- </div> --}}

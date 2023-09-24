@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Property;
 use App\Models\Wishlist;
 use App\Policies\WishlistPolicy;
-// use Illuminate\Support\Facades\Gate;
+use App\Policies\PropertyPolicy;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -16,6 +18,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Wishlist::class => WishlistPolicy::class,
+        Property::class => PropertyPolicy::class
     ];
 
     /**
@@ -23,6 +26,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        
+  
     }
 }

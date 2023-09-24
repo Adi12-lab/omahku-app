@@ -35,6 +35,11 @@
                                     aria-labelledby="v-pills-user-tab">
                                     <div class="row">
                                         <h4>Pengaturan User</h4>
+                                        @if (session('message'))
+                                            <div class="alert alert-{{ session('message')['type'] }}" role="alert">
+                                                {{ session('message')['text'] }}
+                                            </div>
+                                        @endif
                                         @if (session('status'))
                                             <div class="alert alert-success" role="alert">
                                                 {{ session('status') }}
@@ -132,7 +137,7 @@
                                                         <label class="col-form-label"> <i class="ri-whatsapp-line"></i>
                                                             Whatsapp</label>
                                                         <input type="number" class="form-control" name="whatsapp"
-                                                            value="{{ $agent->whatsapp }}">
+                                                            value="{{ $agent->whatsapp ?? null}}">
                                                         @error('whatsapp')
                                                             <small class="text-danger">
                                                                 {{ $message }}
@@ -143,7 +148,7 @@
                                                         <label class="col-form-label"> <i class="ri-facebook-fill"></i>
                                                             Facebook</label>
                                                         <input type="text" class="form-control" name="facebook"
-                                                            value="{{ $agent->facebook }}">
+                                                            value="{{ $agent->facebook ?? null }}">
                                                         @error('facebook')
                                                             <small class="text-danger">
                                                                 {{ $message }}
@@ -154,7 +159,7 @@
                                                         <label class="col-form-label"> <i class="ri-twitter-line"></i>
                                                             Twitter</label>
                                                         <input type="text" class="form-control" name="twitter"
-                                                            value="{{ $agent->twitter }}">
+                                                            value="{{ $agent->twitter ?? null }}">
                                                         @error('twitter')
                                                             <small class="text-danger">
                                                                 {{ $message }}
@@ -165,7 +170,7 @@
                                                         <label class="col-form-label"> <i class="ri-instagram-line"></i>
                                                             Instagram</label>
                                                         <input type="text" class="form-control" name="instagram"
-                                                            value="{{ $agent->instagram}}">
+                                                            value="{{ $agent->instagram ?? null }}">
                                                         @error('instagram')
                                                             <small class="text-danger">
                                                                 {{ $message }}
@@ -176,7 +181,7 @@
                                                         <label class="col-form-label"> <i class="ri-linkedin-line"></i>
                                                             Linkedin</label>
                                                         <input type="text" class="form-control" name="linkedin"
-                                                            value="{{ $agent->linkedin}}">
+                                                            value="{{ $agent->linkedin ?? null}}">
                                                         @error('linkedin')
                                                             <small class="text-danger">
                                                                 {{ $message }}
@@ -187,7 +192,7 @@
                                                         <label class="col-form-label"> <i class="ri-youtube-line"></i>
                                                             Youtube</label>
                                                         <input type="text" class="form-control" name="youtube"
-                                                            value="{{ $agent->youtube}}">
+                                                            value="{{ $agent->youtube ?? null}}">
                                                         @error('youtube')
                                                             <small class="text-danger">
                                                                 {{ $message }}
@@ -198,7 +203,7 @@
                                                         <label class="col-form-label"> <i class="ri-mail-line"></i>
                                                             Email yang bisa dihubungi</label>
                                                         <input type="email" class="form-control" name="emailAgent"
-                                                            value="{{ $agent->emailAgent}}">
+                                                            value="{{ $agent->emailAgent ?? null }}">
                                                         @error('emailAgent')
                                                             <small class="text-danger">
                                                                 {{ $message }}

@@ -20,6 +20,7 @@
                             <thead>
                                 <tr>
                                     <th>Gambar</th>
+                                    <th>Nama</th>
                                     <th>Deskripsi</th>
                                     <th>Size</th>
                                     <th>Aksi</th>
@@ -31,6 +32,9 @@
                                     <tr class="align-middle text-center" wire:key="{{str()->random(10)}}">
                                         <td>
                                             <img src="{{ asset($floor->image) }}" class="rounded" width="220">
+                                        </td>
+                                        <td>
+                                            {{$floor->name}}
                                         </td>
                                         <td>{{ $floor->description }}</td>
                                         <td>

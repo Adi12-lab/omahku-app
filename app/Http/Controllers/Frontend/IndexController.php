@@ -19,7 +19,6 @@ class IndexController extends Controller
                                     ->with(["propertyImages", "category", "agent", "location"])
                                     ->limit(13)
                                     ->get();
-        $categories = Category::all();
-        return view("frontend.index", compact("featuredProperties", "recentProperties", "categories")); 
+        return view("frontend.index", compact("featuredProperties", "recentProperties")); 
     }
 }

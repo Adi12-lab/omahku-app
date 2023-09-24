@@ -14,8 +14,15 @@ class AgentController extends Controller
 {
     //private $user_id; setiap request independen tidak memiliki pengetahuan sebelumnya
 
-    public function index() {
-        $agents = Agent::with(["user"])->withCount("properties")->where("status", 1)->paginate(6);
+    public function index(Request $request) {
+        $agents = Agent::with(["user"])->withCount("properties")->where("status", 1);
+
+        if($request->has("search")) {
+            $agents = $agents->where("name",  'like', '%' . $request->get("search") . '%');
+        }
+
+        $agents = $agents->paginate(6);
+
         // dd($agents);
         return view("frontend.agents", compact("agents"));
     }
@@ -41,7 +48,7 @@ class AgentController extends Controller
         $message->receiver_id = $payload["user_id"];
         $message->name = $payload["sender_name"];
         $message->email = $payload["sender_email"];
-    $message->phone = $payload["sender_phone"];
+        $message->phone = $payload["sender_phone"];
         $message->subject = $payload["subject"];
         $message->message = $payload["sender_message"];
         $message->save();

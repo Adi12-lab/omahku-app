@@ -4,6 +4,24 @@
      <!-- LISTING LIST -->
      <section class="profile__agents">
          <div class="container">
+          <div class="row">
+
+                <div class="col-12">
+                    <div class=" search__container">
+                        <form class="row input-group no-gutters" method="GET" action="{{ route('frontend.agent') }}">
+                            <div class="col-sm-12 col-md-9">
+                                <input type="text" class="form-control border" name="search" aria-label="Text input" placeholder="Cari agen" value="{{request("search")}}">
+                            </div>
+    
+                            <div class="col-sm-12 col-md-3 input-group-append">
+                                <button class="btn btn-primary btn-block" type="submit">
+                                    <i class="fa fa-search"></i> <span class="ml-1 text-uppercase">Search</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
              <div class="row">
                  <div class="col-12">
                      <div class="row">
