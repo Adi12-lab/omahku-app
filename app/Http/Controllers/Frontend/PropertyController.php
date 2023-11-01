@@ -33,8 +33,9 @@ class PropertyController extends Controller
                 "rangeMaxPrice" => intval($ranges[1]),
                 "features" => $request->get("feature")
             ]);
+            // dd(session('rangeMinPrice'));
         }
-
+        
         
         $minPrice = Property::min('price');
         $maxPrice = Property::max("price");
@@ -51,10 +52,6 @@ class PropertyController extends Controller
                         $properties = $properties->where($filter, ">=", 8);
                     } else {
                         $properties = $properties->where($filter, session($filter));
-                    }
-                } elseif($filter === 'price') {
-                    if(session("rangeMinPrice") !== null && session("rangeMaxPrice") !== null) {
-                        $properties = $properties->whereBetween("price", [session("rangeMinPrice"), session("rangeMaxPrice")]);
                     }
                 } elseif($filter === 'features') {
                     if(session()->has($filter) && session($filter) !== null) {
@@ -74,7 +71,11 @@ class PropertyController extends Controller
                     $properties = $properties->where($filter, session($filter));
                 }
     
-            } 
+            } elseif($filter === 'price') {
+                if(session('rangeMinPrice') && session('rangeMaxPrice')) {
+                    
+                }
+            }
         }
 
         $searchParam = $request->get("search");

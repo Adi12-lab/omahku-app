@@ -57,7 +57,7 @@ class Index extends Component
         $this->dispatch("close-modal");
         return session()->flash("message", "Lantai berhasil ditambahkan");
     }
-
+    
     public function edit(int $floor_id) {
         $this->id = $floor_id;
         $floor = PropertyFloor::find($floor_id);
@@ -81,11 +81,11 @@ class Index extends Component
             $floor->description = $validated["description"];
     
             //Hapus gambar terdahulu
-            if(File::exists($floor->image)) {
-                File::delete($floor->image);
-            }
             
             if($validated["image"]) {
+                if(File::exists($floor->image)) {
+                    File::delete($floor->image);
+                }
                 $uploadPath = 'uploads/floor/';
                 $extension = $validated["image"]->getClientOriginalExtension();
                 $nameFile = "{$this->property->slug}-" . time() . ".{$extension}";
